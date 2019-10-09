@@ -116,3 +116,8 @@ People in the real world appear to already be using ML methods for record linkag
 There are examples of unsupervised learning as ONS have considered as well as supervised learning with training data.
 
 *Could part of the project be extending this open source project?*
+
+Create report pdf with Pandoc
+====
+
+```pandoc --filter pandoc-citeproc --bibliography=Census2021-Backbrief.bib --variable classoption=twocolumn --variable papersize=a4paper -s draft_report.md -o draft_report.pdf```

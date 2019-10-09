@@ -28,6 +28,8 @@ Technical background
 
 Record linkage as an ongoing field of study with many approaches
 
+Example citation (@wilson_beyond_2011)
+
 Glossary
 ------
 
