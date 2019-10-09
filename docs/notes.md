@@ -6,15 +6,15 @@ Census 2021 record linkage project scoping
     - Simplification of clerical matching procedure with automated suggestions
     - Refine specific challenges after speaking to ONS
 2. Provide a brief overview of the relevant background and literature
-  - Briefly summarise the probabilistic approaches used in record linkage
-  - The machine learning techniques others have applied to record linkage
+    - Briefly summarise the probabilistic approaches used in record linkage
+    - The machine learning techniques others have applied to record linkage
 3. Propose a specific question to focus on in the main project
-  - Comparison of different cutting edge methods to maximise record pairing between Census and CCS, the best of which to actually be used by ONS
-  - This could include a variety of record linkage algorithms (and perhaps also a variety of efficiency approaches like different blocking/indexing techniques, though these are less important since precision and sensitivity are more important than speed)
+    - Comparison of different cutting edge methods to maximise record pairing between Census and CCS, the best of which to actually be used by ONS
+    - This could include a variety of record linkage algorithms (and perhaps also a variety of efficiency approaches like different blocking/indexing techniques, though these are less important since precision and sensitivity are more important than speed)
 4. Propose a full project proposal and plan
-  - Compare record linkage algorithms already implemented in [J535D165/recordlinkage](https://recordlinkage.readthedocs.io/en/latest/about.html) for record linkage between Census and CCS data or dummy data
-  - Extend that Python package with other algorithms we find from literature and test them
-  - Novel ML approaches to the question
+    - Compare record linkage algorithms already implemented in [J535D165/recordlinkage](https://recordlinkage.readthedocs.io/en/latest/about.html) for record linkage between Census and CCS data or dummy data
+    - Extend that Python package with other algorithms we find from literature and test them
+    - Novel ML approaches to the question
 
 Record linkage
 -----
