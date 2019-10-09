@@ -4,10 +4,10 @@ General
 1. What data will be available for the actual project?
     - Will the 2011 record matching data be available to the Turing researcher(s)
     - Is there any other data available? e.g. dummy data with "correct" record pairing decision labels for ambiguous matches
-2. How can we measure how good our approaches were?
-    - In 2011, the precision and sensitivity of the record linkage was determined by a re-matching procedure
-    - We need to determine how this would this be done for the algorithmic record linkage; would it a sub-set of the record pairs still need to be looked at by humans to determine correctness?
-    - Could we use 2011 data decision making for the ambiguous record pairs to train an automated evaluation method?
+2. How will we ensure that evaluation data is available?
+    - In 2011, the precision and sensitivity of the record linkage was determined by a manual re-matching procedure
+    - The backbrief project should determine how this would this be done for the algorithmic record linkage; would it a sub-set of the record pairs still need to be looked at by humans to determine correctness, or can metrics be used for evaluation?
+    - With access to 2011 decision making data for the ambiguous record pairs, it may be possible to train an automated evaluation method
 
 Technical
 -------
