@@ -1,3 +1,11 @@
+
+
+Context
+======
+
+- Briefly, what is the Census
+- Briefly, what is the Census coverage survey and why is it carried out
+
 The problem
 =======
 
@@ -9,8 +17,9 @@ The problem
 Project proposal
 =======
 
-- Subject to discussion with ONS
-- Include section on evaluation method
+- Use ML algorithms to speed up/reduce manual decisions of difficult-to-match records
+- Use alternative ML algorithms that are better at automated record linkage than those ONS already researching
+- Evaluation method
 
 Timeline and plan
 ======
@@ -35,12 +44,18 @@ There are many databases containing records that refer to real-world entities, s
 
 The task of matching non-identical records from different databases that refer to the same entity is known as *record linkage*. In scientific literature it is also described by a variety of alternative names depending on the research community, including *instance identification*, *name matching*, *database hardening*, *merge-purge* and (when applied to a single database) *duplicate detection* (@elmagarmid_duplicate_2007).
 
-- Record linkage as an ongoing field of study with many methods
+- Briefly, the limitations of deterministic record linkage
+- Briefly, explain that individual fields are matched with a similarity score
+- Briefly, probabilistic record linkage and the Felligi-Sunter algorithm, based on weighted field matches
+- The problem with using only probabilistic record linkage is that it assumes independence of its features, which is typically not the case. A variety of ML algorithms have also been applied to record linkage problems
 
-Record Linkage Strategies Used by ONS
+Record Linkage Methods Used by ONS
 ------
 
-Machine Learning in Record linkage
+- Felli-Sunter with Expectation Maximisation
+- Other
+
+Other Machine Learning Methods in Record linkage
 -------
 
 Glossary
