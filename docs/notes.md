@@ -132,4 +132,6 @@ Unclear how to automate this
 Create report pdf with Pandoc
 ====
 
-```pandoc --filter pandoc-citeproc --bibliography=Census2021-Backbrief.bib --variable classoption=twocolumn --variable papersize=a4paper -s draft_report.md -o draft_report.pdf```
+```pandoc --filter pandoc-citeproc --bibliography=Census2021-Backbrief.bib --toc --variable classoption=twocolumn --variable papersize=a4paper -s draft_report.md -o draft_report.pdf```
+
+^ To get a title before the contents page, you may need to convert to LateX first then add the title before creating PDF, unless you can find a clever way
