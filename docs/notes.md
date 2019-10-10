@@ -117,6 +117,18 @@ There are examples of unsupervised learning as ONS have considered as well as su
 
 *Could part of the project be extending this open source project?*
 
+Ideas
+----
+
+### Project aspect 1:
+I’m thinking that the right approach to speeding up the manual clerical review process is this: As more manual record linkage decisions are made, these “match” labeled record pairs gets fed into the dataset (along with all the “non match” alternative pairs) used to train a ML algorithm, which for each new example spits out the top X (e.g. top 10) likely matches and the manual reviewer has to accept one of these, or reject all or carry out the existing manual process if they think they can find a match themselves when the algorithm can’t (which will be the case when the dataset is small). As the dataset grows, the suggestions should get better, reducing the possibility that a reviewer would choose to bother carrying out the manual process of record linkage and therefore speeding up the entire process.
+
+### Project aspect 2:
+Look at better approaches to the overall problem of Census/CCS record linkage that minimise the need for manual clerical review
+
+### Evaluation of correctness
+Unclear how to automate this
+
 Create report pdf with Pandoc
 ====
 
