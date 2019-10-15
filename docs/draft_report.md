@@ -1,10 +1,20 @@
+This document presents the results of a short, joint, scoping exercise carried out
+in October 2019 by a small team from the Alan Turing Institute and the Office for National Statistics (ONS).
 
+It is intended that this document will provide the foundation for a longer project
+to explore the application of machine learning to record linkage between the 2021 UK census and the Census Coverage Survey (CCS), which assesses under-coverage in the census.
+
+Our main aim below is to specify the challenges faced by ONS with regards to this task and outline a project plan, providing sufficient background for any project team quickly to start work.
+
+The next section contains a brief summary of the context in which the research project will be carried out and the necessary information the team will need on the UK census and CCS. 
 
 Context
 ======
 
 - Briefly, what is the Census
+    - Online in 2021
 - Briefly, what is the Census coverage survey and why is it carried out
+    - Face to face interviews in order to ensure people sampled who filled out the Census definitely still do this in addition
 
 The problem
 =======
