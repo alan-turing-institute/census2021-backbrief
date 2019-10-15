@@ -54,9 +54,9 @@ When there is no training data available, an Expectation Maximisation algorithm 
 
 ### Training data in PRL:
 
-`u` = probability of an field in 2 non-matching records agreeing by chance e.g. 1/12 for a Month field
+`u` = probability of an field in 2 non-matching records (*`U`*) agreeing by chance e.g. 1/12 for a Month field
 
-`m` = probability of a field in a matching pair being an exact match (or matched according to some distance metric/ similarity score)
+`m` = probability of a **field** in a matched **record pair** (*`M`*) being an exact match (or matched according to some distance metric/ similarity score)
 
 The values of `u` and `m` for *`M`* and *`U`* records in training data can be used to compute the weight of the field.
 
