@@ -47,7 +47,7 @@ to be 95% confident in this fact; and about $2\,000$ observations to be 99%
 confident.
 
 Now consider a sequence of observations that we wish to classify as ‘true’ or
-‘false.’ We write the ground truth as T or F; and the classification as t or f. 
+‘false.’ We write the ground truth as T or F and the classification as t or f. 
 
 
 
