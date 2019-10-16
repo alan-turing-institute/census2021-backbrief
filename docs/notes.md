@@ -121,13 +121,26 @@ Ideas
 ----
 
 ### Project aspect 1:
+
 I’m thinking that the right approach to speeding up the manual clerical review process is this: As more manual record linkage decisions are made, these “match” labeled record pairs gets fed into the dataset (along with all the “non match” alternative pairs) used to train a ML algorithm, which for each new example spits out the top X (e.g. top 10) likely matches and the manual reviewer has to accept one of these, or reject all or carry out the existing manual process if they think they can find a match themselves when the algorithm can’t (which will be the case when the dataset is small). As the dataset grows, the suggestions should get better, reducing the possibility that a reviewer would choose to bother carrying out the manual process of record linkage and therefore speeding up the entire process.
 
 ### Project aspect 2:
+
 Look at better approaches to the overall problem of Census/CCS record linkage that minimise the need for manual clerical review
 
 ### Evaluation of correctness
-Unclear how to automate this
+
+- When testing their algorithms on 2011 data, ONS use a "gold standard"
+- With the 2021 data, there would be no evaluation possible
+
+### After in-person meeting:
+
+- Key thing that needs to be improved is the "Pre-search algorithm". Ideally we'd like to eliminate clerical searching altogether and just use clerical resolution (e.g. with list of 20 suggestions - see Rachel's doc), but that may not be possible as automating the kinds of decisions that clerical searching makes may be impossible
+    - ONS need to assess how well what they're doing already performs. It's possible that it's so good that all decisions that would have been sent to clerical searching can just be considered non-matches and the precision/sensitivity thresholds are still reached. I should put in the report that we suggest doing this evaluation
+    - We should suggest better approaches (like ML or deterministic on other parts of the census when the fields that are the CCS fields are scrambled, e.g. student indicates age)
+- Could it be possible to prove certain Census or CCS records have no match
+- Is it possible that clean (non-scrambled) records are more likely to definitely not have a match? (we don't know this but maybe ONS could check if this was the case in 2011 data?)
+-
 
 Create report pdf with Pandoc
 ====
