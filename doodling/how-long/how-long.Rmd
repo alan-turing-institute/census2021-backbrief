@@ -1,0 +1,75 @@
+---
+title: How confident are we in our classification algorithm?
+output: pdf_document
+geometry: margin=2in
+---
+
+Suppose we have obtained what we believe is a biased coin. The probability of
+obtaining heads for this coin is $\theta$, but we don't know the value of
+$\theta$. For some threshold value, $\theta_\text{c}$, how confident will we be,
+after observing $N$ throws of the coin, that $\theta > \theta_\text{c}$?
+
+We describe our belief that the likelihood of heads, $p_\text{H}$, is some
+particular value, $\pi$, as a probability density function; for ease of
+calculation, let's assume that it is a beta distribution, 
+\begin{equation}
+P(p_\text{H} = \pi) = \beta_{\alpha, \beta}(\pi).  
+\end{equation}
+
+A plausible belief, prior to throwing the coin, might be to take $\alpha = \beta
+= 1$; _i.e._, a flat prior over $[0, 1]$. After observing $N$ throws, our
+posterior belief will be described approximately by a beta distribution with
+parameters $\alpha = N\theta$ and $\beta = N(1-\theta)$.
+
+For example, suppose $\theta = 1$. The plot shows the cumulative distribution
+function for $P(\pi)$ after $1\,000$, $2\,000$, $5\,000$, and $10\,000$
+observations. The horizontal, dashed lines show the 80%, 95%, and 99% confidence
+thresholds that $p_\text{H}$ exceeds some critical value.
+
+```{r echo=FALSE}
+plot(function (theta) pbeta(theta, 10001, 1), xlim = c(0.995, 1.0), ylim = c(0, 0.25), xlab = expression(theta), ylab = expression(P(p[H] < theta)))
+curve(pbeta(x, 5001, 1), add = TRUE, col = "red")
+curve(pbeta(x, 2001, 1), add = TRUE, col = "darkgreen") 
+curve(pbeta(x, 1001, 1), add = TRUE, col = "blue")
+confs = c(0.01, 0.05, 0.20)
+abline(h = confs, lty = "dashed", col = "darkgrey")
+abline(v = qbeta(confs, 1001, 1), lty = "dotted", col = "blue")
+abline(v = qbeta(confs, 2001, 1), lty = "dotted", col = "darkgreen")
+abline(v = qbeta(confs, 5001, 1), lty = "dotted", col = "red")
+abline(v = qbeta(confs, 10001, 1), lty = "dotted", col = "darkgrey")
+```
+
+So for example, if one wished to set $\theta_\text{c} = 0.999$, then one would
+be 99% confident of this after approximately $5\,000$ observsations and 80%
+confident after about $2\,000$ observations. Conversely, if one wished
+$\theta_\text{c} = 0.9975$, then one would need just over $1\,000$ observations
+to be 95% confident in this fact; and about $2\,000$ observations to be 99%
+confident.
+
+Now consider a sequence of observations that we wish to classify as ‘true’ or
+‘false.’ We write the ground truth as T or F; and the classification as t or f. 
+
+
+
+
+
+
+# Appendix: Further $\beta$-functions
+
+```{r echo=FALSE}
+plot(function (theta) pbeta(theta, 9991, 11), xlim = c(0.995, 1.0), ylim = c(0, 1), xlab = expression(theta), ylab = expression(P(p[H] < theta)), main = "Temp: sample plot for theta = 0.999")
+curve(pbeta(x, 4996, 6), add = TRUE, col = "red")
+curve(pbeta(x, 1999, 3), add = TRUE, col = "darkgreen") 
+curve(pbeta(x, 1000, 2), add = TRUE, col = "blue")
+confs = c(0.01, 0.05, 0.20)
+abline(h = confs, lty = "dashed", col = "darkgrey")
+abline(v = qbeta(confs, 1000, 2), lty = "dotted", col = "blue")
+abline(v = qbeta(confs, 1999, 3), lty = "dotted", col = "darkgreen")
+abline(v = qbeta(confs, 4996, 6), lty = "dotted", col = "red")
+abline(v = qbeta(confs, 9991, 11), lty = "dotted", col = "darkgrey")
+```
+
+
+
+
+
