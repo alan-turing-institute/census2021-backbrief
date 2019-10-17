@@ -46,8 +46,36 @@ $\theta_\text{c} = 0.9975$, then one would need just over $1\,000$ observations
 to be 95% confident in this fact; and about $2\,000$ observations to be 99%
 confident.
 
-Now consider a sequence of observations that we wish to classify as ‘true’ or
-‘false.’ We write the ground truth as T or F and the classification as t or f. 
+Consider, now, a binary classifier which receives a sequence of observations,
+each of which has an unobserved property that is either ‘true’ (T) or ‘false’
+(F). Denote by $r$ the incidence of T in this sequence. 
+
+The classifier reports t or f for each observation. Such a classifier can be
+thought of as a pair of biased coins. When presented with an observation that is
+T, it reports t with some probability, $\mu$. When presented with an observation
+that is F, it reports f with some probability, $\nu$.
+
+The _recall_ of a classifer is $p(\text{t}\mid\text{T})$, the likelihood an
+observation that actually is T is classified as t. The _precision_ of a
+classifier is $p(\text{T}\mid \text{t})$, the likelihood that an observation
+classified as t actually is T.
+
+In terms of $\mu$ and $\nu$, the recall is straightforward:
+\begin{equation}
+p(\text{t}\mid \text{T}) = \mu,
+\end{equation}
+
+The precision can be found with the use of Bayes' rule:
+\begin{equation}
+\begin{aligned}
+p(\text{T}\mid \text{t}) 
+    &= \frac{p(\text{t}\mid \text{T}) p(\text{T})}{p(t)} \\
+    &= \frac{p(\text{t}\mid \text{T}) p(\text{T})}{
+p(\text{t}\mid \text{T}) p(\text{T}) + p(\text{t}\mid \text{F}) p(\text{F})} \\
+    &= \frac{\mu r}{\mu r + (1-\nu)(1-r)}.
+\end{aligned}
+\end{equation}
+
 
 
 
