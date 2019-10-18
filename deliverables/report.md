@@ -6,15 +6,18 @@ to explore the application of machine learning to record linkage between the 202
 
 Our main aim below is to specify the challenges faced by ONS with regards to this task and outline a project plan, providing sufficient background for any project team quickly to start work.
 
-The next section contains a brief summary of the context in which the research project will be carried out and the necessary information the team will need on the UK census and CCS. 
+The next section contains a brief summary of the context in which the research project will be carried out and the necessary information the team will need on the UK census and CCS.
 
 Context
 ======
 
-- Briefly, what is the Census
-    - Online in 2021
-- Briefly, what is the Census coverage survey and why is it carried out
-    - Face to face interviews in order to ensure people sampled who filled out the Census definitely still do this in addition
+In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. Unlike in other countries where the census count itself is published, the UK aims to provide a census estimate, adjusted for overcount and undercount. In 2011, the census questions were asked on paper forms, but in 2021, a combination of online forms and paper forms will be used.
+
+To calculate the census estimates, the CCS, an independent enumeration of a sample of 1% of postcodes, is carried out after the census. This involves in-person interviews carried out at the selected addresses, to obtain data from the occupants for a small selection of the core census form fields: first name, surname, date of birth, sex, marital status, address and occupation.
+
+As a simple explanation of the logic used to deduce the undercount estimate, consider the scenario of a fisherman wishing to estimate the number of fish in a lake. Suppose the fisherman catches 100 fish on a particular day and tags them all. He then returns to fish another day, catching 50, of which 25 have a tag. Since half the fish caught on the second day had a tag, the fisherman could estimate that the total number of fish in the lake is double the number of tagged fish (200).
+
+When sampling humans rather than fish, the considerations are of course more complex. However, for the purposes of this document and the project being scoped, the task of importance is not the calculation of the population estimate, but the challenges associated with precisely linking each CCS record to a census record from the same person.
 
 The problem
 =======
