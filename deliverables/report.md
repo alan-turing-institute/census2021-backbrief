@@ -46,12 +46,21 @@ _FIXME: Can we get equivalent figures for households?_
 The Problem
 =======
 
-- Record linkage between Census 2021 and CCS
-- Overview of the Census/CCS records and the likely issues that arise from their pairing
-- The specific challenge of reducing clerical searching to the highest degree
-- Developing a method to generate ~20 suggestions to speed up clerical review
-- Talk about the 8 week time constraint etc
-- Other complications e.g. harder to match Census/CCS records may be collected last
+Records in the CCS need to be paired with matching census records that correspond to the same person, even when there is missing/incomplete information in one of the records or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a record linkage problem. See the *Technical Background* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
+
+In 2011, 70% of the people matches were made automatically using a mixture of deterministic matching and standard *Fellegi-Sunter* probabilistic matching. This left 30% for clerical resolution (deciding if a given pair of records are a match) and clerical searching (searching for a match when no possible matches are initially presented). For households, a deterministic method was used that was able to match 60% of households automatically.
+
+The clerical matching procedure took the equivalent of 30 full-time staff all working for 30 weeks in 2011, but in 2021, the deadline for completing the census matching is only 8 weeks from when all the census and CCS returns are in.
+
+The primary objective of the collaboration project with the Alan Turing Institute should be, to minimise (to the greatest degree possible) the need for clerical searching as part of the 2021 matching methodology. The slowness of this procedure in 2011 owes to the fact that in order for a CCS record for which their is suspected to be a match to be ruled out and considered a non-match (or matched), it must first be checked against every single census record for which there is currently no match (and vice versa).
+
+Additionally, alternative methods to speed up clerical resolution procedure that make use of the Turing researcher's expertise in Machine Learning (ML) algorithms, should be proposed and tested. In particular, this will include methods to generate a list of possible matches for CCS/census records that could not be automatically labeled as a definite match (or definite non-match), in order to aid the clerical decision making. One challenge here is that if any method requires training data, there will not be any available in advance of it being deployed on the matching days, due to appropriate 2021 census/CCS example records not yet existing. To complicate things further, there is no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early in the matching procedure.
+
+As a secondary objective, Turing researchers should propose and explore potential ML methods that could out-perform those already being researched by ONS, at the overall task of automated census-CCS record linkage.
+
+Any improvements to the 2021 methodology made as a result of this project would be subject to the strict precision and recall criteria outlined earlier in this document.
+
+The technical background section of this document will explain the improvements to the 2011 census-CCS matching methodology already made by ONS, after summarising the relevant background literature on record linkage algorithms.
 
 Technical Background
 ========
