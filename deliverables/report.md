@@ -65,7 +65,7 @@ The technical background section of this document will explain the improvements 
 Technical Background
 ========
 
-This section contains a brief overview of the literature on record linkage and the variety of methods applied to this class of problem.
+The first part of this section contains a brief overview of the literature on record linkage and the variety of methods used for this class of problem. The second section details the specific methods being researched by ONS.
 
 Record Linkage
 ------
@@ -76,14 +76,15 @@ The task of matching non-identical records from different databases that refer t
 
 Record linkage problems deal with records that reference complex real world entities like people, with multiple data fields. The challenge is therefore greater than simply matching a single field, where commonly used string distance metrics such as the Levenshtein edit distance or Jaro-Winkler are suitable. Such metrics can however be used to compute a distance metric for the equivalent fields of two records, which has shown to be useful in matching census names with typographical errors (@yancey_evaluating_nodate).
 
+To avoid comparing every record in one database with every one in the other, there are a variety of different methods used to filter out extremely unlikely matches that vary in their performance and scalability. A common example is *blocking*, where all record pairs that disagree on a blocking key are initially discarded. This key can be a particular field or combination of multiple fields (@christen_survey_2012).
 
+The methods used for the problem of record linkage fall into the three general categories; deterministic, probabilistic and learning based methods. All of these methods work on the general premise of categorising record pairs as matches, as non-matches and in some cases as indeterminate.
 
-- Field matching
-- Briefly, the limitations of deterministic record linkage
-- Briefly, explain that individual fields are matched with a similarity score
-- Briefly, probabilistic record linkage and the Felligi-Sunter algorithm, based on weighted field matches
-- Constructing matchkeys
-- The problem with using only probabilistic record linkage is that it assumes independence of its features, which is typically not the case.
+Deterministic methods use a set of rules based on the constituent fields of each record pair to classify matches, with pairs that don't match according to those rules classified as non-match. The specified rules can be considered a "Matchkey". A simple example of a Matchkey for a pairing of records that have two equivalent fields could be: Field1 must be an exact match and Field2 must have an edit distance < 3.
+
+Probabilistic methods (most commonly the Felligi-Sunter algorithm) use the set of match/non-match probabilities of corresponding fields to compute the probability of each record pair being a match or non-match. Pairs falling below the match threshold and above a lower non-match threshold are classified as indeterminate and sent out for clerical review. Weights can be assigned to each field used in the calculation; these are computed either by an Expectation Maximisation algorithm or by from the probabilities in training data (@murray_probabilistic_2016).
+
+One key problem with probabilistic record linkage is that it assumes independence of the fields, which is typically not the case. For example, in record linkage between the census and CCS, fields such as first name and date of birth cannot be considered entirely independent.
 
 Application of Machine Learning to Record Linkage
 -------
