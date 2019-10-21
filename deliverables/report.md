@@ -70,14 +70,25 @@ This section contains a brief overview of the literature on record linkage and t
 Record Linkage
 ------
 
-There are many databases containing records that refer to real-world entities, such as people. There are also a variety of problems for which information on the same entity must be gathered from multiple databases. In order to combine or compare information on these entities from different databases, there must be a robust method for determining which records refer to the same entity.
+There are many databases containing records that refer to real-world entities, such as people. There are also a variety of problems for which information on the same entity must be gathered from multiple databases. In order to combine or compare information on these entities from different databases, there must be a robust method for determining which records refer to the same entity. In cases like that of the census and CCS, the challenge is complicated by the reality of missing or inaccurate data in records that should be matched (those that refer to the same person).
 
 The task of matching non-identical records from different databases that refer to the same entity is known as *record linkage*. In scientific literature it is also described by a variety of alternative names depending on the research community, including *instance identification*, *name matching*, *database hardening*, *merge-purge* and (when applied to a single database) *duplicate detection* (@elmagarmid_duplicate_2007).
 
+Record linkage problems deal with records that reference complex real world entities like people, with multiple data fields. The challenge is therefore greater than simply matching a single field, where commonly used string distance metrics such as the Levenshtein edit distance or Jaro-Winkler are suitable. Such metrics can however be used to compute a distance metric for the equivalent fields of two records, which has shown to be useful in matching census names with typographical errors (@yancey_evaluating_nodate).
+
+
+
+- Field matching
 - Briefly, the limitations of deterministic record linkage
 - Briefly, explain that individual fields are matched with a similarity score
 - Briefly, probabilistic record linkage and the Felligi-Sunter algorithm, based on weighted field matches
-- The problem with using only probabilistic record linkage is that it assumes independence of its features, which is typically not the case. A variety of ML algorithms have also been applied to record linkage problems
+- Constructing matchkeys
+- The problem with using only probabilistic record linkage is that it assumes independence of its features, which is typically not the case.
+
+Application of Machine Learning to Record Linkage
+-------
+
+- A variety of ML algorithms have also been applied to record linkage problems
 
 Census to CCS Record Linkage
 ------
@@ -85,6 +96,9 @@ Census to CCS Record Linkage
 **TODO:** This section should describe the work ONS is already doing
 
 - Felli-Sunter with Expectation Maximisation
+- Field matching techniques
+- Matchkey choices
+- Blocking decisions
 - Other
 
 Project Proposal
