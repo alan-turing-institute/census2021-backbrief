@@ -135,7 +135,7 @@ thought of as machine learning.
   student, we would more likely match this person with a student-age record in
   the survey than a retirement-age record.
 
-- In 2021, could we initially run manual and automatic matching in parallel and determine, as we go along, the precision and recall of the automatic classifier?
+- In 2021, could we initially run manual and automatic matching in parallel and determine, as we go along, the precision and recall of the automatic classifier? *NOTE: This doesn't help ONS plan how many manual reviewers to hire*
 
 - Could we develop a more sophisticated model of feature mismatch? At present,
   we observe the ways in which the same individual's returns are different and
