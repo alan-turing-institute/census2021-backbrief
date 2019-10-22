@@ -82,14 +82,18 @@ The methods used for the problem of record linkage fall into the three general c
 
 Deterministic methods use a set of rules based on the constituent fields of each record pair to classify matches, with pairs that don't match according to those rules classified as non-match. The specified rules can be considered a "Matchkey". A simple example of a Matchkey for a pairing of records that have two equivalent fields could be: Field1 must be an exact match and Field2 must have an edit distance < 3.
 
-Probabilistic methods (most commonly the Felligi-Sunter algorithm) use the set of match/non-match probabilities of corresponding fields to compute the probability of each record pair being a match or non-match. Pairs falling below the match threshold and above a lower non-match threshold are classified as indeterminate and sent out for clerical review. Weights can be assigned to each field used in the calculation; these are computed either by an Expectation Maximisation algorithm or by from the probabilities in training data (@murray_probabilistic_2016).
+Probabilistic methods (most commonly the Felligi-Sunter algorithm) use a Bayesian approach to calculate the probability of each record pair being a match or non-match, based on the product of the set of probabilities of corresponding fields being matches or non-matches between the two records. Pairs falling below a match threshold and above a lower non-match threshold are classified as indeterminate and sent out for clerical review. Each field used in the calculation is assigned a weight, computed either by an Expectation Maximisation algorithm or from the probabilities in training data (@murray_probabilistic_2016).
 
-One key problem with probabilistic record linkage is that it assumes independence of the fields, which is typically not the case. For example, in record linkage between the census and CCS, fields such as first name and date of birth cannot be considered entirely independent.
+One key problem with probabilistic record linkage is that it assumes independence of the fields, which is typically not the case. For example, in record linkage between the census and CCS, fields such as first name and date of birth cannot be considered conditionally independent.
 
 Application of Machine Learning to Record Linkage
 -------
 
-- A variety of ML algorithms have also been applied to record linkage problems
+As an alternative to the probabilistic and deterministic methods already discussed, a variety of ML algorithms have been applied to record linkage problems. Broadly, these methods can be classified into supervised learning, unsupervised learning, active learning and neural networks.
+
+A common example of unsupervised learning in record linkage has already been discussed in this report; the use of the Expectation Maximisation algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records. This is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent). Another example of unsupervised learning involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) (@elmagarmid_duplicate_2007).
+
+
 
 Census to CCS Record Linkage
 ------
@@ -101,6 +105,8 @@ Census to CCS Record Linkage
 - Matchkey choices
 - Blocking decisions
 - Other
+
+The next section of this report will outline some of the proposed applications of ideas discussed in the technical background section to the problem and specific objectives mentioned earlier on.
 
 Project Proposal
 =======
