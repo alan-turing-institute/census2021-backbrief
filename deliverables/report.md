@@ -98,8 +98,8 @@ Supervised learning relies on the existence of suitable training data, which in 
 A key difficulty with these supervised learning methods is that in order for a classifier to become highly accurate, the training data would need to include many examples of matches and non-matches and crucially, examples of both that are ambiguous; the kinds that would be classed as indeterminate by a probabilistic method and sent for clerical review. In response to this problem, active learning methods have been developed that require far less training data, initially only using labeled record pairs from ambiguous cases (where the uncertainty of match/non-match classification was high). The classifier will initially work for only some un-labeled instances, but can be used to find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate [@Elmagarmid2007]. Those pairs can then be manually labeled, adding to the training data and progressively improving the classifier.
 
 
-Census to CCS Record Linkage
-------
+Improvements in Census to CCS Record Linkage
+=========
 
 **TODO:** This section should describe the work ONS is already doing
 
@@ -108,6 +108,12 @@ Census to CCS Record Linkage
 - Matchkey choices
 - Blocking decisions
 - Other
+
+Already, the research team at ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on their improvements so far, they predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the report, the key improvements to the methodology that resulted in this performance increase will be detailed.
+
+In order to improve upon determinstic matching of people, a set of matchkeys have been developed using the 2011 Census data as test data. These include more derived field variables, accounting common errors in name fields such as those caused by scanning (of paper forms), spelling errors or transposition errors. For example, by rearranging the letters of names into alphabetical order to deal with transposition errors (Alphaname) and and by using the Jaro-Winkler edit distance or a phonetic algorithm based on English pronunciation similarity (Soundex) to deal with phonetic and spelling errors. Comparison with the 2011 Gold Standard (record pairing decisions made by all methods including manual clerical review in 2011) shows that the matchkeys find 85% of the matches made in 2011. It should however be noted that this Gold Standard is not perfect, with duplicates being a recurring issue with using it to verify new methods. **TODO: should we inlcude this table:** *See appendix A for variables used for matching and matchkeys.*
+
+
 
 The next section of this report will outline some of the proposed applications of ideas discussed in the technical background section to the problem and specific objectives mentioned earlier on.
 
