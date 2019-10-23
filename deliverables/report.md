@@ -51,7 +51,7 @@ As a secondary objective, Turing researchers should propose and explore potentia
 
 Any improvements to the matching methodology made as a result of this project will be subject to strict precision and recall criteria; recall of at least $99.75\,\%$ and
 precision of at least $99.9\,\%$. In 2011, approximately $550\,000$ individuals were
-matched. If the numbers in 2021 were identical (they of course won't be), this allows no more than $1\,300$ true matches to be missed and nor more than $550$ pairs of different individuals incorrectly identified as being the same.
+matched. If the numbers in 2021 were identical (they of course won't be), this allows no more than $1\,300$ true matches to be missed and nor more than $550$ pairs of different individuals incorrectly identified as being the same. **TODO:** *Update these stats as per Rachel's recent email*
 
 _FIXME: Can we get equivalent figures for households?_
 
