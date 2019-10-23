@@ -19,29 +19,18 @@ As a simple explanation of the logic used to deduce the undercount estimate, con
 
 When sampling humans rather than fish, the considerations are of course more complex. However, for the purposes of this document and the project being scoped, the task of importance is not the calculation of the population estimate, but the challenges associated with precisely linking each CCS record to a census record from the same person.
 
-## Stylised facts about matching
-
 The 2011 UK Census estimated that in the UK there are about 65 million people
-($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}). The Census
-Coverage Survey, sampling $1\,\%$ of postcodes, counted about $600\,000$ people and $340\,000$ households.
+($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}), with the CCS sampling $1\,\%$ of postcodes, counting about $600\,000$ people and $340\,000$ households.
 
 In the postcodes sampled by the Survey, about $95\,000$ individuals counted by
 the Census were not matched in the Survey; likewise, there were about $55\,000$
 individuals counted by the Survey who were not matched in the Census, even when
-the search was broadened to include postcodes not in the Survey sample. (These
+the search was broadened to include postcodes not in the Survey sample. These
 figures are higher than the final estimates of under-enumeration because the
 sample postcodes were weighted towards areas where high under-enumeration was
-expected.)
+expected.
 
 _FIXME: Is it true that the search was broadened?_.
-_FIXME: Can we get the equivalent figures for households?_
-
-The matching process is required to have a recall of at least $99.75\,\%$ and a
-precision of at least $99.9\,\%$. Approximately $550\,000$ individuals were
-matched, so we are therefore “allowed” to miss about $1\,300$ of true matches
-and to have incorrectly identified $550$ pairs of different individuals as being the same.
-
-_FIXME: Can we get equivalent figures for households?_
 
 The Problem
 =======
@@ -54,11 +43,17 @@ The clerical matching procedure took the equivalent of 30 full-time staff all wo
 
 The primary objective of the collaboration project with the Alan Turing Institute should be, to minimise (to the greatest degree possible) the need for clerical searching as part of the 2021 matching methodology. The slowness of this procedure in 2011 owes to the fact that in order for a CCS record for which their is suspected to be a match to be ruled out and considered a non-match (or matched), it must first be checked against every single census record for which there is currently no match (and vice versa).
 
-Additionally, alternative methods to speed up clerical resolution procedure that make use of the Turing researcher's expertise in Machine Learning (ML) algorithms, should be proposed and tested. In particular, this will include methods to generate a list of possible matches for CCS/census records that could not be automatically labeled as a definite match (or definite non-match), in order to aid the clerical decision making. One challenge here is that if any method requires training data, there will not be any available in advance of it being deployed on the matching days, due to appropriate 2021 census/CCS example records not yet existing. To complicate things further, there is no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early in the matching procedure.
+Even after improvements ONS have already made to their automated matching methods (detailed later in this report), they are still left with 9% of people records to match manually (5% for household records) when testing these methods on 2011 data. They predict that of these people matches, a further 8% will be found by clerical resolution, leaving 1% of matches still to make. This 1% (~5,300 matches) could be included anywhere amongst the unmatched CCS records (55,000 in 2011) and unmatched census records from CCS areas (95,000 in 2011). Any method used to replace clerical searching for these very difficult matches also needs to be able to declare when records definitely do not have a match.
+
+Alternative methods to speed up clerical resolution procedure that make use of the Turing researcher's expertise in Machine Learning (ML) algorithms, should be proposed and tested. In particular, this should include methods to generate a list of possible matches for CCS/census records that could not be automatically labeled as a definite match (or definite non-match), in order to aid the clerical decision making. One challenge here is that if any method requires training data, there will not be any available in advance of it being deployed on the matching days, due to appropriate 2021 census/CCS example records not yet existing. To complicate things further, there is no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early in the matching procedure.
 
 As a secondary objective, Turing researchers should propose and explore potential ML methods that could out-perform those already being researched by ONS, at the overall task of automated census-CCS record linkage.
 
-Any improvements to the 2021 methodology made as a result of this project would be subject to the strict precision and recall criteria outlined earlier in this document.
+Any improvements to the matching methodology made as a result of this project will be subject to strict precision and recall criteria; recall of at least $99.75\,\%$ and
+precision of at least $99.9\,\%$. In 2011, approximately $550\,000$ individuals were
+matched. If the numbers in 2021 were identical (they of course won't be), this allows no more than $1\,300$ true matches to be missed and nor more than $550$ pairs of different individuals incorrectly identified as being the same.
+
+_FIXME: Can we get equivalent figures for households?_
 
 The technical background section of this document will explain the improvements to the 2011 census-CCS matching methodology already made by ONS, after summarising the relevant background literature on record linkage algorithms.
 
@@ -114,10 +109,10 @@ ONS researchers have also looked into making improvements to the match rate thei
 
 Some steps have already been taken to speed up the clerical review process via a proposed associative people matching method, which also increases the number of automatic matches. Unmatched people in households where the household record has already been matched are given a score using Fellegi-Sunter. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Matched households that still contain unmatched people are then sent to clerical review, giving the reviewer a household view that clearly shows those people matches already made within the household. **TODO: would be nice to refer to figure here**.
 
-The Clerical Matching Problem
+Reducing the Clerical Matching Requirement
 -------
 
-Even after the improvements made to automated matching, ONS are still left with 9% of people to match manually (5% for households) when testing these methods on 2011 data. They predict that of these people matches, a further 8% will be found by clerical resolution, leaving 1% of matches still to make. As outlined earlier in this report, one of the key challenges ONS wish to tackle is reducing (or eliminating completely) the amount of clerical searching required. However, this 1% (~5,300 matches) could be included anywhere amongst the unmatched CCS records (55,000 in 2011) and unmatched census records from CCS areas (95,000 in 2011). Any method used to replace clerical searching for these very difficult matches also needs to be able to declare when records definitely do not have a match.
+
 
 
 The next section of this report will outline some of the proposed applications of ideas discussed in the technical background section to the problem and specific objectives mentioned earlier on.
