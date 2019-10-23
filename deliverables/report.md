@@ -41,7 +41,7 @@ In 2011, 70% of the people matches were made automatically using a mixture of de
 
 The clerical matching procedure took the equivalent of 30 full-time staff all working for 30 weeks in 2011, but in 2021, the deadline for completing the census matching is only 8 weeks from when all the census and CCS returns are in.
 
-The primary objective of the collaboration project with the Alan Turing Institute should be, to minimise (to the greatest degree possible) the need for clerical searching as part of the 2021 matching methodology. The slowness of this procedure in 2011 owes to the fact that in order for a CCS record for which their is suspected to be a match to be ruled out and considered a non-match (or matched), it must first be checked against every single census record for which there is currently no match (and vice versa).
+The primary objective of the collaboration project between ONS and the Alan Turing Institute should be: to minimise (to the greatest degree possible) the need for clerical searching as part of the 2021 matching methodology, or to speed up this process. The slowness of this procedure in 2011 owes to the fact that in order for a CCS record for which their is suspected to be a match to be ruled out and considered a non-match (or matched), it must first be checked against every single census record for which there is currently no match (and vice versa).
 
 Even after improvements ONS have already made to their automated matching methods (detailed later in this report), they are still left with 9% of people records to match manually (5% for household records) when testing these methods on 2011 data. They predict that of these people matches, a further 8% will be found by clerical resolution, leaving 1% of matches still to make. This 1% (~5,300 matches) could be included anywhere amongst the unmatched CCS records (55,000 in 2011) and unmatched census records from CCS areas (95,000 in 2011). Any method used to replace clerical searching for these very difficult matches also needs to be able to declare when records definitely do not have a match.
 
@@ -112,10 +112,11 @@ Some steps have already been taken to speed up the clerical review process via a
 Reducing the Clerical Matching Requirement
 -------
 
+In starting to address the key objective of speeding up the clerical matching procedure, ONS have developed what they call a *Pre-search* algorithm, which is applied to the ambiguous records assigned for clerical review by the prior automated matching methods before laborious clerical searching is attempted. Their current approach finds potential candidates for pairing using very loose blocking, ranks them using Fellegi-Sunter scoring, and then presents them to the clerical reviewer who gets to make the final decision as to whether there is a match. The ultimate goal would be to be able to say with confidence that if the matching record is not amongst the top candidates presented to the reviewer, then there is no match for that record.
 
+ONS report that this method is already working well; when there is a match (as evaluated by the 2011 Gold Standard), it appears as the first record on the list 98% of the time. There however no way to know for sure that methods that work well for 2011 data will work as well on 2021 data and ONS are keen to consider alternative ML methods for improving the *Pre-search* algorithm in collaboration with the Turing.
 
-
-The next section of this report will outline some of the proposed applications of ideas discussed in the technical background section to the problem and specific objectives mentioned earlier on.
+The next section of this report will outline some of the proposed methods not already being explored by ONS for improving both the *Pre-search* algorithm and the overall record linkage methodology.
 
 Project Proposal
 =======
