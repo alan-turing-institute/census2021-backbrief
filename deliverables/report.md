@@ -101,21 +101,23 @@ A key difficulty with these supervised learning methods is that in order for a c
 Improvements in Census to CCS Record Linkage
 =========
 
-**TODO:** This section should describe the work ONS is already doing
-
-- Felli-Sunter with Expectation Maximisation
-- Field matching techniques
-- Matchkey choices
-- Blocking decisions
-- Other
-
 Already, the research team at ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on their improvements so far, they predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the report, the key improvements to the methodology that resulted in this performance increase will be detailed.
 
+Automated Matching
+------
+
 In order to improve upon determinstic matching of people, a set of matchkeys have been developed using the 2011 Census data as test data. These include more derived field variables, accounting common errors in name fields such as those caused by scanning (of paper forms), spelling errors or transposition errors. For example, by rearranging the letters of names into alphabetical order to deal with transposition errors (Alphaname) and and by using the Jaro-Winkler edit distance or a phonetic algorithm based on English pronunciation similarity (Soundex) to deal with phonetic and spelling errors. Comparison with the 2011 Gold Standard (record pairing decisions made by all methods including manual clerical review in 2011) shows that the matchkeys find 85% of the matches made in 2011. It should however be noted that this Gold Standard is not perfect, with duplicates being a recurring issue with using it to verify new methods. **TODO: should we inlcude this table:** *See appendix A for variables used for matching and matchkeys.*
+
+A new set of matchkeys have also been developed for household record pairing, using both household information (tenure, type of property, number of usual residents etc) together with the people sets. This method has enabled ONS to make 95% of the matches on the 2011 households Gold Standard.
 
 ONS researchers have also looked into making improvements to the match rate their Fellegi-Sunter probabilistic algorithm. Rather than use the Expectation Maximisation algorithm, they plan to calculate the values for the weights of record fields manually (initially using the 2011 data) and then iteratively improving this using the matching (both automatic and clerical) carried out in 2021. In addition, changes have been made to the blocking carried out before matching. Using a single blocking pass, bringing together record pairs that share the same postcode; all other CCS fields are available for use in the actual matching. Testing this approach with 2011 data gave a pairs completeness of 97.8%. An alternative blocking pass on date of birth has also been attempted in order to capture the remaining 2.2%, but no extra matches were made using this.
 
 Some steps have already been taken to speed up the clerical review process via a proposed associative people matching method, which also increases the number of automatic matches. Unmatched people in households where the household record has already been matched are given a score using Fellegi-Sunter. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Matched households that still contain unmatched people are then sent to clerical review, giving the reviewer a household view that clearly shows those people matches already made within the household. **TODO: would be nice to refer to figure here**.
+
+The Clerical Matching Problem
+-------
+
+Even after the improvements made to automated matching, ONS are still left with 9% of people to match manually (5% for households) when testing these methods on 2011 data. They predict that of these people matches, a further 8% will be found by clerical resolution, leaving 1% of matches still to make. As outlined earlier in this report, one of the key challenges ONS wish to tackle is reducing (or eliminating completely) the amount of clerical searching required. However, this 1% (~5,300 matches) could be included anywhere amongst the unmatched CCS records (55,000 in 2011) and unmatched census records from CCS areas (95,000 in 2011). Any method used to replace clerical searching for these very difficult matches also needs to be able to declare when records definitely do not have a match.
 
 
 The next section of this report will outline some of the proposed applications of ideas discussed in the technical background section to the problem and specific objectives mentioned earlier on.
