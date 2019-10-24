@@ -142,9 +142,18 @@ Look at better approaches to the overall problem of Census/CCS record linkage th
 - Is it possible that clean (non-scrambled) records are more likely to definitely not have a match? (we don't know this but maybe ONS could check if this was the case in 2011 data?)
 -
 
-Create report pdf with Pandoc
-====
+24th October revised report contents
+========
 
-```pandoc --filter pandoc-citeproc --bibliography=Census2021-Backbrief.bib --toc --variable classoption=twocolumn --variable papersize=a4paper -s draft_report.md -o draft_report.pdf```
-
-^ To get a title before the contents page, you may need to convert to LateX first then add the title before creating PDF, unless you can find a clever way
+1. Background
+    - The Census Estimate
+    - Record Linkage Between Census and CCS
+    - Current Challenges
+2. Current Work
+    - Methods for Record Linkage
+    - Application to Census/CCS in 2021
+    - Potential uses of Machine Learning
+3. Beyond Current Methods
+    - Novel Machine Learning Applications
+    - Feature Matching Improvements
+4. Next Steps
