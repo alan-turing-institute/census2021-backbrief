@@ -12,7 +12,7 @@ Our main aim below is to specify the challenges faced with regards to this task 
 Background
 =========
 
-In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries the census count itself is published; the UK aims to provide a census estimate, adjusted for "overcount" and "undercount". In 2011, the census questions were asked on paper forms, but in 2021 a combination of online forms and paper forms will be used.
+In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, the census questions were asked on paper forms, but in 2021 a combination of online forms and paper forms will be used.
 
 To calculate the census estimates, an independent enumeration of a sample of 1% of postcodes known as the Census Coverage Survey (CCS) is carried out. This takes place after the census and involves in-person interviews carried out at the selected addresses, to obtain data from the occupants for a small selection of the core census fields: first name, surname, date of birth, sex, marital status, address and occupation.
 
