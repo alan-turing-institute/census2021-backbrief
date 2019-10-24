@@ -165,6 +165,7 @@ Section 3, Beyond Current Methods Notes
 - Use alternative ML algorithms that are better at automated record linkage than those ONS already researching
 - Evaluation method
 - Feature matching improvements
+- Can an ML algorithm improve the matchkeys by learning on 2011 match data. Learned match keys
 
 ### Thoughts on ML
 
