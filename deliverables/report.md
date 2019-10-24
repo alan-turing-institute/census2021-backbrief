@@ -14,7 +14,7 @@ Background
 
 In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, the census questions were asked on paper forms, but in 2021 a combination of online forms and paper forms will be used.
 
-To calculate the census estimates, an independent enumeration of a sample of 1% of postcodes known as the Census Coverage Survey (CCS) is carried out. This takes place after the census and involves in-person interviews carried out at the selected addresses, to obtain data from the occupants for a small selection of the core census fields: first name, surname, date of birth, sex, marital status, address and occupation.
+To calculate the census estimates, an independent enumeration of a sample of 1% of postcodes known as the Census Coverage Survey (CCS) is carried out. This takes place after the census and involves in-person interviews carried out at the selected addresses; data from the occupants is obtained for a small selection of the core census fields: first name, surname, date of birth, sex, marital status, address and occupation.
 
 Census Record Matching
 ---------
@@ -24,21 +24,19 @@ The 2011 UK Census estimated that in the UK there are about 65 million people
 
 In the postcodes sampled by the CCS, about 95,000 individuals counted by
 the Census were not matched in the CCS; likewise, there were about 55,000
-individuals counted by the CCS who were not matched in the Census, even when
-the search was broadened to include postcodes not in the CCS sample. These
+individuals counted by the CCS who were not matched in the Census. These
 figures are higher than the final estimates of under-enumeration because the
 sample postcodes were weighted towards areas where high under-enumeration was
 expected.
 
-_FIXME: Is it true that the search was broadened?_.
+Calculating the census estimate relies on records from the CCS being correctly paired with census records that correspond to the same person (the same goes for matching households). This is the central challenge the methods discussed in this document seek to address.
 
 Current Challenges
 ------
 
-Calculating the census estimate relies on records from the CCS being correctly paired with census records that correspond to the same person (the same goes for matching households). This is the central challenge the methods discussed in this document seek to address. Difficulties occur when there is missing/incomplete information in one of the records or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Methods for Record Linkage* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
+Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Methods for Record Linkage* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
 
-Any improvements to the matching methodology will be subject to strict precision and recall criteria; recall of at least $99.75\,\%$ and precision of at least $99.9\,\%$. In 2011, approximately $550\,000$ individuals were matched. This allows no more than $1\,300$ true matches to be missed and no more than $550$ pairs of different individuals incorrectly identified as being the same. **TODO:** *Update these stats as per Rachel's recent email*
-_FIXME: Can we get equivalent figures for households?_
+Record matching between the CCS and census is subject to strict precision and recall criteria; recall of at least $99.75\,\%$ and precision of at least $99.9\,\%$. In 2011, the number of matches was 649,944. This allows no more than 1,629 true matches to be missed by the matching procedure.
 
 In 2011, 70% of the people matches were made automatically using a mixture of deterministic matching and *Fellegi-Sunter* probabilistic matching. This left 30% for manual clerical matching, which involved two processes to find the remaining matches that couldn't be made automatically. Firstly, *clerical resolution*: deciding whether a given pair of records (that automated methods designated as a possible match) are in fact a match, and secondly, *clerical searching*: searching for a match manually when no possible matches are initially presented. For households, a deterministic method was used that was able to match 60% of households automatically.
 
