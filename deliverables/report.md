@@ -157,19 +157,10 @@ thought of as machine learning.
     which individuals to send to clerical review to allow us to learn more
     quickly?
 
-
-
-
-Timeline and Plan
+Next Steps
 ======
 
 - Needs discussion with ONS
-
-Glossary
-=======
-
-- Indexing
-- Blocking
 
 References
 ====
