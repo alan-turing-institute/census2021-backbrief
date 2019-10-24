@@ -34,7 +34,7 @@ Calculating the census estimate relies on records from the CCS being correctly p
 Current Challenges
 ------
 
-Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Methods for Record Linkage* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
+Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Review of Current Work* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
 
 Record matching between the CCS and census is subject to strict precision and recall criteria; recall of at least $99.75\,\%$ and precision of at least $99.9\,\%$. In 2011, the number of matches was 649,944. This allows no more than 1,629 true matches to be missed by the matching procedure.
 
@@ -50,7 +50,7 @@ ONS are developing methods to generate a list of possible matches for CCS/census
 
 The next section of this document will explain the improvements to the census-CCS matching methodology already made by ONS since 2011, after summarising the relevant background literature on record linkage algorithms.
 
-Current Work
+Review of Current Work
 ========
 
 There are many databases containing records that refer to real-world entities, such as people. There are also a variety of problems for which information on the same entity must be gathered from multiple databases. In order to combine or compare information on these entities from different databases, there must be a robust method for determining which records refer to the same entity. In cases like that of the census and CCS, the challenge is complicated by the reality of missing or inaccurate data in records that should be matched i.e. those that refer to the same person.
