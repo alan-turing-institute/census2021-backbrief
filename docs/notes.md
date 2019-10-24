@@ -157,3 +157,43 @@ Look at better approaches to the overall problem of Census/CCS record linkage th
     - Novel Machine Learning Applications
     - Feature Matching Improvements
 4. Next Steps
+
+Section 3, Beyond Current Methods Notes
+========
+
+- Use ML algorithms to speed up/reduce manual decisions of difficult-to-match records
+- Use alternative ML algorithms that are better at automated record linkage than those ONS already researching
+- Evaluation method
+- Feature matching improvements
+
+### Thoughts on ML
+
+The following are (_FIXME_: inchoate) thoughts on what "more ML" could look
+like. Note that the current plans for probabilistic matching could certainly be
+thought of as machine learning.
+
+- For analytical tractability, standard Fellegi-Sunter makes an assumption of
+  probabilistic independence of the feature differences. It may be possible to
+  relax this for certain combinations of features. For example, age and first
+  name are presumably not independent.
+
+- Likewise, perhaps we could do better when fields are missing by understanding
+  the correlation with other fields, even fields not in the Survey. For example,
+  if an age were missing from the Census record, but the individual were a
+  student, we would more likely match this person with a student-age record in
+  the survey than a retirement-age record.
+
+- In 2021, could we initially run manual and automatic matching in parallel and determine, as we go along, the precision and recall of the automatic classifier? *NOTE: This doesn't help ONS plan how many manual reviewers to hire*
+
+- Could we develop a more sophisticated model of feature mismatch? At present,
+  we observe the ways in which the same individual's returns are different and
+  create measures of difference that account for this. For example, we notice
+  that transcription errors often introduce a transposition into names, and so
+  we define a distance measure that counts as “close” names that differ only in
+  a transposition of letters. We might imagine writing down a very general model
+  of difference (with a high-dimensional parameter space) and then attempting to learn the specifics from data.
+
+- For all the methods that require the learning of parameters, can we learn (or
+    update) these parameters from 2021 data “as we go along”? Could we _choose_
+    which individuals to send to clerical review to allow us to learn more
+    quickly?
