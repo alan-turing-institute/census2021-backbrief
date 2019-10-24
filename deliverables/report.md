@@ -17,15 +17,15 @@ To calculate the census estimates, the CCS, an independent enumeration of a samp
 
 As a simple explanation of the logic used to deduce the undercount estimate, consider the scenario of a fisherman wishing to estimate the number of fish in a lake. Suppose the fisherman catches 100 fish on a particular day and tags them all. He then returns to fish another day, catching 50, of which 25 have a tag. Since half the fish caught on the second day had a tag, the fisherman could estimate that the total number of fish in the lake is double the number of tagged fish (200).
 
-When sampling humans rather than fish, the considerations are of course more complex. However, for the purposes of this document and the project being scoped, the task of importance is not the calculation of the population estimate, but the challenges associated with precisely linking each CCS record to a census record from the same person.
+When sampling humans rather than fish, the considerations are of course more complex. However, for the purposes of this document and the project being scoped, the task of importance is not the calculation of the population estimate, but the challenges associated with precisely matching each CCS record to the census record from the same person (as well as matching households).
 
 The 2011 UK Census estimated that in the UK there are about 65 million people
 ($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}), with the CCS sampling $1\,\%$ of postcodes, counting about $600\,000$ people and $340\,000$ households.
 
-In the postcodes sampled by the Survey, about $95\,000$ individuals counted by
-the Census were not matched in the Survey; likewise, there were about $55\,000$
-individuals counted by the Survey who were not matched in the Census, even when
-the search was broadened to include postcodes not in the Survey sample. These
+In the postcodes sampled by the CCS, about $95\,000$ individuals counted by
+the Census were not matched in the CCS; likewise, there were about $55\,000$
+individuals counted by the CCS who were not matched in the Census, even when
+the search was broadened to include postcodes not in the CCS sample. These
 figures are higher than the final estimates of under-enumeration because the
 sample postcodes were weighted towards areas where high under-enumeration was
 expected.
@@ -37,7 +37,7 @@ The Problem
 
 Records in the CCS need to be paired with matching census records that correspond to the same person, even when there is missing/incomplete information in one of the records or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a record linkage problem. See the *Technical Background* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
 
-In 2011, 70% of the people matches were made automatically using a mixture of deterministic matching and standard *Fellegi-Sunter* probabilistic matching. This left 30% for clerical resolution (deciding if a given pair of records are a match) and clerical searching (searching for a match when no possible matches are initially presented). For households, a deterministic method was used that was able to match 60% of households automatically.
+In 2011, 70% of the people matches were made automatically using a mixture of deterministic matching and standard *Fellegi-Sunter* probabilistic matching. This left 30% for manual clerical matching, which involved two processes to find the remaining matches that couldn't be made automatically. Firstly, *clerical resolution*: deciding if a given pair of records (that automated methods designated as a possible match) are in fact a match, and secondly, *clerical searching*: searching for a match manually when no possible matches are initially presented. For households, a deterministic method was used that was able to match 60% of households automatically.
 
 The clerical matching procedure took the equivalent of 30 full-time staff all working for 30 weeks in 2011, but in 2021, the deadline for completing the census matching is only 8 weeks from when all the census and CCS returns are in.
 
