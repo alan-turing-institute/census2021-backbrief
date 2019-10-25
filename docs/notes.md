@@ -167,7 +167,7 @@ Section 3, Beyond Current Methods Notes
 - Feature matching improvements
 - Can an ML algorithm improve the matchkeys by learning on 2011 match data. Learned match keys
 
-### Thoughts on ML
+### James G Thoughts on ML
 
 The following are (_FIXME_: inchoate) thoughts on what "more ML" could look
 like. Note that the current plans for probabilistic matching could certainly be
@@ -198,3 +198,18 @@ thought of as machine learning.
     update) these parameters from 2021 data “as we go along”? Could we _choose_
     which individuals to send to clerical review to allow us to learn more
     quickly?
+
+### Ed C Suggestions
+
+There seems to be A LOT of literature on active learning for record linkage:
+- https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=323732
+- https://www.sciencedirect.com/science/article/pii/S1532046412000238
+- https://pdfs.semanticscholar.org/de80/8c496bc02c999240af8f34e7e690dfec2cb6.pdf
+- http://usc-isi-i2.github.io/papers/tejada01-is.pdf
+- https://www.cs.umd.edu/class/spring2012/cmsc828L/Papers/SarawagiKDD2002.pdf
+- http://www.cs.cmu.edu/~wcohen/postscript/kdd-2002.pdf
+- https://arxiv.org/pdf/1906.08042.pdf
+
+Perhaps part of our suggestions can be to use existing software for active learning e.g. the creator of the Python record linkage toolkit has [this overview of data matching software](https://github.com/J535D165/data-matching-software).
+
+The Python package [DEDUPE](https://docs.dedupe.io/en/latest/Matching-records.html#active-learning) has active learning implemented.
