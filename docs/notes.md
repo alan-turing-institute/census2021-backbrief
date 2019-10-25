@@ -213,3 +213,11 @@ There seems to be A LOT of literature on active learning for record linkage:
 Perhaps part of our suggestions can be to use existing software for active learning e.g. the creator of the Python record linkage toolkit has [this overview of data matching software](https://github.com/J535D165/data-matching-software).
 
 The Python package [DEDUPE](https://docs.dedupe.io/en/latest/Matching-records.html#active-learning) has active learning implemented.
+
+### Core suggestions
+
+
+1. Don’t make Naive Bayes assumption (independence of fields) + use training data e.g. SVM, neural networks, gaussian processes
+2. Make use of the full structure of the feature data, make use of correlations between features. Learn these somehow from training data, this might improve for record with “missings” and “massivley corrupted” fields.
+3. Learn on the way feature mismatches actually occur in 2011 data instead of having rules/ generate those rules
+4. Active learning: find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate
