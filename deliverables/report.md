@@ -48,10 +48,8 @@ Even after improvements ONS have already made to the automated matching methods 
 
 ONS are developing methods to generate a list of possible matches for CCS/census records that could not be automatically labeled as a definite match (or definite non-match), in order to speed up clerical resolution decisions and reduce the number of unmatched records assigned to clerical searching. One challenge here is that if any method requires training data, there will not be any available in advance of it being deployed on the matching days, due to appropriate 2021 census/CCS example records not yet existing. To complicate things further, there is no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early in the matching procedure.
 
-The next section of this document will explain the improvements to the census-CCS matching methodology already made by ONS since 2011, after summarising the relevant background literature on record linkage algorithms.
-
-Review of Current Work
-========
+The Record Linkage Problem
+--------
 
 There are many databases containing records that refer to real-world entities, such as people. There are also a variety of problems for which information on the same entity must be gathered from multiple databases. In order to combine or compare information on these entities from different databases, there must be a robust method for determining which records refer to the same entity. In cases like that of the census and CCS, the challenge is complicated by the reality of missing or inaccurate data in records that should be matched i.e. those that refer to the same person.
 
@@ -69,8 +67,10 @@ Probabilistic methods (most commonly the *Felligi-Sunter algorithm*) use a Bayes
 
 One key problem with probabilistic record linkage is that it assumes independence of the fields, which is typically not the case. For example, in record linkage between the census and CCS, fields such as first name and date of birth are unlikely to be conditionally independent.
 
-Improvements in Census to CCS Record Linkage
---------
+The next section of this document will explain the improvements to the census-CCS record linkage methodology already made by ONS since 2011.
+
+Review of Current Work
+========
 
 ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on the improvements so far, ONS predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the document, the key improvements to the methodology that resulted in this performance increase will be detailed.
 
@@ -86,10 +86,19 @@ In starting to address the key objective of speeding up the clerical matching pr
 
 This method is already working well; when there is a match (as evaluated by the 2011 Gold Standard), it appears as the first record on the list 98% of the time. There is however no way to know for sure that methods that work well for 2011 data will work as well on 2021 data and ONS are keen to consider alternative ML methods for improving the *Pre-search* algorithm.
 
-Potential Uses of Machine Learning
--------
+Problem solved?
+----------
+
+
+
+
+Beyond Current Methods
+=======
 
 As an alternative to the probabilistic and deterministic methods already discussed, a variety of ML algorithms have been applied to record linkage problems. Broadly, these methods can be grouped as follows: those that require large amounts of training data in the form of record pairs pre-labeled as matches and non-matches, those that find the record pairs for which labelling will improve match/non-match classification and those that do not require any training data.
+
+Machine Learning in Record Linkage
+-------
 
 A common example of machine learning in record linkage has already been discussed in this report; the use of the Expectation Maximisation algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records. This method does not require training data and is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007]. Another example that doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007].
 
@@ -97,12 +106,10 @@ There are a variety of classification algorithms that have been applied to recor
 
 A key difficulty with these methods is that in order for a classifier to become highly accurate, the training data would need to include many examples of matches and non-matches and crucially, examples of both that are ambiguous; the kinds that would be classed as indeterminate by a probabilistic method and sent for clerical review. In response to this problem, active learning methods have been developed that require far less training data, initially only using labeled record pairs from ambiguous cases (where the uncertainty of match/non-match classification was high). The classifier will initially work for only some un-labeled instances, but can be used to find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate [@Elmagarmid2007]. Those pairs can then be manually labeled, adding to the training data and progressively improving the classifier.
 
-The next section of this report will outline some of the proposed methods not already being explored by ONS for improving both the *Pre-search* algorithm and the overall record linkage methodology.
+The next section of this report will outline some of the proposed methods not already being explored by ONS for improving both the *Pre-search* algorithm and the overall record linkage methodology with ML.
 
-Beyond Current Methods
-=======
-
-
+Suggested Improvements
+--------
 
 Next Steps
 ======
