@@ -74,6 +74,9 @@ Review of Current Work
 
 ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on the improvements so far, ONS predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the document, the key improvements to the methodology that resulted in this performance increase will be detailed.
 
+Improvements in Census to CCS Record Linkage
+--------
+
 In order to improve upon determinstic matching of people, a set of matchkeys have been developed using the 2011 Census data as test data. These include derived field variables that account for common errors in name fields such as those caused by scanning (of paper forms), spelling errors or transposition errors. For example, rearranging the letters of names into alphabetical order can deal with transposition errors (Alphaname method) and use of the Jaro-Winkler edit distance or a phonetic algorithm based on English pronunciation similarity (Soundex) can deal with phonetic and spelling errors. Comparison with the 2011 Gold Standard (record pairing decisions made by all methods including clerical matching in 2011) shows that the matchkeys find 85% of the matches made in 2011. It should however be noted that this Gold Standard is not perfect, with duplicates being a recurring issue with using it to verify new methods.
 
 A new set of matchkeys have also been developed for household record pairing, using household information (tenure, type of property, number of usual residents etc) together with the sets of people records that make up a household occupancy. This method has enabled ONS to make 95% of the matches on the 2011 households Gold Standard.
@@ -82,16 +85,26 @@ ONS have also looked into making improvements to the match rate for *Fellegi-Sun
 
 Some steps have already been taken to speed up the clerical matching process via a proposed associative people matching method, which also increases the number of automatic matches. Unmatched people in households where the household record has already been matched are given a score using *Fellegi-Sunter*. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Matched households that still contain unmatched people are then sent for clerical resolution, giving the reviewer a household view that clearly shows those people matches already made within the household.
 
-In starting to address the key objective of speeding up the clerical matching procedure, ONS have developed a *Pre-search* algorithm, which is applied to the CCS and census records assigned for clerical resolution by the prior automated matching methods before the more laborious clerical searching is attempted. This algorithm finds potential candidates for pairing using very loose blocking, ranks them using *Fellegi-Sunter* scoring, and then sends them for clerical resolution, with the reviewer making the final decision as to whether there is a match. The ultimate goal would be to be able to say with confidence that if the matching record is not amongst the top candidates presented to the reviewer, then there is no match for that record.
+In starting to address the key objective of speeding up the clerical matching procedure, ONS have developed a *Pre-search* algorithm, which is applied to the CCS and census records assigned for clerical resolution by the prior automated matching methods before the more laborious clerical searching is attempted. This algorithm finds potential candidates for pairing using very loose blocking, ranks them using *Fellegi-Sunter* scoring, and then sends them for clerical resolution, with the reviewer making the final decision as to whether there is a match and which of the ranked candidates it is (e.g. from a list of the top 20). The ultimate goal would be to be able to say with confidence that if the matching record is not amongst the top candidates presented to the reviewer, then there is no match for that record.
 
 This method is already working well; when there is a match (as evaluated by the 2011 Gold Standard), it appears as the first record on the list 98% of the time.
 
 Problem solved?
 ----------
 
-In order to determine when the record linkage methods being researched are good enough to be considered ready for the 2021 census, ONS need to be sure that the strict precision and recall requirements detailed earlier in this document will be met (see *Current Challenges*). To achieve this, ONS can test their methods on 2011 census/CCS data and evaluate performance against the 2011 Gold Standard. The caveat here; there is no *guarantee* that methods meeting the precision/recall requirements on 2011 data will do so on 2021 data. It is therefore important that ONS are confident these methods are not overfit to 2011 data when their performance is evaluated.
+In order to determine when the record linkage methods being researched are good enough to be considered ready for the 2021 census, ONS need to be sure that the strict precision and recall requirements detailed earlier in this document will be met (see *Current Challenges*). To achieve this, ONS can test the improved methods on 2011 census/CCS data and evaluate performance against the 2011 Gold Standard. The caveat here; there is no *guarantee* that methods meeting the precision/recall requirements on 2011 data will do so on 2021 data. It is therefore important that ONS are confident these methods are not overfitted to 2011 data when their performance is evaluated. A well defined evaluation procedure is needed so that ONS can confidently claim the improved methods are ready for 2021 given the constraints (shorter time period and fewer clerical matching staff than 2011) and judge to what extent clerical searching and resolution will be required. It's important to note that some of the methods used for clerical searching in 2011 can't possibly be performed by an algorithm, for instance: **TODO:** *include examples e.g. google searches*. Any methods that do not utilise clerical searching could therefore be missing matches that can *only* be made this way, increasing the number of false negatives.
 
-In addition, the *Pre-search* algorithm
+This evaluation could work as follows. Firstly, a check should be performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check should be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
+
+The nature of these checks will be determined by the methodology in question. To check whether clerical matching can be eliminated altogether from the improved methods described above in *Improvements in Census to CCS Record Linkage*, clerical resolution decisions could be replaced by most probable match decisions (effectively by lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold could all be designated non-match (rather than some being assigned to clerical searching). For other methods originally conceived as utilising clerical matching, similar adjustments could be made (see suggestions later in this document under *Suggested Improvements*).
+
+As of [the start of November] 2019, improvements to the record linkage methodology have yielded a precision of [x] and a recall of [y] for the 2011 census/CCS data, when evaluated with the Gold Standard. **TODO:** *talk about how good this is*.
+
+
+
+
+
+
 
 
 
@@ -114,6 +127,11 @@ The next section of this report will outline some of the proposed methods not al
 
 Suggested Improvements
 --------
+
+1. Don’t make Naive Bayes assumption (independence of fields) + use training data e.g. SVM, neural networks, gaussian processes
+2. Make use of the full structure of the feature data, make use of correlations between features. Learn these somehow from training data, this might improve for record with “missings” and “massivley corrupted” fields.
+3. Learn on the way feature mismatches actually occur in 2011 data instead of having rules/ generate those rules
+4. Active learning: find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate
 
 Next Steps
 ======
