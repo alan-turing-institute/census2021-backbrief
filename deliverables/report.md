@@ -94,20 +94,15 @@ Problem solved?
 
 In order to determine when the record linkage methods being researched are good enough to be considered ready for the 2021 census, ONS need to be sure that the strict precision and recall requirements detailed earlier in this document will be met (see *Current Challenges*). To achieve this, ONS can test the improved methods on 2011 census/CCS data and evaluate performance against the 2011 Gold Standard. The caveat here; there is no *guarantee* that methods meeting the precision/recall requirements on 2011 data will do so on 2021 data. It is therefore important that ONS are confident these methods are not overfitted to 2011 data when their performance is evaluated. A well defined evaluation procedure is needed so that ONS can confidently claim the improved methods are ready for 2021 given the constraints (shorter time period and fewer clerical matching staff than 2011) and judge to what extent clerical searching and resolution will be required. It's important to note that some of the methods used for clerical searching in 2011 can't possibly be performed by an algorithm, for instance: **TODO:** *include examples e.g. google searches*. Any methods that do not utilise clerical searching could therefore be missing matches that can *only* be made this way, increasing the number of false negatives.
 
-This evaluation could work as follows. Firstly, a check should be performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check should be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
+The evaluation procedure should work as follows. Firstly, a check should be performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check should be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
 
-The nature of these checks will be determined by the methodology in question. To check whether clerical matching can be eliminated altogether from the improved methods described above in *Improvements in Census to CCS Record Linkage*, clerical resolution decisions could be replaced by most probable match decisions (effectively by lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold could all be designated non-match (rather than some being assigned to clerical searching). For other methods originally conceived as utilising clerical matching, similar adjustments could be made (see suggestions later in this document under *Suggested Improvements*).
+The nature of this evaluation procedure will be determined by the methodology in question. To check whether clerical matching can be eliminated altogether from the improved methods described above in *Improvements in Census to CCS Record Linkage*, clerical resolution decisions should be replaced by most probable match decisions (effectively by lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold should all be designated non-match (rather than some being assigned to clerical searching). For other methods originally conceived as utilising clerical matching, similar adjustments could be made (see suggestions later in this document under *Suggested Improvements*).
 
-As of [the start of November] 2019, improvements to the record linkage methodology have yielded a precision of [x] and a recall of [y] for the 2011 census/CCS data, when evaluated with the Gold Standard. **TODO:** *talk about how good this is*.
+**TODO:** *Follow the evaluation procedure above and then fill in the blanks and expand on this:*
 
+As of [the start of November] 2019, improvements to the record linkage methodology have yielded a precision of [x] and a recall of [y] for the 2011 census/CCS data, when evaluated with the Gold Standard. **TODO:** *talk about how good this is and what clerical resolution/searching was done*.
 
-
-
-
-
-
-
-
+Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methodology should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of overfitting to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
 Beyond Current Methods
 =======
