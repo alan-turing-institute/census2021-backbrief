@@ -147,14 +147,10 @@ There are several observations that can be made about the record linkage methodo
 
 One potential flaw with probabilistic record linkage is the reliance on the *Naive Bayes* assumption, that the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married. Whilst some of the ML algorithms mentioned in this document that use training data such as SVM, neural networks or gaussian processes would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption, as noted by @Elmagarmid2007.
 
+One suggestion of what to improve in advance of 2021 could be to make use of the full structure of the census data, including fields that are not present in the CCS, in order to reduce the impact that missing, incomplete or corrupted field data has on record linkage. This could involve writing deterministic rules about associations between other census fields and those fields present in the CCS or using 2011 census records as training data for machine learning to uncover these associations.
 
+Another possibility that involves ML could be to replace the distance scoring metrics like the edit distance used for field matching, with a novel algorithm that is more specific to the particular field in question. This could be a ML algorithm trained with 2011 Gold Standard census and CCS field data, which learns the common types of differences found between corresponding fields in matched record pairs. These differences would therefore be penalised (by lowering the score) less by the algorithm than more unusual mismatches when it is used to score a previously unseen field pairing.
 
-
-First name, surname, date of birth, sex, marital status, address and occupation
-
-1. Don’t make Naive Bayes assumption (independence of fields) + use training data e.g. SVM, neural networks, gaussian processes
-2. Make use of the full structure of the feature data, make use of correlations between features. Learn these somehow from training data, this might improve for record with “missings” and “massivley corrupted” fields.
-3. Learn on the way feature mismatches actually occur in 2011 data instead of having rules/ generate those rules
 
 Pre-search improvements
 
