@@ -64,7 +64,7 @@ The next section of this document will explain the improvements to the census-CC
 Review of Current Work
 ========
 
-ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on the improvements so far, ONS predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the document, the key improvements to the methodology that resulted in this performance increase will be detailed.
+ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on the improvements so far (as of November 2019), ONS predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the document, the key improvements to the methodology that resulted in this performance increase will be detailed.
 
 Improvements in Census to CCS Record Linkage
 --------
@@ -73,7 +73,7 @@ In order to improve upon determinstic matching of people, a set of matchkeys hav
 
 A new set of matchkeys have also been developed for household record pairing, using household information (tenure, type of property, number of usual residents etc) together with the sets of people records that make up a household occupancy. This method has enabled ONS to make 95% of the matches on the 2011 households Gold Standard.
 
-ONS have also made improvements to the match rate for *Fellegi-Sunter* probabilistic matching. Changes have been made to the blocking carried out before matching; a single blocking pass is used, bringing together record pairs that match on the postcode field. All other CCS fields are therefore available for use in the actual matching. Testing this approach with 2011 data gave a pairs completeness of $97.8\,\%$. An alternative blocking pass on date of birth has also been attempted in order to capture the remaining $2.2\,\%$, but no extra matches were made using this.
+ONS have also made improvements to the match rate for *Fellegi-Sunter* probabilistic matching. Changes have been made to the blocking carried out before matching; a single blocking pass is used, bringing together record pairs that match on the postcode field. All other CCS fields are therefore available for use in the actual matching. Testing this approach with 2011 data gave a pairs completeness of $97.8\,\%$ **TODO:** *This was copied from Rachel's document but unclear what this means*. An alternative blocking pass on date of birth has also been attempted in order to capture the remaining $2.2\,\%$, but no extra matches were made using this.
 
 Some steps have already been taken to speed up the clerical matching process via a proposed associative people matching method, which also increases the number of automatic matches. Unmatched people in households where the household record has already been matched are given a score using *Fellegi-Sunter*. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Matched households that still contain unmatched people are then sent for clerical resolution, giving the reviewer a household view that clearly shows those people matches already made within the household.
 
@@ -88,7 +88,9 @@ In order to determine when the improved record linkage methods being researched 
 
 This evaluation can be used to judge to what extent clerical searching and resolution will be required in 2021, given the constraints (shorter time period and fewer clerical matching staff than 2011). It's important to note that some of the methods used for clerical searching in 2011 can't possibly be performed by an algorithm, for instance: **TODO:** *include examples e.g. google searches*. Any methods that do not utilise clerical searching could therefore be missing matches that can *only* be made this way, increasing the number of false negatives.
 
-Since a big part of the challenge is confidently ruling out those records without a match that the record linkage algorithms designated as possible matches, it's especially important to know how many false negatives can be permitted. In 2011 (**TODO:** *unsure what is meant by "In 2011" here, as per Rachel email 18th Oct*), the number of true positives (correctly identified matches) evaluated by the Gold Standard was $649\,944$. Rearranging the recall equation to calculate the permitted false negatives given the 97.75% threshold gives: *FN = (TP/R) - TP = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$* (to the nearest whole).
+Since a big part of the challenge is confidently ruling out those records without a match that the record linkage algorithms designated as possible matches, it's especially important to know how many false negatives can be permitted. In 2011 (**TODO:** *unsure what is meant by "In 2011" here, as per Rachel email 18th Oct. Is the following calculation making the assumption that ALL TP will be found?*), the number of true positives (correctly identified matches) evaluated by the Gold Standard was $649\,944$. Rearranging the recall equation to calculate the permitted false negatives (*FN*) given the 97.75% recall threshold (*R*) gives:
+
+*FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole, where *TP* is the number of true positives).
 
 The evaluation of improved methods works as follows. Firstly, a check is performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check will be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
 
@@ -110,16 +112,20 @@ To carry out the second check, ONS will carry out a trial of the improved method
 
 Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methodology should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
-**Figure 1.**
 
-|   | **Predicted Match**  | **Predicted Non-Match**  |
+
+
+
+--
+
+| **Figure 1.**  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
 | **Actual Match**  | $533\,000$ (*TP*) | $12\,000$ (*FN*) |
 | **Actual Non-Match**  | 0 (*FP*) | $55\,000$ (*TN*) |
 
-**Figure 2.**
 
-|   | **Predicted Match**  | **Predicted Non-Match**  |
+
+| **Figure 2.**  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
 | **Actual Match**  | X (*TP*) | X (*FN*) |
 | **Actual Non-Match**  | X (*FP*) | X (*TN*) |
