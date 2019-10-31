@@ -153,6 +153,10 @@ Another possibility that involves ML could be to replace the distance scoring me
 
 Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning algorithm, in addition to the existing probabilistic method. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data. Rather than use the EM algorithm, the values for the weights of record fields could be calculated manually (initially using the 2011 data) and then iteratively improved by the incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, an active learning classifier will pick records from the un-labeled data pool that will improve its accuracy fastest for those indeterminate pairs assigned to clerical matching (and Pre-search) by the initial automatic methods. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis.
 
+Any of these suggestions that are used to improve upon the record linkage methodology can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as described earlier in this document (see *Problem Solved?*).
+
+The next section of this document will outline the next steps to be taken in advance of the 2021 census being carried out.
+
 Next Steps
 ======
 
