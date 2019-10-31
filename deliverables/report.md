@@ -30,7 +30,7 @@ Current Challenges
 
 Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Review of Current Work* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
 
-Record matching between the CCS and census is subject to strict precision and recall criteria; recall of at least $99.75\,\%$ and precision of at least $99.9\,\%$. In 2011, the number of matches was $649\,944$. This allows no more than $1\,629$ true matches to be missed by the matching procedure.
+Record matching between the CCS and census is subject to strict precision and recall criteria; precision of at least $99.9\,\%$ and recall of at least $99.75\,\%$.
 
 In 2011, 70% of the people matches were made automatically using a mixture of deterministic matching and *Fellegi-Sunter* probabilistic matching (for households, a deterministic method was used which matched 60% automatically). This left 30% of people matches to be made manually via a clerical matching procedure involving two distinct manual processes. Firstly, *clerical resolution* involved people deciding whether record pairs that automated methods designated as possible matches were indeed matches. Secondly, *clerical searching* involved searching for a match manually amongst all the unmatched records. These two processes are referenced throughout this document; *clerical matching* refers to both of these.
 
@@ -88,6 +88,8 @@ Problem solved?
 
 In order to determine when the record linkage methods being researched are good enough to be considered ready for the 2021 census, ONS need to be sure that the strict precision and recall requirements detailed earlier in this document will be met (see *Current Challenges*). To achieve this, ONS can test the improved methods on 2011 census/CCS data and evaluate performance against the 2011 Gold Standard. The caveat here; there is no *guarantee* that methods meeting the precision/recall requirements on 2011 data will do so on 2021 data. It is therefore important that ONS are confident these methods are not overfitted to 2011 data when their performance is evaluated. A well defined evaluation procedure is needed so that ONS can confidently claim the improved methods are ready for 2021 given the constraints (shorter time period and fewer clerical matching staff than 2011) and judge to what extent clerical searching and resolution will be required. It's important to note that some of the methods used for clerical searching in 2011 can't possibly be performed by an algorithm, for instance: **TODO:** *include examples e.g. google searches*. Any methods that do not utilise clerical searching could therefore be missing matches that can *only* be made this way, increasing the number of false negatives.
 
+Since a big part of the challenge is confidently ruling out those records without a match that the record linkage algorithms designated as possible matches, it's especially important to know how many false negatives can be permitted. In 2011 (**TODO:** *unsure what is meant by "In 2011" here, as per Rachel email 18th Oct*), the number of true positives (correctly identified matches) evaluated by the Gold Standard was $649\,944$. Rearranging the recall equation to calculate the permitted false negatives given the 97.75% threshold gives: *FN = (TP/R) - TP = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$* (to the nearest whole). 
+
 The evaluation procedure should work as follows. Firstly, a check should be performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check should be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
 
 The nature of the first check will be determined by the methodology in question. For the improved probabilistic and deterministic methods described above in *Improvements in Census to CCS Record Linkage*, this can be done by designating all records not matched as having no matches. Doing this with the improved methods as of November 2019, we can calculate the precision and recall (here shown to 3 d.p.) on 2011 data as per the confusion matrix Figure 1.
@@ -96,10 +98,15 @@ Precision = *TP* / (*TP* + *FP*) = $533\,000$ / ($533\,000$ + 0) = 1.000
 
 Recall = *TP* / (*TP* + *FN*) = $533\,000$ / ($533\,000$ + $12\,000$) = 0.978
 
+**TODO:** *We have assumed here that no matches made are false positives, because all matches made by these methods would have been backed up by the Gold Standard. Is this correct?*
+
 To carry out the first check for the improved methods *including* the pre-search algorithm, clerical resolution decisions should be replaced by most probable match decisions (choosing what would have been the top choice presented to matchers, effectively lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold should all be designated non-match (rather than some being assigned to clerical searching). The precision and recall can be calculated as per the confusion matrix Figure 2.
 
+Precision = *TP* / (*TP* + *FP*) =
 
-As of [the start of November] 2019, improvements to the record linkage methodology have yielded a precision of [x] and a recall of [y] for the 2011 census/CCS data, when evaluated with the Gold Standard. **TODO:** *talk about how good this is and what clerical resolution/searching was done*.
+Recall = *TP* / (*TP* + *FN*) =
+
+To carry out the second check, ONS will carry out a trial of the improved methods in tandem with clerical matching on 2011 data. **TODO**: *Check if this is accurate*.
 
 Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methodology should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of overfitting to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
