@@ -12,14 +12,14 @@ Our main aim below is to specify the challenges faced with regards to this task 
 Background
 =========
 
-In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, the census questions were asked on paper forms, but in 2021 a combination of online forms and paper forms will be used.
+In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries, the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, the census questions were asked on paper forms, but in 2021 a combination of online forms and paper forms will be used.
 
 To calculate the census estimates, an independent enumeration of a sample of 1% of postcodes known as the Census Coverage Survey (CCS) is carried out. This takes place after the census and involves in-person interviews carried out at the selected addresses; data from the occupants is obtained for a small selection of the core census fields: first name, surname, date of birth, sex, marital status, address and occupation.
 
 Census Record Matching
 ---------
 
-The 2011 UK Census estimated that in the UK there are about 65 million people ($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}), with the CCS sampling 1% of postcodes, counting about $600\,000$ people and $340\,000$ households.
+The 2011 UK Census estimated that in the UK there are about 65 million people ($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}$), with the CCS sampling 1% of postcodes, counting about $600\,000$ people and $340\,000$ households.
 
 In the postcodes sampled by the CCS, about $95\,000$ individuals counted by the Census were not matched in the CCS; likewise, there were about $55\,000$ individuals counted by the CCS who were not matched in the Census. These figures are higher than the final estimates of under-enumeration because the sample postcodes were weighted towards areas where high under-enumeration was expected.
 
@@ -28,7 +28,7 @@ Calculating the census estimate relies on records from the CCS being correctly p
 Challenges and Goals
 ------
 
-Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Review of Current Work* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
+Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *The Record Linkage Problem* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
 
 Record matching between the CCS and census is subject to strict precision and recall criteria; precision of at least $99.9\,\%$ and recall of at least $99.75\,\%$.
 
@@ -40,7 +40,7 @@ Thus, ongoing work at ONS aims to minimise (to the greatest degree possible) the
 
 Even after improvements ONS have already made to the automated matching methods (detailed later in the *Review of Current Work* section), 9% of people records were still left to match manually (5% for household records) when testing these methods on 2011 data. ONS predict that of these people matches, a further 8% will be found by clerical resolution, leaving 1% of matches still to make. This 1% (~$5\,300$ matches) could be included anywhere amongst the unmatched CCS records ($55\,000$ in 2011) and unmatched census records from CCS areas ($95\,000$ in 2011). Any method used to replace clerical searching for these very difficult matches should ideally also declare when records do not have a match, in order to avoid clerical searching still being required.
 
-ONS are developing methods to generate a list of possible matches for CCS/census records that could not be automatically labeled as a definite match (or definite non-match), in order to speed up clerical resolution decisions and reduce the number of unmatched records assigned to clerical searching. One challenge here is that if any method requires training data, there will not be any available in advance of it being deployed on the matching days, due to appropriate 2021 census/CCS example records not yet existing. To complicate things further, there is no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early in the matching procedure.
+The next section of this document summarises some of the relevant literature on record linkage.
 
 The Record Linkage Problem
 --------
@@ -151,7 +151,9 @@ One suggestion of what to improve in advance of 2021 could be to make use of the
 
 Another possibility that involves ML could be to replace the distance scoring metrics like the edit distance used for field matching, with a novel algorithm that is more specific to the particular field in question. This could be a ML algorithm trained with 2011 Gold Standard census and CCS field data, which learns the common types of differences found between corresponding fields in matched record pairs. These differences would therefore be penalised (by lowering the score) less by the algorithm than more unusual mismatches when it is used to score a previously unseen field pairing.
 
-Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning algorithm, in addition to the existing probabilistic method. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data. Rather than use the EM algorithm, the values for the weights of record fields could be calculated manually (initially using the 2011 data) and then iteratively improved by the incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, an active learning classifier will pick records from the un-labeled data pool that will improve its accuracy fastest for those indeterminate pairs assigned to clerical matching (and Pre-search) by the initial automatic methods. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis.
+Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning algorithm to enhance the existing probabilistic method. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data. Were the clerical matching procedure to proceed as in 2011, there is however no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early enough on in the matching procedure, so a decision process is required for which record pairs to label first.
+
+Rather than use the EM algorithm, the values for the weights of record fields could be calculated manually (initially using the 2011 data) and then iteratively improved by the incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, an active learning classifier will pick records from the un-labeled data pool that will improve its accuracy fastest for those indeterminate pairs assigned to clerical matching (and Pre-search) by the initial automatic methods. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis.
 
 Any of these suggestions that are used to improve upon the record linkage methodology can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as described earlier in this document (see *Problem Solved?*).
 
