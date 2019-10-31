@@ -25,7 +25,7 @@ In the postcodes sampled by the CCS, about $95\,000$ individuals counted by the 
 
 Calculating the census estimate relies on records from the CCS being correctly paired with census records that correspond to the same person (the same goes for matching households). This is the central challenge the methods discussed in this document seek to address.
 
-Current Challenges
+Challenges and Goals
 ------
 
 Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *Review of Current Work* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
@@ -57,9 +57,7 @@ The methods used for the problem of record linkage fall into the three general c
 
 Deterministic methods use a set of rules based on the constituent fields of each record pair called a "Matchkey" to classify matches. Pairs that don't match according to those rules are classified as non-matches. For example, a Matchkey for a pairing of records that have two equivalent fields could be: Field1 must be an exact match and Field2 must have an edit distance < 3.
 
-Probabilistic methods (most commonly the *Fellegi-Sunter algorithm*) use a Bayesian approach to calculate the probability of each record pair being a match or non-match, based on the product of the set of probabilities of corresponding fields being matches or non-matches between the two records. Pairs falling below a match threshold and above a lower non-match threshold are classified as indeterminate and sent out for clerical matching. Each field used in the calculation is assigned a weight, computed either by an "Expectation Maximisation" algorithm or from the probabilities in training data [@Murray2018].
-
-One key problem with probabilistic record linkage is that it assumes independence of the fields, which is typically not the case. For example, in record linkage between the census and CCS, fields such as first name and date of birth are unlikely to be conditionally independent.
+Probabilistic methods (most commonly the *Fellegi-Sunter algorithm*) use a Bayesian approach to calculate the probability of each record pair being a match or non-match, based on the product of the set of probabilities of corresponding fields being matches or non-matches between the two records. Pairs falling below a match threshold and above a lower non-match threshold are classified as indeterminate and sent out for clerical matching. Each field used in the calculation is assigned a weight, computed either by an "Expectation Maximisation" (EM) algorithm or from the probabilities in training data [@Murray2018].
 
 The next section of this document will explain the improvements to the census-CCS record linkage methodology already made by ONS since 2011.
 
@@ -75,7 +73,7 @@ In order to improve upon determinstic matching of people, a set of matchkeys hav
 
 A new set of matchkeys have also been developed for household record pairing, using household information (tenure, type of property, number of usual residents etc) together with the sets of people records that make up a household occupancy. This method has enabled ONS to make 95% of the matches on the 2011 households Gold Standard.
 
-ONS have also looked into making improvements to the match rate for *Fellegi-Sunter* probabilistic matching. Rather than use the Expectation Maximisation algorithm, the values for the weights of record fields can be calculated manually (initially using the 2011 data) and then iteratively improving this using the matching (both automatic and clerical) carried out in 2021. In addition, changes have been made to the blocking carried out before matching; a single blocking pass is used, bringing together record pairs that match on the postcode field. All other CCS fields are therefore available for use in the actual matching. Testing this approach with 2011 data gave a pairs completeness of $97.8\,\%$. An alternative blocking pass on date of birth has also been attempted in order to capture the remaining $2.2\,\%$, but no extra matches were made using this.
+ONS have also made improvements to the match rate for *Fellegi-Sunter* probabilistic matching. Rather than use the EM algorithm, the values for the weights of record fields can be calculated manually (initially using the 2011 data) and then iteratively improving this using the matching (both automatic and clerical) carried out in 2021. In addition, changes have been made to the blocking carried out before matching; a single blocking pass is used, bringing together record pairs that match on the postcode field. All other CCS fields are therefore available for use in the actual matching. Testing this approach with 2011 data gave a pairs completeness of $97.8\,\%$. An alternative blocking pass on date of birth has also been attempted in order to capture the remaining $2.2\,\%$, but no extra matches were made using this.
 
 Some steps have already been taken to speed up the clerical matching process via a proposed associative people matching method, which also increases the number of automatic matches. Unmatched people in households where the household record has already been matched are given a score using *Fellegi-Sunter*. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Matched households that still contain unmatched people are then sent for clerical resolution, giving the reviewer a household view that clearly shows those people matches already made within the household.
 
@@ -134,21 +132,35 @@ As an alternative to the probabilistic and deterministic methods already discuss
 Machine Learning in Record Linkage
 -------
 
-A common example of machine learning in record linkage has already been discussed in this report; the use of the Expectation Maximisation algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records. This method does not require training data and is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007]. Another example that doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007].
+A common example of machine learning in record linkage has already been discussed in this report; the use of the EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method does not require training data and is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007]. Another example that doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007].
 
-There are a variety of classification algorithms that have been applied to record linkage that require labeled training data, including support vector machine classification and decision trees, but @Christen2012 notes that none of these methods have consistently outperformed probabilistic methods, especially for applications with tens of millions of records. By contrast, methods that rely on neural networks such as single layer perceptrons have been reported to outperform traditional probabilistic methods in some cases [@Wilson2011].
+There are a variety of classification algorithms that have been applied to record linkage that require labeled training data, including support vector machine (SVM) classification and decision trees, but @Christen2012 notes that none of these methods have consistently outperformed probabilistic methods, especially for applications with tens of millions of records. By contrast, methods that rely on neural networks such as single layer perceptrons have been reported to outperform traditional probabilistic methods in some cases [@Wilson2011].
 
 A key difficulty with these methods is that in order for a classifier to become highly accurate, the training data would need to include many examples of matches and non-matches and crucially, examples of both that are ambiguous; the kinds that would be classed as indeterminate by a probabilistic method and sent for clerical matching. In response to this problem, active learning methods have been developed that require far less training data, initially only using labeled record pairs from ambiguous cases (where the uncertainty of match/non-match classification was high). The classifier will initially work for only some un-labeled instances, but can be used to find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate [@Elmagarmid2007]. Those pairs can then be manually labeled, adding to the training data and progressively improving the classifier.
 
 The next section of this report will outline some of the proposed methods not already being explored by ONS for improving both the *Pre-search* algorithm and the overall record linkage methodology with ML.
 
-Suggested Improvements
+Recommendations and Observations
 --------
+
+There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
+
+One potential flaw with probabilistic record linkage is the reliance on the *Naive Bayes* assumption, that the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married. Whilst some of the ML algorithms mentioned in this document that use training data such as SVM, neural networks or gaussian processes would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption, as noted by @Elmagarmid2007.
+
+
+
+
+First name, surname, date of birth, sex, marital status, address and occupation
 
 1. Don’t make Naive Bayes assumption (independence of fields) + use training data e.g. SVM, neural networks, gaussian processes
 2. Make use of the full structure of the feature data, make use of correlations between features. Learn these somehow from training data, this might improve for record with “missings” and “massivley corrupted” fields.
 3. Learn on the way feature mismatches actually occur in 2011 data instead of having rules/ generate those rules
+
+Pre-search improvements
+
 4. Active learning: find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate
+
+Active learning: Make clear that we are improving the pre-search with AL; make it more precise and better recall and crucially would work on 2021 because don’t need training data (probabilistic methods they use currently use training data) or deterministic rules designed for 2011 data and therefore there's no real reason to assume it do worse in 2021 than it does on 2011 data. Also suggest that within probabilistic: they already could use "active learning", at the very least by picking the most likely to be useful to label records being selected on an ad hoc basis (using domain knowledge) rather than algorithmicly. Can we know how much data they will need in 2021?
 
 Next Steps
 ======
