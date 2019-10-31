@@ -90,13 +90,32 @@ In order to determine when the record linkage methods being researched are good 
 
 The evaluation procedure should work as follows. Firstly, a check should be performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check should be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
 
-The nature of this evaluation procedure will be determined by the methodology in question. To check whether clerical matching can be eliminated altogether from the improved methods described above in *Improvements in Census to CCS Record Linkage*, clerical resolution decisions should be replaced by most probable match decisions (effectively by lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold should all be designated non-match (rather than some being assigned to clerical searching). For other methods originally conceived as utilising clerical matching, similar adjustments could be made (see suggestions later in this document under *Suggested Improvements*).
+The nature of the first check will be determined by the methodology in question. For the improved probabilistic and deterministic methods described above in *Improvements in Census to CCS Record Linkage*, this can be done by designating all records not matched as having no matches. Doing this with the improved methods as of November 2019, we can calculate the precision and recall (here shown to 3 d.p.) on 2011 data as per the confusion matrix Figure 1.
 
-**TODO:** *Follow the evaluation procedure above and then fill in the blanks and expand on this:*
+Precision = *TP* / (*TP* + *FP*) = $533\,000$ / ($533\,000$ + 0) = 1.000
+
+Recall = *TP* / (*TP* + *FN*) = $533\,000$ / ($533\,000$ + $12\,000$) = 0.978
+
+To carry out the first check for the improved methods *including* the pre-search algorithm, clerical resolution decisions should be replaced by most probable match decisions (choosing what would have been the top choice presented to matchers, effectively lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold should all be designated non-match (rather than some being assigned to clerical searching). The precision and recall can be calculated as per the confusion matrix Figure 2.
+
 
 As of [the start of November] 2019, improvements to the record linkage methodology have yielded a precision of [x] and a recall of [y] for the 2011 census/CCS data, when evaluated with the Gold Standard. **TODO:** *talk about how good this is and what clerical resolution/searching was done*.
 
 Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methodology should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of overfitting to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
+
+**Figure 1.**
+
+|   | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **Actual Match**  | $533\,000$ (*TP*) | $12\,000$ (*FN*) |
+| **Actual Non-Match**  | 0 (*FP*) | $55\,000$ (*TN*) |
+
+**Figure 2.**
+
+|   | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **Actual Match**  | X (*TP*) | X (*FN*) |
+| **Actual Non-Match**  | X (*FP*) | X (*TN*) |
 
 Beyond Current Methods
 =======
