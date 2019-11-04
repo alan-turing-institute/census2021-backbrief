@@ -59,7 +59,7 @@ Deterministic methods use a set of rules based on the constituent fields of each
 
 Probabilistic methods (most commonly the *Fellegi-Sunter algorithm*) use a Bayesian approach to calculate the probability of each record pair being a match or non-match, based on the product of the set of probabilities of corresponding fields being matches or non-matches between the two records. Pairs falling below a match threshold and above a lower non-match threshold are classified as indeterminate and sent out for clerical matching. Each field used in the calculation is assigned a weight, computed either by an "Expectation Maximisation" (EM) algorithm or from the probabilities in training data [@Murray2018].
 
-The next section of this document will explain the improvements to the census-CCS record linkage methodology already made by ONS since 2011.
+Alternative machine learning methods for record linkage are discussed later in this document; the next section explains the improvements to the deterministic and probabilistic census-CCS record linkage methods already made by ONS since 2011.
 
 Review of Current Work
 ========
