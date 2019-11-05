@@ -12,12 +12,12 @@ Our main aim below is to specify the challenges faced with regards to this task 
 Background
 =========
 
+The UK Census and Census Coverage Survey
+----
+
 In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries, the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, most people filled out the census on provided paper forms, with 16% of respondents choosing to do so online. A key difference in 2021 will be that online forms will be the default, with paper forms only being provided upon request.
 
 To calculate the census estimates, an independent enumeration of a sample of 1% of postcodes known as the Census Coverage Survey (CCS) is carried out. This takes place after the census and involves in-person interviews carried out at the selected addresses; data from the occupants is obtained for a small selection of the core census fields: first name, surname, date of birth, sex, marital status, address and occupation.
-
-Census Record Matching
----------
 
 The 2011 UK Census estimated that in the UK there are about 65 million people ($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}$), with the CCS sampling 1% of postcodes, counting about $600\,000$ people and $340\,000$ households.
 
@@ -25,7 +25,7 @@ In the postcodes sampled by the CCS, about $95\,000$ individuals counted by the 
 
 Calculating the census estimate relies on records from the CCS being correctly paired with census records that correspond to the same person (the same goes for matching households). This is the central challenge the methods discussed in this document seek to address.
 
-Challenges and Goals
+The challenge of record matching
 ------
 
 Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *The Record Linkage Problem* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
@@ -42,7 +42,7 @@ Even after improvements ONS have already made to the automated matching methods 
 
 The next section of this document summarises some of the relevant literature on record linkage.
 
-The Record Linkage Problem
+Review of the "Record Linkage" problem
 --------
 
 There are many databases containing records that refer to real-world entities, such as people. There are also a variety of problems for which information on the same entity must be gathered from multiple databases. In order to combine or compare information on these entities from different databases, there must be a robust method for determining which records refer to the same entity. In cases like that of the census and CCS, the challenge is complicated by the reality of missing or inaccurate data in records that should be matched i.e. those that refer to the same person.
@@ -61,7 +61,7 @@ Probabilistic methods (most commonly the *Fellegi-Sunter algorithm*) use a Bayes
 
 Alternative machine learning methods for record linkage are discussed later in this document; the next section explains the improvements to the deterministic and probabilistic census-CCS record linkage methods already made by ONS since 2011.
 
-Review of Current Work
+Progress since the 2011 Census
 ========
 
 ONS have begun to improve upon the methods used for record linkage between the 2011 census and CCS. Based on the improvements so far (as of November 2019), ONS predict that in 2021, 91% of people records, and 95% of household records can be matched automatically (compared with 70% and 60% respectively in 2011). In this section of the document, the key improvements to the methodology that resulted in this performance increase will be detailed.
@@ -81,7 +81,7 @@ In starting to address the key objective of speeding up the clerical matching pr
 
 This method is already working well; when there is a match (as evaluated by the 2011 Gold Standard), it appears as the first record on the list 89% of the time and in the top 20 98% of the time (to the nearest percentage points).
 
-Problem solved?
+How close are we to full automation?
 ----------
 
 In order to determine when the improved record linkage methods being researched are good enough to be considered ready for the 2021 census, they will be evaluated to assess whether the strict precision and recall requirements of $99.9\,\%$ and and $99.75\,\%$ respectively have been met. To achieve this, the improved methods will be tested on 2011 census/CCS data and the performance evaluated against the 2011 Gold Standard. The caveat here; there is no *guarantee* that methods meeting the precision/recall requirements on 2011 data will do so on 2021 data. It is therefore important that ONS are confident these methods are not overfitted to 2011 data when their performance is evaluated.
@@ -132,12 +132,12 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 : Deterministic {#tbl:table2}
 
-Beyond Current Methods
+Can "Machine Learning" help?
 =======
 
 As an alternative to the probabilistic and deterministic methods already discussed, a variety of ML algorithms have been applied to record linkage problems. Broadly, these methods can be grouped as follows: those that require large amounts of training data in the form of record pairs pre-labeled as matches and non-matches, those that find the record pairs for which labelling will improve match/non-match classification and those that do not require any training data.
 
-Machine Learning in Record Linkage
+Machine Learning approaches to Record Linkage
 -------
 
 A common example of machine learning in record linkage has already been discussed in this report; the use of the EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method does not require training data and is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007]. Another example that doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007].
@@ -148,7 +148,10 @@ A key difficulty with these methods is that in order for a classifier to become 
 
 The next section of this report will outline some of the proposed methods not already being explored by ONS for improving both the *Pre-search* algorithm and the overall record linkage methodology with ML.
 
-Recommendations and Observations
+Existing use of Machine Learning by ONS
+------
+
+Potential extensions and new approaches
 --------
 
 There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
