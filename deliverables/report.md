@@ -88,25 +88,46 @@ In order to determine when the improved record linkage methods being researched 
 
 This evaluation can be used to judge to what extent clerical searching and resolution will be required in 2021, given the constraints (shorter time period and fewer clerical matching staff than 2011). It's important to note that some of the methods used for clerical searching in 2011 can't possibly be performed by an algorithm. For example, some searchers made use of Google, including searching for name relations that were not obvious (e.g. Pepik as a nickname for Josef in Czech) and searching Google Maps to see if they could spot an additional property at an address. Others took a closer look at the paper census forms, finding some relevant information had been written outside of the response boxes and missed when the forms were first scanned. Any methods that do not utilise clerical searching could therefore be missing matches that can *only* be made this way, increasing the number of false negatives. It's worth noting however that these kinds of manual methods could still be useful for confirming (or rejecting) the candidate matches thrown up by the *Pre-search* algorithm in 2021.
 
-Since a big part of the challenge is confidently ruling out those records without a match that the record linkage algorithms designated as possible matches, it's especially important to know how many false negatives can be permitted. In 2011 (**TODO:** *unsure what is meant by "In 2011" here, as per Rachel email 18th Oct. Is the following calculation making the assumption that ALL TP will be found?*), the number of true positives (correctly identified matches) evaluated by the Gold Standard was $649\,944$. Rearranging the recall equation to calculate the permitted false negatives (*FN*) given the 97.75% recall threshold (*R*) gives:
+Since a big part of the challenge is confidently ruling out those records without a match that the record linkage algorithms designated as possible matches, it's especially important to know how many false negatives can be permitted. In 2011, the number of matches on the Gold Standard was $649\,944$. We expect automated methods to give zero false positives due to their being conservative (with ambiguous match/non-match pairs being sent to clerical matching). This means we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the 97.75% recall threshold (*R*) and the assumption that all matches are true positives (*TP*):
 
-*FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole, where *TP* is the number of true positives).
+*FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole).
+
+In other words, when we are evaluating the performance of newer methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed.
+
+How well did 2011 automatic methods do?
+#tbl:table1
+
+Precision = *TP* / (*TP* + *FP*) = $454\,961$ / ($454\,961$ + 0) = 100.000%
+
+Recall = *TP* / (*TP* + *FN*) = $454\,961$ / ($454\,961$ + $194\,983$) = 70.000%
+
+In other words, 70% of the matches were found by automatic methods.
+
+#tbl:table2
+
+Precision = *TP* / (*TP* + *FP*) = $551\,613$ / ($551\,613$ + 0) = 100.000%
+
+Recall = *TP* / (*TP* + *FN*) = $551\,613$ / ($551\,613$ + $98\,331$) = 84.871%
+
+#tbl:table3
+
+Precision = *TP* / (*TP* + *FP*) = $572\,966$ / ($572\,966$ + 0) = 100.000%
+
+Recall = *TP* / (*TP* + *FN*) = $572\,966$ / ($572\,966$ + $76\,978$) = 88.157%
+
+#tbl:table4
+
+Precision = *TP* / (*TP* + *FP*) = $585\,417$ / ($585\,417$ + 0) = 100.000%
+
+Recall = *TP* / (*TP* + *FN*) = $585\,417$ / ($585\,417$ + $64\,527$) = 90.072%
+
+To get the recall down to 97.75% using purely automated methods we'd need to reduce the FN's from $64\,527$ to $1\,629$. *Or if the methods were relaxed to allow some FP's that brought the precision down to 99.90%, we could allow X FN's. See Figure 1 (ROC curve) that shows this in more detail.*
 
 The evaluation of improved methods works as follows. Firstly, a check is performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check will be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
 
-The nature of the first check will be determined by the methodology in question. For the improved probabilistic and deterministic methods described above in *Improvements in Census to CCS Record Linkage*, this can be done by designating all records not matched as having no matches. Doing this with the improved methods as of November 2019, we can calculate the precision and recall (here shown to 3 d.p.) on 2011 data as per the confusion matrix Figure 1.
-
-Precision = *TP* / (*TP* + *FP*) = $533\,000$ / ($533\,000$ + 0) = 1.000
-
-Recall = *TP* / (*TP* + *FN*) = $533\,000$ / ($533\,000$ + $12\,000$) = 0.978
-
-**TODO:** *We have assumed here that no matches made are false positives, because all matches made by these methods would have been backed up by the Gold Standard. Is this correct?*
+The nature of the first check will be determined by the methodology in question. For the improved probabilistic and deterministic methods described above in *Improvements in Census to CCS Record Linkage*, this can be done by designating all records not matched as having no matches. Doing this with the improved methods as of November 2019, we can calculate the precision and recall (here shown to 3 d.p.) on 2011 data as per the confusion matrix Table X.
 
 To carry out the first check for the improved methods *including* the pre-search algorithm, clerical resolution decisions should be replaced by most probable match decisions (choosing what would have been the top choice presented to matchers, effectively lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold should all be designated non-match (rather than some being assigned to clerical searching). The precision and recall can be calculated as per the confusion matrix Figure 2.
-
-Precision = *TP* / (*TP* + *FP*) =
-
-Recall = *TP* / (*TP* + *FN*) =
 
 To carry out the second check, ONS will carry out a trial of the improved methods in tandem with clerical matching on 2011 data. **TODO**: *Check if this is accurate*.
 
@@ -120,24 +141,31 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **GS Match**  | *TP*: $533\,000$ | *FN*: $12\,000$ |
-| **GS Non-Match**  | *FP*: 0 | *TN*: $55\,000$ |
+| **GS Match**  | *TP*: $454\,961$ | *FN*: $194\,983$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
 : Matches and Non-Matches found by automated record linkage methods used in 2011, including deterministic and probabilistic methods (Predicted) as evaluated by the 2011 Gold Standard (GS).  {#tbl:table1}
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **GS Match**  | *TP*: $533\,000$ | *FN*: $12\,000$ |
-| **GS Non-Match**  | *FP*: 0 | *TN*: $55\,000$ |
+| **GS Match**  | *TP*: $551\,613$ | *FN*: $98\,331$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
 :  Matches and Non-Matches found by improved deterministic record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table2}
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **GS Match**  | *TP*: $533\,000$ | *FN*: $12\,000$ |
-| **GS Non-Match**  | *FP*: 0 | *TN*: $55\,000$ |
+| **GS Match**  | *TP*: $572\,966$ | *FN*: $76\,978$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
 :  Matches and Non-Matches found by improved probabilistic and deterministic record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table3}
+
+|  | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **GS Match**  | *TP*: $585\,417$ | *FN*: $64\,527$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
+
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table3}
 
 Can "Machine Learning" help?
 =======
