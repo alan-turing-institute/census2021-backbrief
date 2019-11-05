@@ -116,21 +116,28 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 
 
---
+-------------------------------------------------------------------------------------------
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **Actual Match**  | $533\,000$ (*TP*) | $12\,000$ (*FN*) |
-| **Actual Non-Match**  | 0 (*FP*) | $55\,000$ (*TN*) |
+| **GS Match**  | *TP*: $533\,000$ | *FN*: $12\,000$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $55\,000$ |
 
-: Blah {#tbl:table1}
+: Matches and Non-Matches found by automated record linkage methods used in 2011, including deterministic and probabilistic methods (Predicted) as evaluated by the 2011 Gold Standard (GS).  {#tbl:table1}
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **Actual Match**  | X (*TP*) | X (*FN*) |
-| **Actual Non-Match**  | X (*FP*) | X (*TN*) |
+| **GS Match**  | *TP*: $533\,000$ | *FN*: $12\,000$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $55\,000$ |
 
-: Deterministic {#tbl:table2}
+:  Matches and Non-Matches found by improved deterministic record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table2}
+
+|  | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **GS Match**  | *TP*: $533\,000$ | *FN*: $12\,000$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $55\,000$ |
+
+:  Matches and Non-Matches found by improved probabilistic and deterministic record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table3}
 
 Can "Machine Learning" help?
 =======
