@@ -118,17 +118,19 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 --
 
-| **Figure 1.**  | **Predicted Match**  | **Predicted Non-Match**  |
+|  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
 | **Actual Match**  | $533\,000$ (*TP*) | $12\,000$ (*FN*) |
 | **Actual Non-Match**  | 0 (*FP*) | $55\,000$ (*TN*) |
 
+: Table 1 {#tbl:table1}
 
-
-| **Figure 2.**  | **Predicted Match**  | **Predicted Non-Match**  |
+|  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
 | **Actual Match**  | X (*TP*) | X (*FN*) |
 | **Actual Non-Match**  | X (*FP*) | X (*TN*) |
+
+: Table 2 {#tbl:table2}
 
 Beyond Current Methods
 =======
