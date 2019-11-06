@@ -79,7 +79,7 @@ Some steps have already been taken to speed up the clerical matching process via
 
 In starting to address the key objective of speeding up the clerical matching procedure, ONS have developed a *Pre-search* algorithm, which is applied to the CCS and census records assigned for clerical resolution by the prior automated matching methods before the more laborious clerical searching is attempted. This algorithm finds potential candidates for pairing using very loose blocking, ranks them using *Fellegi-Sunter* scoring, and then sends them for clerical resolution, with the human matcher making the final decision as to whether there is a match and which of the top 20 ranked candidates it is. The ultimate goal would be to be able to say with confidence that if the matching record is not amongst the top 20 candidates presented to the human matcher, then there is no match for that record.
 
-The *Pre-search* algorithm is already working well; when there is a match predicted for a given 2011 census/CCS record pair assigned to *Pre-search* by prior methods, it appears as the first record on the list 89% of the time and in the top 20 98% of the time (to the nearest percentage points, as evaluated by the 2011 Gold Standard).
+The *Pre-search* algorithm is already working well; when there is a match predicted for a given 2011 CCS record assigned to *Pre-search* by prior methods, it appears as the first record on the list 89% of the time and in the top 20 98% of the time (to the nearest percentage points, as evaluated by the 2011 Gold Standard).
 
 How close are we to full automation?
 ----------
@@ -88,73 +88,25 @@ In order to determine when the improved record linkage methods being researched 
 
 This evaluation can be used to judge to what extent clerical searching and resolution will be required in 2021, given the constraint of the shorter time period meaning fewer clerical matching man-hours than 2011. It's important to note that some of the methods used for clerical searching in 2011 can't possibly be performed by an algorithm. For example, some searchers made use of Google, including searching for name relations that were not obvious (e.g. Pepik as a nickname for Josef in Czech) and searching Google Maps to see if they could spot an additional property at an address. Other searchers took a closer look at the paper census forms, finding some relevant information had been written outside of the response boxes and missed when the forms were first scanned. Any methods that do not utilise clerical searching could therefore be missing matches that can *only* be made this way, increasing the number of false negatives. It's worth noting that these kinds of manual methods could also be useful for confirming (or rejecting) the candidate matches suggested by the *Pre-search* algorithm in 2021.
 
-Since a big part of the challenge is confidently ruling out those records without a match, it's especially important to know how many false negatives can be permitted. In 2011, the number of matches on the Gold Standard was $649\,944$. ONS expect automated methods to give zero false positives (matches not on the Gold Standard) due to their being conservative, with ambiguous match/non-match pairs being sent to *Pre-search* and clerical matching. ONS found that that the small numbers of false positives that were found (according to the Gold Standard) looked like good matches that were missed in 2011. For example, some of these were due to the existence of duplicates, with the false positive being a match to a different copy than the one on the Gold Standard. For these reasons, we take the false positives to be zero for all methods evaluated in this document.
+Since a big part of the challenge is confidently ruling out those records without a match, it's especially important to know how many false negatives can be permitted. In 2011, the number of matches on the Gold Standard was $649\,944$. ONS expect automated methods to give zero false positives (matches not on the Gold Standard) due to their being conservative, with ambiguous match/non-match pairs being sent to *Pre-search* and clerical matching. ONS found that that the small numbers of false positives that were found (according to the Gold Standard) looked like good matches that were missed in 2011. For example, some of these were due to the existence of duplicates, with the false positive being a match to a different copy than the one on the Gold Standard. For these reasons, we take the false positives to be zero for all methods evaluated in this document. Since the total number of unmatched CCS records in 2011 was $59\,527$, we can consider the number of true negatives in the confusion matrices below (Tables 1-6) to be $59\,527$, when considering false positives zero.
 
-Therefore, given the assumption that all matches are true positives (*TP*):, we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the 97.75% recall threshold (*R*):
+Given the assumption that all matches are true positives (*TP*):, we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the 97.75% recall threshold (*R*):
 
 *FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole).
 
-In other words, when we are evaluating the performance of newer methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed.
+In other words, when we are evaluating the performance of improved methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed. Since we know that 70% of the matches in 2011 were found using automatic methods, we can use this as a baseline from which to evaluate the performance increases in 2019 methods, given the goal of maximising the extent to which record linkage can be done automatically. @tbl:table1 shows that the 2011 automatic methods missed $194\,983$ matches that were ultimately found by clerical matching.
 
+The assumption that there are no false positives means that the precision for each of the methods in Tables 1-6 is always 100% and the recall (*TP* / (*TP* + *FN*)) can be used to say what percentage of the Gold Standard matches are found after each method is tested; this is summarised in the following list:
 
+1. Deterministic: 84.871% (see @tbl:table2)
+2. Probabilistic: 88.157% (see @tbl:table3)
+3. Associative  : 90.072% (see @tbl:table4)
 
-How well did 2011 automatic methods do?
-#tbl:table1
+To get the recall up to 97.75% using purely automated methods, an extra $62\,898$ would therefore need to be found ($64\,527$ - $1\,629$). **TODO:** *Or if the methods were relaxed to allow some FP's that brought the precision down to 99.90%, we could allow X FN's. See Figure 1 (ROC curve) that shows this in more detail.*
 
-Precision = *TP* / (*TP* + *FP*) = $454\,961$ / ($454\,961$ + 0) = 100.000%
+We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Felligi-Sunter* and household-associative). @tbl:table5 suggests that up to 91.971% of matches will be found when clerical matchers are presented with a single highest scoring possible match to decide on and up to 92.155% will be found when they are able to choose from the top 20.
 
-Recall = *TP* / (*TP* + *FN*) = $454\,961$ / ($454\,961$ + $194\,983$) = 70.000%
-
-In other words, 70% of the matches were found by automatic methods.
-
-#tbl:table2
-
-Precision = *TP* / (*TP* + *FP*) = $551\,613$ / ($551\,613$ + 0) = 100.000%
-
-Recall = *TP* / (*TP* + *FN*) = $551\,613$ / ($551\,613$ + $98\,331$) = 84.871%
-
-#tbl:table3
-
-Precision = *TP* / (*TP* + *FP*) = $572\,966$ / ($572\,966$ + 0) = 100.000%
-
-Recall = *TP* / (*TP* + *FN*) = $572\,966$ / ($572\,966$ + $76\,978$) = 88.157%
-
-#tbl:table4
-
-Precision = *TP* / (*TP* + *FP*) = $585\,417$ / ($585\,417$ + 0) = 100.000%
-
-Recall = *TP* / (*TP* + *FN*) = $585\,417$ / ($585\,417$ + $64\,527$) = 90.072%
-
-To get the recall down to 97.75% using purely automated methods we'd need to reduce the number of missed matches from $64\,527$ to $1\,629$. *Or if the methods were relaxed to allow some FP's that brought the precision down to 99.90%, we could allow X FN's. See Figure 1 (ROC curve) that shows this in more detail. We can't calculate this, Rachel has to*
-
-#tbl:table5
-
-Precision = *TP* / (*TP* + *FP*) = $597\,658$ / ($597\,658$ + 0) = 100.000%
-
-Recall = *TP* / (*TP* + *FN*) = $597\,658$ / ($597\,658$ + $52\,286$) = 91.971%
-
-#tbl:table6
-
-Precision = *TP* / (*TP* + *FP*) = $598\,954$ / ($598\,954$ + 0) = 100.000%
-
-Recall = *TP* / (*TP* + *FN*) = $598\,954$ / ($598\,954$ + $50\,990$) = 92.155%
-
-The evaluation of improved methods works as follows. Firstly, a check is performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check will be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
-
-The nature of the first check will be determined by the methodology in question. For the improved probabilistic and deterministic methods described above in *Improvements in Census to CCS Record Linkage*, this can be done by designating all records not matched as having no matches. Doing this with the improved methods as of November 2019, we can calculate the precision and recall (here shown to 3 d.p.) on 2011 data as per the confusion matrix Table X.
-
-To carry out the first check for the improved methods *including* the pre-search algorithm, clerical resolution decisions should be replaced by most probable match decisions (choosing what would have been the top choice presented to matchers, effectively lowering the match threshold for *Fellegi-Sunter* scoring) and record pairs below a lower threshold should all be designated non-match (rather than some being assigned to clerical searching). The precision and recall can be calculated as per the confusion matrix Figure 2.
-
-To carry out the second check, ONS will carry out a trial of the improved methods in tandem with clerical matching on 2011 data. **TODO**: *Check if this is accurate*.
-
-Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methodology should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
-
-
-* Pre-search algorithm performance
-Table 5 should be including pre-search if the top choice was always selected by the reviewer. Table 6 should be the additionals assuming that the reviewer would correctly choose the right match from the top 20 when it is in the top 20.
-
-Conclusion:
-This implies we still need clerical searching or improved methods.
+Since the recall threshold has not yet been met, these methods cannot yet eliminate clerical searching, even when clerical resolution is used in tandem with the *Pre-search* algorithm. Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
 -------------------------------------------------------------------------------------------
 
