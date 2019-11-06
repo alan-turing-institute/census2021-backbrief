@@ -171,7 +171,14 @@ Table 5 should be including pre-search if the top choice was always selected by 
 | **GS Match**  | *TP*: $585\,417$ | *FN*: $64\,527$ |
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
-:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table3}
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019 on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table4}
+
+|  | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **GS Match**  | *TP*: $597\,658$ | *FN*: $52\,286$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
+
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher accepted the top match candidates from the *Pre-search* algorithm on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table5}
 
 Can "Machine Learning" help?
 =======
