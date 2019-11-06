@@ -166,33 +166,41 @@ A key difficulty with these methods is that in order for a classifier to become 
 
 The next section of this report will outline some of the methods being researched (or already implemented) by ONS that can be considered examples of ML.
 
-Existing use of Machine Learning by ONS
+Uses of Machine Learning by ONS
 ------
 
 One example of ML for record linkage doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007]. This idea is rooted in a use of machine learning already discussed in this report; the use of the EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007].
 
 As an alternative to using the EM algorithm, ONS plan to calculate values for the weights of record fields with 2011 record pairing decisions as initial training data, then iteratively improve these weights with incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, an active learning classifier will pick records from the un-labeled data pool that will improve its accuracy fastest for those indeterminate pairs assigned to clerical matching (and Pre-search) by the initial automatic methods. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis.
 
-In the next section, suggestions for further improvement of ONS's record linkage methodology with examples of active learning and other ML methods are made.
+In the next section, suggestions for further improvement of ONS's record linkage methodology are made, including the use of active learning and other ML methods.
 
 Potential extensions and new approaches
 --------
 
 There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
 
-One potential flaw with probabilistic record linkage is the reliance on the *Naive Bayes* assumption, that the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married. Whilst some of the ML algorithms mentioned in this document that use training data such as SVM, neural networks or gaussian processes would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption, as noted by @Elmagarmid2007.
+Part of the collaboration discussions involved thinking about the reliance on the *Naive Bayes* assumption in probabilistic record linkage; the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married.
 
-One suggestion of what to improve in advance of 2021 could be to make use of the full structure of the census data, including fields that are not present in the CCS, in order to reduce the impact that missing, incomplete or corrupted field data has on record linkage. This could involve writing deterministic rules about associations between other census fields and those fields present in the CCS or using 2011 census records as training data for machine learning to uncover these associations.
+Whilst some ML algorithms using training data (e.g. SVM, neural networks or gaussian processes) would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption.
+
+The collaboration discussions also yielded several key recommendations for further improvement of the record linkage methods, which are outlined in the following paragraphs and can be summarised as follows:
+
+1. Utilising information from census fields not present in the CCS to aid matching
+2. Using machine learning to create improved distance metrics for field matching
+3. Enhancing the *Pre-search* algorithm with active learning
+
+Making use of the full structure of the census data, including fields that are not present in the CCS, could potentially reduce the impact that missing, incomplete or corrupted field data has on record linkage. This could involve writing deterministic rules about associations between other census fields and those fields present in the CCS or using 2011 census records as training data for machine learning to uncover these associations.
 
 Another possibility that involves ML could be to replace the distance scoring metrics like the edit distance used for field matching, with a novel algorithm that is more specific to the particular field in question. This could be a ML algorithm trained with 2011 Gold Standard census and CCS field data, which learns the common types of differences found between corresponding fields in matched record pairs. These differences would therefore be penalised (by lowering the score) less by the algorithm than more unusual mismatches when it is used to score a previously unseen field pairing.
 
-Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning algorithm to enhance the existing probabilistic method. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data. Were the clerical matching procedure to proceed as in 2011, there is however no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early enough on in the matching procedure, so a decision process is required for which record pairs to label first.
+Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning algorithm to enhance the existing probabilistic method. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data.
 
 * Here talk about active learning examples
 
+Were the clerical matching procedure to proceed as in 2011, there is however no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early enough on in the matching procedure, so a decision process may required for which record pairs to label first.
 
-
-Any of these suggestions that are used to improve upon the record linkage methodology can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as described earlier in this document (see *Problem Solved?*).
+Any of these suggestions that are used to improve upon the record linkage methodology can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as has been done earlier in this document for the current methods (see *How close are we to full automation?*).
 
 The next section of this document will outline the next steps to be taken in advance of the 2021 census being carried out.
 
