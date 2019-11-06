@@ -94,17 +94,17 @@ Given the assumption that all matches are true positives (*TP*):, we can rearran
 
 *FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole).
 
-In other words, when we are evaluating the performance of improved methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed. Since we know that 70% of the matches in 2011 were found using automatic methods, we can use this as a baseline from which to evaluate the performance increases in 2019 methods, given the goal of maximising the extent to which record linkage can be done automatically. @tbl:table1 shows that the 2011 automatic methods missed $194\,983$ matches that were ultimately found by clerical matching.
+In other words, when we are evaluating the performance of improved methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed. Since we know that 70% of the matches in 2011 were found using automatic methods, we can use this as a baseline from which to evaluate the performance increases in 2019 methods, given the goal of maximising the extent to which record linkage can be done automatically. Table 1 shows that the 2011 automatic methods missed $194\,983$ matches that were ultimately found by clerical matching.
 
 The assumption that there are no false positives means that the precision for each of the methods in Tables 1-6 is always 100% and the recall (*TP* / (*TP* + *FN*)) can be used to say what percentage of the Gold Standard matches are found after each method is tested; this is summarised in the following list:
 
-1. Deterministic: 84.871% (see @tbl:table2)
-2. Probabilistic: 88.157% (see @tbl:table3)
-3. Associative  : 90.072% (see @tbl:table4)
+1. Deterministic: 84.871% (see Table 2)
+2. Probabilistic: 88.157% (see Table 3)
+3. Associative  : 90.072% (see Table 4)
 
 To get the recall up to 97.75% using purely automated methods, an extra $62\,898$ would therefore need to be found ($64\,527$ - $1\,629$). **TODO:** *Or if the methods were relaxed to allow some FP's that brought the precision down to 99.90%, we could allow X FN's. See Figure 1 (ROC curve) that shows this in more detail.*
 
-We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Felligi-Sunter* and household-associative). @tbl:table5 suggests that up to 91.971% of matches will be found when clerical matchers are presented with a single highest scoring possible match to decide on and up to 92.155% will be found when they are able to choose from the top 20.
+We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Felligi-Sunter* and household-associative). Table 5 suggests that up to 91.971% of matches will be found when clerical matchers are presented with a single highest scoring possible match to decide on and Table 6 shows up to 92.155% will be found when they are able to choose from the top 20.
 
 Since the recall threshold has not yet been met, these methods cannot yet eliminate clerical searching, even when clerical resolution is used in tandem with the *Pre-search* algorithm. Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
