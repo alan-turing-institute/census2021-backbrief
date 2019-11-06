@@ -127,7 +127,17 @@ Recall = *TP* / (*TP* + *FN*) = $585\,417$ / ($585\,417$ + $64\,527$) = 90.072%
 
 To get the recall down to 97.75% using purely automated methods we'd need to reduce the number of missed matches from $64\,527$ to $1\,629$. *Or if the methods were relaxed to allow some FP's that brought the precision down to 99.90%, we could allow X FN's. See Figure 1 (ROC curve) that shows this in more detail. We can't calculate this, Rachel has to*
 
+#tbl:table5
 
+Precision = *TP* / (*TP* + *FP*) = $597\,658$ / ($597\,658$ + 0) = 100.000%
+
+Recall = *TP* / (*TP* + *FN*) = $597\,658$ / ($597\,658$ + $52\,286$) = 91.971%
+
+#tbl:table6
+
+Precision = *TP* / (*TP* + *FP*) = $598\,954$ / ($598\,954$ + 0) = 100.000%
+
+Recall = *TP* / (*TP* + *FN*) = $598\,954$ / ($598\,954$ + $50\,990$) = 92.155%
 
 The evaluation of improved methods works as follows. Firstly, a check is performed as to whether clerical matching can be eliminated entirely, because purely automated methods can already meet the precision/recall requirements. Secondly, a check will be performed as to whether clerical searching can be eliminated whilst clerical resolution is still required. If this second option proves adequate, it would then also be worth testing whether clerical resolution can be sped up via only presenting the reviewer with the top candidate, rather than a ranked list.
 
@@ -142,6 +152,9 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 * Pre-search algorithm performance
 Table 5 should be including pre-search if the top choice was always selected by the reviewer. Table 6 should be the additionals assuming that the reviewer would correctly choose the right match from the top 20 when it is in the top 20.
+
+Conclusion:
+This implies we still need clerical searching or improved methods.
 
 -------------------------------------------------------------------------------------------
 
