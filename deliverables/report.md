@@ -160,16 +160,20 @@ As an alternative to the probabilistic and deterministic methods already discuss
 Machine Learning approaches to Record Linkage
 -------
 
-A common example of machine learning in record linkage has already been discussed in this report; the use of the EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method does not require training data and is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007]. Another example that doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007].
-
 There are a variety of classification algorithms that have been applied to record linkage that require labeled training data, including support vector machine (SVM) classification and decision trees, but @Christen2012 notes that none of these methods have consistently outperformed probabilistic methods, especially for applications with tens of millions of records. By contrast, methods that rely on neural networks such as single layer perceptrons have been reported to outperform traditional probabilistic methods in some cases [@Wilson2011].
 
 A key difficulty with these methods is that in order for a classifier to become highly accurate, the training data would need to include many examples of matches and non-matches and crucially, examples of both that are relatively ambiguous; the kinds that would be classed as indeterminate by a probabilistic method and sent for clerical matching. In response to this problem, active learning methods have been developed that require far less training data, initially only using labeled record pairs from ambiguous cases (where the uncertainty of match/non-match classification was high). The classifier will initially work for only some un-labeled instances, but can be used to find record pairs in the un-labeled data pool which, when labeled, will improve the accuracy of the classifier at the fastest possible rate [@Elmagarmid2007]. Those pairs can then be manually labeled, adding to the training data and progressively improving the classifier.
 
-The next section of this report will outline some of the proposed methods not already being explored by ONS for improving both the *Pre-search* algorithm and the overall record linkage methodology with ML.
+The next section of this report will outline some of the methods being researched (or already implemented) by ONS that can be considered examples of ML.
 
 Existing use of Machine Learning by ONS
 ------
+
+One example of ML for record linkage doesn't require training data involves the use clustering algorithms to group together similar comparison vectors (which contain information about the differences between fields in a pair of records), with the idea being that similar comparison vectors correspond to the same class (i.e. match, non-match or possible match) [@Elmagarmid2007]. This idea is rooted in a use of machine learning already discussed in this report; the use of the EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007].
+
+As an alternative to using the EM algorithm, ONS plan to calculate values for the weights of record fields with 2011 record pairing decisions as initial training data, then iteratively improve these weights with incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, an active learning classifier will pick records from the un-labeled data pool that will improve its accuracy fastest for those indeterminate pairs assigned to clerical matching (and Pre-search) by the initial automatic methods. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis.
+
+In the next section, suggestions for further improvement of ONS's record linkage methodology with examples of active learning and other ML methods are made.
 
 Potential extensions and new approaches
 --------
@@ -184,7 +188,9 @@ Another possibility that involves ML could be to replace the distance scoring me
 
 Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning algorithm to enhance the existing probabilistic method. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data. Were the clerical matching procedure to proceed as in 2011, there is however no guarantee that the kinds of difficult-to-match record pairs that a learning algorithm might find useful are likely to arise early enough on in the matching procedure, so a decision process is required for which record pairs to label first.
 
-Rather than use the EM algorithm, the values for the weights of record fields could be calculated manually (initially using the 2011 data) and then iteratively improved by the incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, an active learning classifier will pick records from the un-labeled data pool that will improve its accuracy fastest for those indeterminate pairs assigned to clerical matching (and Pre-search) by the initial automatic methods. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis.
+* Here talk about active learning examples
+
+
 
 Any of these suggestions that are used to improve upon the record linkage methodology can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as described earlier in this document (see *Problem Solved?*).
 
