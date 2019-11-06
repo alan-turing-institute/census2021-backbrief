@@ -178,7 +178,14 @@ Table 5 should be including pre-search if the top choice was always selected by 
 | **GS Match**  | *TP*: $597\,658$ | *FN*: $52\,286$ |
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
-:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher accepted the top match candidates from the *Pre-search* algorithm on 2011 Census/CCS records (Predicted) as evaluated by the 2011 Gold Standard (GS). {#tbl:table5}
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as the top scoring candidate by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with only the top candidate in each case and declares a match cannot be found if this looks wrong, but will choose *all* those that are a match on the Gold Standard. {#tbl:table5}
+
+|  | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **GS Match**  | *TP*: $598\,954$ | *FN*: $50\,990$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
+
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table6}
 
 Can "Machine Learning" help?
 =======
