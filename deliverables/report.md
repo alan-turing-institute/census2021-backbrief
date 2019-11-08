@@ -15,13 +15,13 @@ Background
 The UK Census and Census Coverage Survey
 ----
 
-In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries, the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, most people filled out the census on provided paper forms, with 16% of respondents choosing to do so online. A key difference in 2021 will be that online forms will be the default, with paper forms only being provided upon request.
+In the UK, the national census is carried out every 10 years, in order to measure the population size and demographics. In some countries, the census count itself is published; the UK aims to provide a census estimate, adjusted for the "undercount" and "overcount" occurring when people are missed or counted multiple times. In 2011, most people filled out the census on provided paper forms, with 16% of respondents choosing to do so online. A key difference in 2021 will be that for most people, online forms will be the default, with paper forms only being provided upon request.
 
 To calculate the census estimates, an independent enumeration of a sample of 1% of postcodes known as the Census Coverage Survey (CCS) is carried out. This takes place after the census and involves in-person interviews carried out at the selected addresses; data from the occupants is obtained for a small selection of the core census fields: first name, surname, date of birth, sex, marital status, address and occupation.
 
-The 2011 UK Census estimated that in the UK there are about 65 million people ($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}$), with the CCS sampling 1% of postcodes, counting about $600\,000$ people and $340\,000$ households.
+The 2011 UK Census estimated that in the UK there are about 65 million people ($63.2\,\text{m}$) and 25 million households ($26.4\,\text{m}$), with the CCS sampling 1% of postcodes, counting about $650\,000$ people and $340\,000$ households.
 
-In the postcodes sampled by the CCS, about $95\,000$ individuals counted by the Census were not matched in the CCS; likewise, there were about $55\,000$ individuals counted by the CCS who were not matched in the Census. These figures are higher than the final estimates of under-enumeration because the sample postcodes were weighted towards areas where high under-enumeration was expected.
+In the postcodes sampled by the CCS, about $95\,000$ individuals counted by the Census were not matched in the CCS; likewise, there were about $60\,000$ individuals counted by the CCS who were not matched in the Census. These figures are higher than the final estimates of under-enumeration because the sample postcodes were weighted towards areas where high under-enumeration was expected.
 
 Calculating the census estimate relies on records from the CCS being correctly paired with census records that correspond to the same person (the same goes for matching households). This is the central challenge the methods discussed in this document seek to address.
 
