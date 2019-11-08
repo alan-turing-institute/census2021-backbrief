@@ -64,7 +64,7 @@ Alternative machine learning methods for record linkage are discussed later in t
 Progress since the 2011 Census
 ========
 
-ONS have begun to improve upon the methods used for record linkage in 2011. As of November 2019, ONS show that ~$91\,\%$ of people records (and ~$95\,\%$ of household records) from the 2011 census and CCS record data can be matched automatically (compared with $70\,\%$ and $60\,\%$ respectively with 2011 methods). In this section of the document, the key improvements to the methodology that resulted in this performance increase are detailed and evaluated. Additionally, improvements intended to speed up clerical matching are discussed.
+ONS have begun to improve upon the methods used for record linkage in 2011. As of November 2019, ONS show that ~$90\,\%$ of people records (and ~$95\,\%$ of household records) from the 2011 census and CCS record data can be matched automatically (compared with $70\,\%$ and $60\,\%$ respectively with 2011 methods). In this section of the document, the key improvements to the methodology that resulted in this performance increase are detailed and evaluated. Additionally, improvements intended to speed up clerical matching are discussed.
 
 Improvements in Census to CCS Record Linkage
 --------
