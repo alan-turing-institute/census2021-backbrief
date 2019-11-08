@@ -106,7 +106,7 @@ To get the recall up to 97.75% using purely automated methods, an extra $62\,898
 
 We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Felligi-Sunter* and household-associative). Table 5 suggests that up to 91.971% of matches will be found when clerical matchers are presented with a single highest scoring possible match to decide on and Table 6 shows up to 92.155% will be found when they are able to choose from the top 20.
 
-Since the recall threshold has not yet been met, these methods cannot yet eliminate clerical searching, even when clerical resolution is used in tandem with the *Pre-search* algorithm. Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021. The methods that constitute the "best performing" should be decided based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data. In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
+Since the recall threshold has not yet been met, these methods cannot yet eliminate clerical searching, even when clerical resolution is used in tandem with the *Pre-search* algorithm. Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021 (see *Next Steps*). In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
 -------------------------------------------------------------------------------------------
 
@@ -204,14 +204,12 @@ To build in an active learning system into the *Pre-search* algorithm, ONS could
 
 As an alternative to *Felligi-Sunter* scoring, ONS could use a similar method to those developed by @Sarawagi2002 and others discussed here, such as a using a Decision Tree base classifier in tandem with active learning. Since much of the 2021 record linkage will be done in advance of the *Pre-search*/clerical resolution stage by the determinisitic, probabilistic and household-associative methods, these labeled record pairs (match and non-match) could be used as training data for the base classifier, avoiding overfitting to the peculiarities of 2011 data.
 
-Any of these suggestions in this document that are used to improve upon ONS record linkage methodology can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as has been done earlier in this document for the current methods (see *How close are we to full automation?*).
-
-The next section of this document will outline the next steps to be taken in advance of the 2021 census being carried out.
-
 Next Steps
 ======
 
-**TODO:** Decide what goes here.
+Following on from the scoping exercise summarised in this document, the next steps will be for ONS to continue improving the existing record linkage methods and expand upon them with the recommendations suggested here. New methods can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as has been done in this document for the current methods (see *How close are we to full automation?*).
+
+In advance of the 2021 census being carried out, a decision should be made as to which specific methods will be used. This decision should be based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data.
 
 References
 ====
