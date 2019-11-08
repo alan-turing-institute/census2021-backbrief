@@ -90,7 +90,7 @@ This evaluation can be used to judge to what extent clerical searching and resol
 
 Since a big part of the challenge is confidently ruling out those records without a match, it's especially important to know how many false negatives can be permitted. In 2011, the number of matches on the Gold Standard was $649\,944$. ONS expect automated methods to give zero false positives (matches not on the Gold Standard) due to their being conservative, with ambiguous match/non-match pairs being sent to clerical matching. ONS found that that the small numbers of false positives that were found (according to the Gold Standard) looked like good matches that were missed in 2011. For example, some of these were due to the existence of duplicates, with the false positive being a match to a different copy than the one on the Gold Standard. For these reasons, we take the false positives to be zero for all methods evaluated in this document. Since the total number of unmatched CCS records in 2011 was $59\,527$, we can consider the number of true negatives in the confusion matrices below (Tables 1-7) to be $59\,527$, when considering false positives zero.
 
-Given the assumption that all matches are true positives (*TP*):, we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the $99.75\,\%$ recall threshold (*R*):
+Given the assumption that all matches are true positives (*TP*), we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the $99.75\,\%$ recall threshold (*R*):
 
 *FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole).
 
