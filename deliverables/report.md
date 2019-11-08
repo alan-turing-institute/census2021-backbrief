@@ -106,9 +106,9 @@ To get the recall up to 97.75% using purely automated methods, an extra $62\,898
 
 We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Fellegi-Sunter* and household-associative). To do this, we assume that all the decisions sent to clerical resolution (before *Pre-search*) are made correctly as per the Gold Standard (see Table 5). Table 6 and Table 7 show the number of further matches that can be found when clerical matchers are presented with a single highest scoring possible match to decide on and when they are able to choose from the top 20. The recall values given these considerations are summarised in the following list:
 
-1. Clerical Resolution: X% (see Table 5)
+1. Clerical Resolution:               97.514% (see Table 5)
 2. *Pre-search* (top candidate only): 99.397% (see Table 6)
-2. *Pre-search* (top 20 candidates): 99.596% (see Table 7)
+3. *Pre-search* (top 20 candidates):  99.596% (see Table 7)
 
 These results show that whilst clerical resolution is clearly still necessary to find many matches, ONS are close to eliminating the need for clerical searching with only $994$ ($2\,623$ - $1\,629$) additional Gold Standard matches to be found in order show that current methods are good enough to meet the precision and recall requirements on 2011 data.
 
@@ -146,17 +146,24 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **GS Match**  | *TP*: $597\,658$ | *FN*: $52\,286$ |
+| **GS Match**  | *TP*: $633\,785$ | *FN*: $16\,159$ |
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
-:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as the top scoring candidate by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with only the top candidate in each case and declares a match cannot be found if this looks wrong, but will choose *all* those that are a match on the Gold Standard. {#tbl:table6}
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if all match decisions sent to clerical resolution were made correctly for 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume that the 2011 Gold Standard match and non-match labels are correct. {#tbl:table5}
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
-| **GS Match**  | *TP*: $598\,954$ | *FN*: $50\,990$ |
+| **GS Match**  | *TP*: $646\,025$ | *FN*: $3\,919$ |
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
-:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table7}
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods, the matches that would be found through clerical resolution and the additional matches made if a clerical matcher chose all matches shown as the top scoring candidate by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with only the top candidate in each case and declares a match cannot be found if this looks wrong, but will choose *all* those that are a match on the Gold Standard. {#tbl:table6}
+
+|  | **Predicted Match**  | **Predicted Non-Match**  |
+|---|---|---|
+| **GS Match**  | *TP*: $647\,321$ | *FN*: $2\,623$ |
+| **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
+
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods, the matches that would be found through clerical resolution and the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table7}
 
 ![Precision against Recall for Census to CCS probabilistic matching. Data points show the results of different thresholds for considering record pairs a match based on *Fellegi-Sunter* scoring. \label{figure1}](../figures/precision_vs_recall_probabilistic.png)
 
