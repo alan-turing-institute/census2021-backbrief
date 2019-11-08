@@ -110,7 +110,7 @@ We can also evaluate the performance of the *Pre-search* algorithm, given the nu
 2. *Pre-search* (top candidate only): $99.397\,\%$ (see Table 6)
 3. *Pre-search* (top 20 candidates):  $99.596\,\%$ (see Table 7)
 
-These results show that whilst clerical resolution is clearly still necessary to find many matches, ONS are close to eliminating the need for clerical searching with only $994$ ($2\,623$ - $1\,629$) additional Gold Standard matches to be found in order show that current methods are good enough to meet the precision and recall requirements on 2011 data.
+These results show that whilst clerical resolution is clearly still necessary to find many matches, ONS are close to eliminating the need for clerical searching with only $994$ ($2\,623$ - $1\,629$, see Table 7) additional Gold Standard matches to be found in order show that current methods are good enough to meet the precision and recall requirements on 2011 data.
 
 Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021 (see *Next Steps*). In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
