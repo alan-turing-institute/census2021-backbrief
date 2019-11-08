@@ -96,7 +96,7 @@ Given the assumption that all matches are true positives (*TP*):, we can rearran
 
 In other words, when we are evaluating the performance of improved methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed. Since we know that 70% of the matches in 2011 were found using automatic methods, we can use this as a baseline from which to evaluate the performance increases in 2019 methods, given the goal of maximising the extent to which record linkage can be done automatically. Table 1 shows that the 2011 automatic methods missed $194\,983$ matches that were ultimately found by clerical matching.
 
-The assumption that there are no false positives means that the precision for each of the methods in Tables 1-6 is always 100% and the recall (*TP* / (*TP* + *FN*)) can be used to say what percentage of the Gold Standard matches are found after each method is tested; this is summarised in the following list:
+The assumption that there are no false positives means that the precision for each of the methods in Tables 1-7 is always 100% and the recall (*TP* / (*TP* + *FN*)) can be used to say what percentage of the Gold Standard matches are found after each method is tested. The recall values for automatic record linkage methods are summarised in the following list:
 
 1. Deterministic: 84.871% (see Table 2)
 2. Probabilistic: 88.157% (see Table 3)
@@ -104,9 +104,15 @@ The assumption that there are no false positives means that the precision for ea
 
 To get the recall up to 97.75% using purely automated methods, an extra $62\,898$ of the 2011 Gold Standard matches would therefore need to be found ($64\,527$ - $1\,629$). Could we get closer to meeting the recall requirement by relaxing the match threshold for probabilistic record linkage, allowing for some loss precision via false positives? Figure \ref{figure1}. suggests that this is not possible. The recall remains below 99.75% even when the probabilistic match threshold is lowered beyond the point that the precision requirement of 99.9% is no longer met.
 
-We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Fellegi-Sunter* and household-associative). Table 5 suggests that up to 91.971% of matches will be found when clerical matchers are presented with a single highest scoring possible match to decide on and Table 6 shows up to 92.155% will be found when they are able to choose from the top 20.
+We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Fellegi-Sunter* and household-associative). To do this, we assume that all the decisions sent to clerical resolution (before *Pre-search*) are made correctly as per the Gold Standard (see Table 5). Table 6 and Table 7 show the number of further matches that can be found when clerical matchers are presented with a single highest scoring possible match to decide on and when they are able to choose from the top 20. The recall values given these considerations are summarised in the following list:
 
-Since the recall threshold has not yet been met, these methods cannot yet eliminate clerical searching, even when clerical resolution is used in tandem with the *Pre-search* algorithm. Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021 (see *Next Steps*). In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
+1. Clerical Resolution: X% (see Table 5)
+2. *Pre-search* (top candidate only): 99.397% (see Table 6)
+2. *Pre-search* (top 20 candidates): 99.596% (see Table 7)
+
+These results show that whilst clerical resolution is clearly still necessary to find many matches, ONS are close to eliminating the need for clerical searching with only $994$ ($2\,623$ - $1\,629$) additional Gold Standard matches to be found in order show that current methods are good enough to meet the precision and recall requirements on 2011 data.
+
+Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021 (see *Next Steps*). In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
 
 -------------------------------------------------------------------------------------------
 
@@ -143,14 +149,14 @@ Since the recall threshold has not yet been met, these methods cannot yet elimin
 | **GS Match**  | *TP*: $597\,658$ | *FN*: $52\,286$ |
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
-:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as the top scoring candidate by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with only the top candidate in each case and declares a match cannot be found if this looks wrong, but will choose *all* those that are a match on the Gold Standard. {#tbl:table5}
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as the top scoring candidate by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with only the top candidate in each case and declares a match cannot be found if this looks wrong, but will choose *all* those that are a match on the Gold Standard. {#tbl:table6}
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
 | **GS Match**  | *TP*: $598\,954$ | *FN*: $50\,990$ |
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
-:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table6}
+:  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table7}
 
 ![Precision against Recall for Census to CCS probabilistic matching. Data points show the results of different thresholds for considering record pairs a match based on *Fellegi-Sunter* scoring. \label{figure1}](../figures/precision_vs_recall_probabilistic.png)
 
