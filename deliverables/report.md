@@ -28,7 +28,7 @@ Calculating the census estimate relies on records from the CCS being correctly p
 The challenge of record matching
 ------
 
-Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See the *The Record Linkage Problem* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
+Difficulties in matching the CCS records with census records from the same person or household occur when there is missing/incomplete information in one of the records, or differences due to spelling mistakes, scanning errors and other mistakes. As such, this problem can be considered a "record linkage" problem. See *The Record Linkage Problem* section of this report for a longer summary of the record linkage problem and the algorithms used to tackle it.
 
 Record matching between the CCS and census is subject to strict precision and recall criteria; precision of at least $99.9\,\%$ and recall of at least $99.75\,\%$.
 
@@ -38,7 +38,7 @@ The clerical matching procedure took the equivalent of 30 full-time staff all wo
 
 Thus, ongoing work at ONS aims to minimise (to the greatest degree possible) the need for clerical searching as part of the 2021 matching methodology and to speed up all clerical matching. The slowness of clerical searching in 2011 owes much to the fact that in order for a CCS record for which it is suspected there will be a match to be ruled out and considered a non-match, it must first be checked against every single census record for which there is currently no match.
 
-Even after improvements ONS have already made to the automated matching methods (detailed later in the *Review of Current Work* section), ~$9\,\%$ of people records were still left to match manually (~$5\,\%$ for household records) when testing these methods on 2011 data. ONS predict that of these people matches, a further ~$8\,\%$ will be found by clerical resolution, leaving ~$1\,\%$ of matches still to make. This ~$1\,\%$ (~$5\,300$ matches) could be included anywhere amongst the unmatched CCS records ($55\,000$ in 2011) and unmatched census records from CCS areas ($95\,000$ in 2011). Any method used to replace clerical searching for these very difficult matches should ideally also declare when records do not have a match, in order to avoid clerical searching still being required.
+Even after improvements ONS have already made to the automated matching methods (detailed later in the *Review of Current Work* section), ~$10\,\%$ of people records were still left to match manually (~$5\,\%$ for household records) when testing these methods on 2011 data. ONS predict that of these people matches, a further ~$7.5\,\%$ will be found by clerical resolution, leaving ~$2.5\,\%$ of matches still to make. The remaining matches could be included anywhere amongst the unmatched CCS records ($55\,000$ in 2011) and unmatched census records from CCS areas ($95\,000$ in 2011). Any method used to replace clerical searching for these very difficult matches should ideally also declare when records do not have a match, in order to avoid clerical searching still being required.
 
 The next section of this document summarises some of the relevant literature on record linkage.
 
