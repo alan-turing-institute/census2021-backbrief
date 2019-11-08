@@ -220,9 +220,11 @@ As an alternative to *Fellegi-Sunter* scoring, ONS could use a similar method to
 Next Steps
 ======
 
-Following on from the scoping exercise summarised in this document, the next steps will be for ONS to continue improving the existing record linkage methods and expand upon them with the recommendations suggested here. New methods can be evaluated using 2011 census/CCS data and the 2011 Gold Standard, as has been done in this document for the current methods (see *How close are we to full automation?*).
+Following on from the scoping exercise summarised in this document, the next steps will be for ONS to continue improving the existing record linkage methods and possibly expand upon them with the recommendations suggested here. As has been made clear in this document, there have already been substantial improvements to the record linkage methods used by ONS since 2011. It may well be that spending a lot of time and effort on the alternative methods recommended here would be less cost effective than further refinement of the improved methods currently being used.
 
-In advance of the 2021 census being carried out, a decision should be made as to which specific methods will be used. This decision should be based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood of a method being overfitted to 2011 data.
+Any new methods that are implemented can be evaluated using 2011 census/CCS data and the 2011 Gold Standard in the same way as the current methods (see *How close are we to full automation?*).
+
+In advance of the 2021 census being carried out, a decision should be made as to which specific methods will be used. This decision should be based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood methods not being overfitted to 2011 data.
 
 References
 ====
