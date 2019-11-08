@@ -102,7 +102,7 @@ The assumption that there are no false positives means that the precision for ea
 2. Probabilistic: 88.157% (see Table 3)
 3. Associative  : 90.072% (see Table 4)
 
-To get the recall up to 97.75% using purely automated methods, an extra $62\,898$ would therefore need to be found ($64\,527$ - $1\,629$). **TODO:** *Or if the methods were relaxed to allow some FP's that brought the precision down to 99.90%, we could allow X FN's. See Figure 1 (ROC curve) that shows this in more detail.*
+To get the recall up to 97.75% using purely automated methods, an extra $62\,898$ of the 2011 Gold Standard matches would therefore need to be found ($64\,527$ - $1\,629$). Could we get closer to meeting the recall requirement by relaxing the match threshold for probabilistic record linkage, allowing for some loss precision via false positives? Figure \ref{figure1}. suggests that this is not possible. The recall remains below 99.75% even when the probabilistic match threshold is lowered beyond the point that the precision requirement of 99.9% is no longer met.
 
 We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Felligi-Sunter* and household-associative). Table 5 suggests that up to 91.971% of matches will be found when clerical matchers are presented with a single highest scoring possible match to decide on and Table 6 shows up to 92.155% will be found when they are able to choose from the top 20.
 
@@ -151,6 +151,8 @@ Since the recall threshold has not yet been met, these methods cannot yet elimin
 | **GS Non-Match**  | *FP*: 0 | *TN*: $59\,527$ |
 
 :  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods in 2019, plus the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table6}
+
+![Precision against Recall for Census to CCS probabilistic matching. Data points show the results of different thresholds for considering record pairs a match based on *Felligi-Sunter* scoring. \label{figure1}](../figures/precision_vs_recall_probabilistic.png)
 
 Can "Machine Learning" help?
 =======
