@@ -165,7 +165,7 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 :  Matches and Non-Matches found by improved probabilistic, deterministic and household-associative record linkage methods, the matches that would be found through clerical resolution and the additional matches that would be found if a clerical matcher chose all matches shown as one of the top 20 candidates by the *Pre-search* algorithm on 2011 Census/CCS records (Predicted), as evaluated by the 2011 Gold Standard (GS). Assume the matcher is presented with the top 20 candidates in each case and declares a match cannot be found if they all look wrong, but will correctly choose *all* those that are the Gold Standard match. {#tbl:table7}
 
-![Precision against Recall for Census to CCS probabilistic matching. Data points show the results of different thresholds for considering record pairs a match based on *Fellegi-Sunter* scoring. \label{figure1}](../figures/precision_vs_recall_probabilistic.png)
+![Precision against recall for census to CCS record linkage with 2019 automatic matching methods on 2011 data. Data points show the results of different thresholds for considering record pairs a match based on *Fellegi-Sunter* scoring. \label{figure1}](../figures/precision_vs_recall_all_automated.png)
 
 Can "Machine Learning" help?
 =======
