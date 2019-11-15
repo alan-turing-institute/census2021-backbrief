@@ -19,14 +19,12 @@ abstract: |
 
 # Executive summary
 
-In the 2011 Census, the matching of records between the Census and the follow-up coverage survey required significant manual effort to find matches that could not be found by automatic means. Since then, ONS have continued to develop methods of automated matching, including machine learning approaches, improving recall, using automated methods alone, from FIXME to FIXME with no loss of precision.
+In the 2011 Census, the matching of records between the Census and the follow-up coverage survey required significant manual effort to find matches that could not be found by automatic means. Since then, ONS have continued to develop methods of automated matching, including machine learning approaches, improving recall, using automated methods alone, from about $70\,\%$ to about $90\,\%$ with no loss of precision.
 
 We describe the challenges inherent in continuing to improve this result to the point where ONS could achieve its goals solely through automated matching. We propose three possible directions for investigation. However, we are not able to say with confidence whether any of those directions would allow a 
 completely automated process by the time of the next Census.
 
 The structure of this document is as follows. In [Background] we review the challenge and the standard approaches in the literature; in [Progress since the 2011 Census] we review work that the ONS has done since the last Census; then, in [Can "Machine Learning" help?] we describe possible future directions. Finally, we offer some thoughts on next steps.
-
-FIXME: Table 1: precision and recall 
 
 Background
 ==========
@@ -78,67 +76,186 @@ The methods used for the problem of record linkage fall into the three general c
 
 *Deterministic methods* use a set of rules based on a subset of the constituent fields of each record pair, known as a "matchkey". Pairs that do not match according to those rules are classified as non-matches. For example, a matchkey for a pairing of records that have two equivalent fields could be as follows: “*Field 1* must be an exact match and *Field 2* must have an edit distance less than 3.”
 
-*Probabilistic methods* calculate the probability of each record pair being a match or non-match. The most common approach, *Fellegi-Sunter* [@Fellegi1969], is a Bayesian model, though typically one makes the assumption that the probability is factorisable over the fields. Pairs whose match probability is sufficiently high are classified as a match; those sufficiently low a non-match; and intermediate values may be sent out for clerical matching. The probabilities used in the calculation are computed either by an "expectation maximisation" (EM) algorithm or from labelled training data [@Murray2018].
+*Probabilistic methods* calculate the probability of each record pair being a
+match or non-match. The most common approach, *Fellegi-Sunter* [@Fellegi1969],
+is a Bayesian model, though typically one makes the simplifying assumption that
+the probability is factorisable over the fields.[^naive] Pairs whose match
+probability is sufficiently high are classified as a match; those sufficiently
+low a non-match; and intermediate values may be sent out for clerical
+matching. The probabilities used in the calculation are computed either by an
+"expectation maximisation" (EM) algorithm or from labelled training data
+[@Murray2018]. In either case, one would properly classify the algorithm as a
+“machine learning” algorithm.
 
 Some alternative machine learning methods for record linkage are discussed later in this document.
 
+[^naive]: Known as the "naive Bayes" assumption.
 
 Progress since the 2011 Census
 ==============================
 
-Since the 2011 Census, ONS have improved upon the methods used for automated record linkage. As of November 2019, evaluating these methods on the known results from 2011, ~$90\,\%$ of people records (and ~$95\,\%$ of household records) from the 2011 census and CCS record data can be matched automatically (compared with $70\,\%$ and $60\,\%$ respectively with 2011 methods). In this section of the document, we describe the improvements to the methodology that resulted in this performance increase, as well as improvements intended to speed up clerical matching process
-
 Improvements in Census to CCS Record Linkage
 --------------------------------------------
 
-In order to improve upon deterministic matching of people, a set of matchkeys have been developed using the 2011 Census data as test data. These include derived field variables that account for common errors in name fields such as those caused by scanning (of paper forms), spelling errors or transposition errors. For example, rearranging the letters of names into alphabetical order can deal with transposition errors (Alphaname method) and use of the Jaro-Winkler edit distance or a phonetic algorithm based on English pronunciation similarity (Soundex) can deal with phonetic and spelling errors. Comparison with the 2011 Gold Standard (record pairing decisions made by all methods including clerical matching in 2011) shows that the matchkeys find ~$85\,\%$ of the matches made in 2011. It should however be noted that this Gold Standard is not perfect, with duplicates being a recurring issue with using it to verify new methods.
+Since the 2011 Census, ONS have made improvements in both deterministic and probabilistic matching. As of November 2019, evaluating these methods on the known results from 2011, ~$90\,\%$ of people records and ~$95\,\%$ of household records from the 2011 census and CCS record data can be matched automatically (compared with $70\,\%$ and $60\,\%$ respectively with 2011 methods).[^gold]
 
-A new set of matchkeys have also been developed for household record pairing, using household information such as tenure, type of property, number of usual residents and of particular importance, the derived variable UPRN (Unique Property Reference Number). Together with the sets of people records that make up a household occupancy, these matchkeys have enabled ONS to make ~$95\,\%$ of the matches on the 2011 households Gold Standard.
+[^gold]: Performance is measured against the “known truth” from 2011, which ultimately assumes that the manual matching process is perfect. There are, however, some small imperfections arising from undetected duplicates in the original data.
 
-ONS have also made improvements to the match rate for *Fellegi-Sunter* probabilistic matching. Changes have been made to the blocking carried out before matching; a single blocking pass is used, bringing together record pairs that match on the postcode field. All other CCS fields are therefore available for use in the actual matching. Of the matched record pairs from 2011 data, $97.8\,\%$ agreed on the postcode and were scored with *Fellegi-Sunter*. The remaining $2.2\,\%$ is expected to be captured by other methods (e.g. deterministic and associative).
+The table below shows the precision and recall[^defs] for the original 2011
+automated matching process and as each improvement is added. Note that the
+precision is always $100\,\%$: these methods are quite conservative.
 
-Some steps have already been taken to speed up the clerical matching process via a proposed associative people matching method, which also increases the number of automatic matches. Unmatched people in households where the household record has already been matched are given a score using Fellegi-Sunter. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Matched households that still contain unmatched people are then sent for clerical resolution, giving the reviewer a household view that clearly shows those people matches already made within the household.
+[^defs]: The precision is “of those claimed to be a match, what fraction
+    actually are?.” The recall is “of the actual matches, what fraction are
+    claimed to be a match?”
 
-In starting to address the objective of speeding up the clerical searching procedure, ONS have developed a “pre-search” algorithm, which is applied to the CCS records for which automated methods could not find a matching census record, before the laborious clerical searching procedure is attempted. This algorithm finds potential candidates for pairing using very loose blocking, ranks them using Fellegi-Sunter scoring, and then sends them for clerical resolution, with the human matcher making the final decision as to whether there is a match and which of the top 20 ranked candidates it is. The ultimate goal would be to be able to say with confidence that if the matching record is not amongst the top 20 candidates presented to the human matcher, then there is no match for that record.
+|      | Method                 | Precision | Recall |
+|------+------------------------+-----------+--------|
+| i.   | 2011                   |     1.000 |  0.700 |
+| ii.  | Improved deterministic |     1.000 |  0.849 |
+| iii. | Improved probabilistic |     1.000 |  0.882 |
+| iv.  | With household         |     1.000 |  0.901 |
 
-The pre-search algorithm is already working well: when there is a match predicted for a given 2011 CCS record assigned to pre-search by prior methods, it appears as the first record on the list $89\,\%$ of the time and in the top 20 $98\,\%$ of the time (to the nearest percentage points, as evaluated by the 2011 Gold Standard).
+: Improvements in the automated matching of people records since 2011 and their performance against the 2011 “gold standard.” Note that the method of each row includes the improvements of previous rows. Row (i) shows the performance of automated methods as they were in 2011; the improvements captured by subsequent rows are described in the text.
+
+### Deterministic methods
+
+Row (ii) of the table above describes the impact of improvements in
+deterministic matching. ONS have developed a set of matchkeys after studying the 2011 Census data. The matchkeys in particular add derived field variables which account for common errors in name fields such as those caused by scanning (of paper forms), spelling errors, or transposition errors. These include: rearranging the letters of names into alphabetical order to deal with transposition errors (Alphaname method); and use of the Jaro-Winkler edit distance or a the Soundex phonetic algorithm based on English pronunciation similarity to deal with phonetic and spelling errors. 
+
+A new set of matchkeys has also been developed for household record pairing, using information such as tenure, type of property, number of usual residents and (of particular importance) the derived variable UPRN (Unique Property Reference Number). Together with the sets of people records that make up a household occupancy, these matchkeys have enabled ONS to make ~$95\,\%$ of the matches on the 2011 households gold standard.
+
+### Probabilistic methods
+
+Row (iii) shows the impact of improvements to the Fellegi-Sunter probabilistic
+matching process (on top of the deterministic improvements). Changes have been
+made to the blocking carried out before matching: a single blocking pass is used, bringing together record pairs that match on the postcode field. All other CCS fields are therefore available for use in the actual matching. Of the matched record pairs from 2011 data, $97.8\,\%$ agreed on the postcode and were scored with Fellegi-Sunter. The remaining $2.2\,\%$ is expected to be captured by other methods (*e.g.,* deterministic and associative).
+
+### Associative matching
+
+Some steps have already been taken to speed up the clerical matching process via a proposed \emph{associative people matching} method, which has the side-effect if increasing the number of automatic matches. 
+
+Unmatched people in households where the \emph{household} record has already
+been matched are scored using Fellegi-Sunter. Any candidate people record pairs who score above a threshold are accepted automatically (note that this threshold can be lower than that set for the initial people matching algorithm). Row (iv) shows the impact of this additional step.
+
+Matched households that still contain unmatched people are then sent for clerical resolution, giving the reviewer a household view that clearly shows those people matches already made within the household.
 
 How close are we to full automation?
 ------------------------------------
 
-In order to determine when the improved record linkage methods being researched are good enough to be considered ready for the 2021 census, we evaluate them here to assess how close they are to meeting the strict precision and recall requirements of $99.9\,\%$ and $99.75\,\%$ respectively. They are tested on 2011 census/CCS data and the performance evaluated against the 2011 Gold Standard. The caveat here: there is no *guarantee* that methods meeting the precision/recall requirements on 2011 data will do so on 2021 data. It is therefore important that ONS are confident these methods are not overfitted to 2011 data when their performance is evaluated.
+The current performance of fully-automated methods does not yet meet the requirements set by ONS for matching: while the precision is above the threshold of $99.9\,\%$, the recall is only $90\,\%$, against the threshold of $99.75\,\%$. Nonetheless, there has been substantial improvement since 2011 and we might ask two questions: (1) could we substantially reduce the labour required for clerical matching? (2) could we envisage a fully-automated system? 
 
-This evaluation can be used to judge to what extent clerical searching and resolution will be required in 2021, given the constraint of the shorter time period (meaning fewer clerical matching man-hours) than 2011. 
+To address the first question, note that the process of clerical *resolution* is significantly less time-consuming than clerical *search*. That is because in clerical resolution, only two options are being compared; in clerical search, the assessor must in principle search through all current unmatched records to be sure that a match does not exist. Thus, we might ask whether we can get away with clerical resolution only.
 
-Note there are methods used for clerical searching by the human assessors that it is difficult to imagine being performed by an algorithm, at least with the present state of AI. For example, some searchers made use of Google, including searching for name relations that were not obvious (*e.g.,* “Pepik” as a nickname for Josef in Czech) or searching Google Maps to see if they could spot an additional property at an address. Other searchers took a closer look at the paper census forms, finding some relevant information that had been written outside of the response boxes and missed when the forms were first scanned. Any methods that do not utilise clerical searching may, therefore, miss matches that can only be made this way. It is worth noting that these kinds of manual methods could also be useful for confirming (or rejecting) the candidate matches suggested by the pre-search algorithm in 2021.
+ONS have developed a “pre-search” algorithm, which is applied to the CCS records for which automated methods could not find a matching census record but before the laborious clerical searching procedure is attempted. The pre-search algorithm finds 20 potential candidates for pairing using a very loose blocking, ranks them using Fellegi-Sunter scoring, and then sends them for clerical resolution, with the human matcher making the final decision as to whether there is a match and, if so, which of the top 20 ranked candidates it is. 
 
-Since part of the challenge lies in ruling out those records without a match, it is especially important to know how many false negatives can be permitted. In 2011, the number of matches on the Gold Standard was $649\,944$. ONS expect automated methods to give zero false positives (matches not on the Gold Standard) as the algorithms used are rather conservative, with ambiguous match/non-match pairs being sent to clerical matching. ONS found that that the small numbers of false positives that were found (according to the Gold Standard) looked like good matches that were missed in 2011. For example, some of these were due to the existence of duplicates, with the false positive being a match to a different copy than the one on the Gold Standard. For these reasons, we take the false positives to be zero for all methods evaluated in this document. Since the total number of unmatched CCS records in 2011 was $59\,527$, we can consider the number of true negatives in the confusion matrices below (Tables 1-7) to be $59\,527$, when considering false positives zero.
+The pre-search algorithm is already working well: when there is a match for a given 2011 CCS record assigned to pre-search, it appears as the first record on the list $89\,\%$ of the time and in the top 20 records $98\,\%$ of the time. The ultimate goal would be to be able to say with confidence that if the matching record is not amongst the top 20 candidates presented to the human matcher, then there is no match for that record.
 
-Given the assumption that all matches are true positives (*TP*), we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the $99.75\,\%$ recall threshold (*R*):
+We have evaluated three approaches to reducing manual effort as shown in the following table and described below. None of these methods require clerical search. The final method is *very* close to---although not quite above---the target threshold for recall.
 
-*FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole).
+|      | Method          | Precision | Recall |
+|------+-----------------+-----------+--------|
+| v.   | Resolution      |     1.000 |  0.975 |
+| vi.  | Top pre-search  |     1.000 |  0.994 |
+| vii. | Full pre-search |     1.000 |  0.996 |
 
-In other words, when we are evaluating the performance of improved methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed. Since we know that $70\,\%$ of the matches in 2011 were found using automatic methods, we can use this as a baseline from which to evaluate the performance increases in 2019 methods, given the goal of maximising the extent to which record linkage can be done automatically. Table 1 shows that the 2011 automatic methods missed $194\,983$ matches that were ultimately found by clerical matching.
+: Performance of methods that build on the fully-automated improvements. These methods require some manual intervention but at a significantly reduced level of effort.
 
-The assumption that there are no false positives means that the precision for each of the methods in Tables 1-7 is always $100\,\%$ and the recall (*TP* / (*TP* + *FN*)) can be used to say what percentage of the Gold Standard matches are found after each method is tested. The recall values for automatic record linkage methods are summarised in the following list:
+### Row (v): Clerical resolution
 
-1. Deterministic: $84.871\,\%$ (see Table 2)
-2. Probabilistic: $88.157\,\%$ (see Table 3)
-3. Associative  : $90.072\,\%$ (see Table 4)
+This method includes clerical resolution. It starts from the results of row (iv) in the previous table, but sends to clerical resolution all pairs of records whose match probability fell below the threshold for automated matching, but above a lower threshold. We assume that the assessor makes all decisions correctly. Some records will remain unmatched.
 
-To get the recall up to $99.75\,\%$ using purely automated methods, an extra $62\,898$ of the 2011 Gold Standard matches would therefore need to be found ($64\,527$ - $1\,629$). Could we get closer to meeting the recall requirement by relaxing the match threshold for probabilistic record linkage, allowing for some loss of precision via false positives? Figure \ref{figure1}. suggests that this is not possible. The recall remains below $99.75\,\%$ even when the probabilistic match threshold is lowered beyond the point that the precision requirement of $99.9\,\%$ is no longer met.
+### Row (vi): Best from pre-search
 
-We can also evaluate the performance of the *Pre-search* algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (*Fellegi-Sunter* and household-associative). To do this, we assume that all the decisions sent to clerical resolution (before *Pre-search*) are made correctly as per the Gold Standard (see Table 5). Table 6 and Table 7 show the number of further matches that can be found when clerical matchers are presented with a single highest scoring possible match to decide on and when they are able to choose from the top 20. The recall values given these considerations are summarised in the following list:
+This method runs the pre-search algorithm and sends to the assessor the top scoring match of the result returned. The assessor again has to make a single decision of match or non-match.
 
-1. Clerical Resolution:               $97.514\,\%$ (see Table 5)
-2. *Pre-search* (top candidate only): $99.397\,\%$ (see Table 6)
-3. *Pre-search* (top 20 candidates):  $99.596\,\%$ (see Table 7)
+### Row (vii): Full pre-search
 
-These results show that whilst clerical resolution is clearly still necessary to find many matches, ONS are close to eliminating the need for clerical searching with only $994$ ($2\,623$ - $1\,629$, see Table 7) additional Gold Standard matches to be found in order show that current methods are good enough to meet the precision and recall requirements on 2011 data.
+Finally, this method sends to the assessor all the 20 matches returned by pre-search. There is extra work involved compared to row (vi) since the assessor must check 20 potential matches. However, we still do not require clerical search so there is still significantly reduced effort.
 
-Future methods developed in advance of the 2021 deadline can be evaluated in a similar manner and the best performing methods should be selected for use in 2021 (see *Next Steps*). In the next section of the document, record linkage methods that are as yet untested by ONS are discussed.
+### Accepting loss of precision
 
--------------------------------------------------------------------------------------------
+There is usually a trade-off to be made between precision and recall. Since we are so close to the target for recall we considered whether it might be worth making this tradeoff. However (see in particular the figure in the Annex) the bounds on the precision are so tight that tradeoff does not seem to be in our favour. (Reading this graph by ete, it is, perhaps, about a factor of 4 or more: if one gives up 0.1 percentage points of precision, one gains only 0.025 percentage points of recall, not enough to go from $99.6\,\%$ to $99.75\,\%$.)
+
+
+Can "Machine Learning" help?
+============================
+
+It has been suggested that the use of machine learning might allow ONS to remove the need for clerical matching.[^ai]
+
+[^ai]: The use of artificial intelligence has also been suggested. However, the term “artificial intelligence” is very broad, and typically refers to any use of automated methods to achieve what would otherwise be thought of as “intelligent” behaviour. The sort of AI used in, say, chess-playing algorithms, automated theorem proving, or optimisation, does not seem appropriate here, so we have focussed on the more well-defined topic of machine learning. 
+
+In this context, machine learning is the use of exemplar data to make predictions about new observations. One might specify (implicitly or explicitly) a classification model containing unknown parameters---perhaps many parameters---whose values are to be estimated from existing observations. Or, given a new observation, one might try directly to find “closely related” observations in the training data.
+
+It is important to note that ONS have observed human assessors employing methods of clerical searching that it is difficult to imagine being performed by any existing algorithm, at least with the present state of AI. For example, some searchers made use of Google, including searching for name relations that were not obvious (*e.g.,* “Pepik” as a nickname for Josef in Czech) or searching Google Maps to see if they could spot an additional property at an address. Other searchers took a closer look at the paper census forms, finding some relevant information that had been written outside the response boxes and hence missed when the forms were first scanned. We do not see any way to solve these challenges without “human level” intelligence and so any automated method is likely to miss these kinds of matches.
+
+Several machine learning methods have been applied to record matching. Broadly, these methods can be grouped as follows: those that require large amounts of training data in the form of record pairs pre-labelled as matches and non-matches; those that find the record pairs for which labelling will improve match/non-match classification; and those that do not require any training data.
+
+There is also one caveat to mention. If our models are trained on the 2011 data, their estimated performance will only hold for data that comes from a similar source. But the 2021 data is likely to be different, predominantly because of the switch to online recording.
+
+
+Machine Learning approaches to Record Linkage
+-------
+
+There are a variety of \emph{classification} algorithms which have been applied to record linkage that require labelled training data, including support vector machines (SVM) and classification and decision trees. However, Winkler, in the forward to @ChristenBook notes that “no methods have consistently outperformed methods based on the Fellegi-Sunter model, particularly [for] applications with tens of millions of records.”
+
+Methods that rely on neural networks have been reported to outperform traditional probabilistic methods in some cases [@Wilson2011].
+
+A key difficulty with these methods is that in order for a classifier to become highly accurate, the training data would need to include many examples of matches and non-matches and, crucially, examples of both that are relatively ambiguous; the kinds that would be classed as indeterminate by a probabilistic method and sent for clerical matching. In response to this problem, \emph{active learning} methods have been developed that require far less training data, initially only using labelled record pairs from ambiguous cases (where the uncertainty of match/non-match classification was high). The classifier will initially work for only some un-labelled instances, but can be used to find record pairs in the un-labelled data pool which, when labelled, will improve the accuracy of the classifier at the fastest possible rate [@Elmagarmid2007]. Those pairs can then be manually labelled, adding to the training data and progressively improving the classifier.
+
+Existing use of Machine Learning by ONS
+------
+
+One example of machine learning for record linkage has already been discussed in this report: the use of an EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007].
+
+ONS also plan to further improve their pre-search algorithm for 2021 usage by calculating values for the weights of record fields from 2011 record pairing decisions, then iteratively improving these weights with incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, active learning will be used to pick those indeterminate record pairs assigned to clerical matching (and pre-search) that improve its accuracy fastest rate. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis. Over time, the candidate matches for difficult to match records that the pre-search algorithm recommends will improve, reducing the amount of time required for clerical resolution and the likelihood of clerical searching being required.
+
+
+Potential extensions and new approaches
+--------
+
+There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
+
+Part of the collaboration discussions involved thinking about the reliance on the *Naive Bayes* assumption in probabilistic record linkage; the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married.
+
+Whilst some ML algorithms using training data (e.g. SVM, neural networks or Gaussian processes) would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption.
+
+The collaboration discussions also yielded several key recommendations for further improvement of the record linkage methods, which are outlined in the following paragraphs and can be summarised as follows:
+
+1. Utilising information from census fields not present in the CCS to aid matching
+2. Using machine learning to create improved distance metrics for field matching
+3. Enhancing the pre-search algorithm with active learning
+
+Making use of the full structure of the census data, including fields that are not present in the CCS, could potentially reduce the impact that missing, incomplete or corrupted field data has on record linkage. This could involve writing deterministic rules about associations between other census fields and those fields present in the CCS or using 2011 census records as training data for machine learning to uncover these associations. For example, missing data on age (date of birth) could be inferred roughly from other fields such as marital status or occupation.
+
+Another possibility that involves ML could be to replace the distance scoring metrics like the edit distance used for field matching, with a novel algorithm that is more specific to the particular field in question. This could be a ML algorithm trained with 2011 Gold Standard census and CCS field data, which learns the common types of differences found between corresponding fields in matched record pairs. These differences would therefore be penalised (by lowering the score) less by the algorithm than more unusual mismatches when it is used to score a previously unseen field pairing.
+
+Finally, a key recommendation is to improve the pre-search algorithm using an active learning system. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being over-fit to 2011 data. One example of this approach being taken comes from @Sarawagi2002, who developed an active learning method to significantly reduce the size of the training set needed for de-duplication (record linkage within a single dataset). Their method starts with a small subset of record pairs that have been labelled as matches or non-matches for training a base classifier, with the classifier being improved by active learning. They tested this with both scientific citation and address records, finding that one to two orders of magnitude fewer pairs were required to be labelled than when random selection was used to decide which pairs should be labelled.
+
+The methods developed by @Sarawagi2002 work as follows: record pairs whose match status the base classifier found difficult to determine were considered to be in a "confusion region", similar to the “reject region” in the Fellegi-Sunter algorithm. This region is initially large, but by picking the most ambiguous record pairs for clerical resolution first, those indeterminate as clearly match or non-match which are closest to the mid-point of the confusion region, the algorithm quickly learned the peculiarities of a datasets. @Sarawagi2002 note that the optimal base classifiers to use in tandem with active learning were Decision Trees, which out-perform SVMs and Naive Bayes, as evaluated by precision and recall values. Similarly, @Tejada2001 developed a method using multiple Decision Tree classifiers trained using varying data and parameters, to detect consistently ambiguous record pairs to be prioritised for clerical resolution. In a more recent example, @Kasai2019 report that a deep learning classifier in tandem with active learning can out-perform other base classifiers for record linkage on citation datasets, with comparable performance to deep learning models that use the full training data (they use only $6\,\%$ of this training data).
+
+To build in an active learning system into the *Pre-search* algorithm, ONS could use the existing Fellegi-Sunter scoring to decide which record pairs are most important to label first, which they are already planning to do as previously discussed (see [Uses of Machine Learning by ONS]). This approach involves adjusting the field weights (initially set with 2011 training data) as new record pair decisions are made in 2021. This aims to increase the likelihood of correct matches for ambiguous (difficult to match) records being presented in the top 20 match candidates list presented to clerical matchers by the probabilistic pre-search* algorithm. The active learning component here would be the selection of most ambiguous records for clerical matching staff to resolve first, perhaps by picking those closest to the midpoint of the Fellegi-Sunter match and non-match thresholds.
+
+As an alternative to Fellegi-Sunter scoring, ONS could use a similar method to
+those developed by @Sarawagi2002 and others discussed here, such as a using a
+Decision Tree base classifier in tandem with active learning. Since much of the
+2021 record linkage will be done in advance of the pre-search/clerical resolution stage by the deterministic, probabilistic and household-associative methods, these labelled record pairs (match and non-match) could be used as training data for the base classifier, avoiding over-fitting to the peculiarities of 2011 data.
+
+
+Next Steps
+======
+
+There is one calculational exercise that we did not carry out for this report which we think would be helpful. 
+
+
+
+
+
+\newpage
+# Annex A: Numerical summary of performance of various methods
+
+## Confusion matrices
+
 
 |  | **Predicted Match**  | **Predicted Non-Match**  |
 |---|---|---|
@@ -191,65 +308,31 @@ Future methods developed in advance of the 2021 deadline can be evaluated in a s
 
 ![Precision against recall for census to CCS record linkage with 2019 automatic matching methods on 2011 data. Data points show the results of different thresholds for considering record pairs a match based on Fellegi-Sunter scoring. \label{figure1}](../figures/precision_vs_recall_all_automated.png)
 
+## Precision and recall analysis
 
-Can "Machine Learning" help?
-============================
+Given the assumption that all matches are true positives (*TP*), we can rearrange the recall equation to calculate the permitted false negatives (*FN*) given the $99.75\,\%$ recall threshold (*R*):
 
-As an alternative to the probabilistic and deterministic methods already discussed, a variety of ML algorithms have been applied to record linkage problems. Broadly, these methods can be grouped as follows: those that require large amounts of training data in the form of record pairs pre-labelled as matches and non-matches; those that find the record pairs for which labelling will improve match/non-match classification; and those that do not require any training data.
+*FN* = (*TP*/*R*) - *TP* = ($649\,944$ / 0.9975) - $649\,944$  = $1\,629$ (to the nearest whole).
 
-Machine Learning approaches to Record Linkage
--------
+In other words, when we are evaluating the performance of improved methods on 2011 data, it's crucial that we see fewer than $1\,629$ Gold Standard matches being missed. Since we know that $70\,\%$ of the matches in 2011 were found using automatic methods, we can use this as a baseline from which to evaluate the performance increases in 2019 methods, given the goal of maximising the extent to which record linkage can be done automatically. Table 1 shows that the 2011 automatic methods missed $194\,983$ matches that were ultimately found by clerical matching.
 
-There are a variety of classification algorithms that have been applied to record linkage that require labelled training data, including support vector machine (SVM) classification and decision trees, but @Christen2012 notes that none of these methods have consistently outperformed probabilistic methods, especially for applications with tens of millions of records. By contrast, methods that rely on neural networks such as single layer perceptrons have been reported to outperform traditional probabilistic methods in some cases [@Wilson2011].
+The assumption that there are no false positives means that the precision for each of the methods in Tables [-@tbl:table1]--[-@tbl:table7] is always $100\,\%$ and the recall (*TP* / (*TP* + *FN*)) can be used to say what percentage of the Gold Standard matches are found after each method is tested. The recall values for automatic record linkage methods are summarised in the following list:
 
-A key difficulty with these methods is that in order for a classifier to become highly accurate, the training data would need to include many examples of matches and non-matches and crucially, examples of both that are relatively ambiguous; the kinds that would be classed as indeterminate by a probabilistic method and sent for clerical matching. In response to this problem, active learning methods have been developed that require far less training data, initially only using labelled record pairs from ambiguous cases (where the uncertainty of match/non-match classification was high). The classifier will initially work for only some un-labelled instances, but can be used to find record pairs in the un-labelled data pool which, when labelled, will improve the accuracy of the classifier at the fastest possible rate [@Elmagarmid2007]. Those pairs can then be manually labelled, adding to the training data and progressively improving the classifier.
+1. Deterministic: $84.871\,\%$ (see Table [-@tbl:table2])
+2. Probabilistic: $88.157\,\%$ (see Table [-@tbl:table3])
+3. Associative  : $90.072\,\%$ (see Table [-@tbl:table4])
 
-The next section of this report will outline some of the methods being researched (or already implemented) by ONS that can be considered examples of ML.
+To get the recall up to $99.75\,\%$ using purely automated methods, an extra $62\,898$ of the 2011 Gold Standard matches would therefore need to be found ($64\,527 - 1\,629$). Could we get closer to meeting the recall requirement by relaxing the match threshold for probabilistic record linkage, allowing for some loss of precision via false positives? Figure \ref{figure1} suggests that this is not possible. The recall remains below $99.75\,\%$ even when the probabilistic match threshold is lowered beyond the point that the precision requirement of $99.9\,\%$ is no longer met.
 
-Uses of Machine Learning by ONS
-------
+We can also evaluate the performance of the pre-search algorithm, given the numbers of additional 2011 Gold Standard matches that it presents as candidates when applied to the records assigned by prior automated methods (Fellegi-Sunter and household-associative). To do this, we assume that all the decisions sent to clerical resolution (before pre-search) are made correctly as per the Gold Standard (see Table [-@tbl:table5]). Tables [-@tbl:table6] and [-@tbl:table7] show the number of further matches that can be found when clerical matchers are presented with a single highest scoring possible match to decide on and when they are able to choose from the top 20. The recall values given these considerations are summarised in the following list:
 
-One example of machine learning for record linkage has already discussed in this report; the use of the EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007].
+1. Clerical Resolution:             $97.514\,\%$ (see Table [-@tbl:table5])
+2. Pre-search (top candidate only): $99.397\,\%$ (see Table [-@tbl:table6])
+3. Pre-search (top 20 candidates):  $99.596\,\%$ (see Table [-@tbl:table7])
 
-ONS also plan to further improve their *Pre-search* algorithm for 2021 usage by calculating values for the weights of record fields from 2011 record pairing decisions, then iteratively improving these weights with incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, active learning will be used to pick those indeterminate record pairs assigned to clerical matching (and *Pre-search*) that improve its accuracy fastest rate. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis. Over time, the candidate matches for difficult to match records that the *Pre-search* algorithm recommends will improve, reducing the amount of time required for clerical resolution and the likelihood of clerical searching being required.
+These results show that whilst clerical resolution is clearly still necessary to find many matches, ONS are close to eliminating the need for clerical searching with only $994$ ($2\,623 - 1\,629$, see Table [-@tbl:table7]) additional Gold Standard matches to be found in order show that current methods are good enough to meet the precision and recall requirements on 2011 data.
 
-In the next section, suggestions for further improvement of ONS's record linkage methodology are made, including the use of active learning and other ML methods.
 
-Potential extensions and new approaches
---------
-
-There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
-
-Part of the collaboration discussions involved thinking about the reliance on the *Naive Bayes* assumption in probabilistic record linkage; the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married.
-
-Whilst some ML algorithms using training data (e.g. SVM, neural networks or gaussian processes) would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption.
-
-The collaboration discussions also yielded several key recommendations for further improvement of the record linkage methods, which are outlined in the following paragraphs and can be summarised as follows:
-
-1. Utilising information from census fields not present in the CCS to aid matching
-2. Using machine learning to create improved distance metrics for field matching
-3. Enhancing the *Pre-search* algorithm with active learning
-
-Making use of the full structure of the census data, including fields that are not present in the CCS, could potentially reduce the impact that missing, incomplete or corrupted field data has on record linkage. This could involve writing deterministic rules about associations between other census fields and those fields present in the CCS or using 2011 census records as training data for machine learning to uncover these associations. For example, missing data on age (date of birth) could be inferred roughly from other fields such as marital status or occupation.
-
-Another possibility that involves ML could be to replace the distance scoring metrics like the edit distance used for field matching, with a novel algorithm that is more specific to the particular field in question. This could be a ML algorithm trained with 2011 Gold Standard census and CCS field data, which learns the common types of differences found between corresponding fields in matched record pairs. These differences would therefore be penalised (by lowering the score) less by the algorithm than more unusual mismatches when it is used to score a previously unseen field pairing.
-
-Finally, a key recommendation is to improve the *Pre-search* algorithm using an active learning system. Doing this could offer the advantage of being able to train with 2021 data, reducing the risk of other methods being overfit to 2011 data. One example of this approach being taken comes from @Sarawagi2002, who developed an active learning method to significantly reduce the size of the training set needed for de-duplication (record linkage within a single dataset). Their method starts with a small subset of record pairs that have been labelled as matches or non-matches for training a base classifier, with the classifier being improved by active learning. They tested this with both scientific citation and address records, finding that one to two orders of magnitude fewer pairs were required to be labelled than when random selection was used to decide which pairs should be labelled.
-
-The methods developed by @Sarawagi2002 work as follows: record pairs whose match status the base classifier found difficult to determine were considered to be in a "confusion region", similar to the “reject region” in the *Fellegi-Sunter* algorithm. This region is initially large, but by picking the most ambiguous record pairs for clerical resolution first, those indeterminate as clearly match or non-match which are closest to the mid-point of the confusion region, the algorithm quickly learned the peculiarities of a datasets. @Sarawagi2002 note that the optimal base classifiers to use in tandem with active learning were Decision Trees, which out-perform SVMs and Naive Bayes, as evaluated by precision and recall values. Similarly, @Tejada2001 developed a method using multiple Decision Tree classifiers trained using varying data and parameters, to detect consistently ambiguous record pairs to be prioritised for clerical resolution. In a more recent example, @Kasai2019 report that a deep learning classifier in tandem with active learning can out-perform other base classifiers for record linkage on citation datasets, with comparable performance to deep learning models that use the full training data (they use only $6\,\%$ of this training data).
-
-To build in an active learning system into the *Pre-search* algorithm, ONS could use the existing *Fellegi-Sunter* scoring to decide which record pairs are most important to label first, which they are already planning to do as previously discussed (see *Uses of Machine Learning by ONS*). This approach involves adjusting the field weights (initially set with 2011 training data) as new record pair decisions are made in 2021. This aims to increase the likelihood of correct matches for ambiguous (difficult to match) records being presented in the top 20 match candidates list presented to clerical matchers by the probabilistic *Pre-search* algorithm. The active learning component here would be the selection of most ambiguous records for clerical matching staff to resolve first, perhaps by picking those closest to the midpoint of the *Fellegi-Sunter* match and non-match thresholds.
-
-As an alternative to *Fellegi-Sunter* scoring, ONS could use a similar method to those developed by @Sarawagi2002 and others discussed here, such as a using a Decision Tree base classifier in tandem with active learning. Since much of the 2021 record linkage will be done in advance of the *Pre-search*/clerical resolution stage by the determinisitic, probabilistic and household-associative methods, these labelled record pairs (match and non-match) could be used as training data for the base classifier, avoiding overfitting to the peculiarities of 2011 data.
-
-Next Steps
-======
-
-Following on from the scoping exercise summarised in this document, the next steps will be for ONS to continue improving the existing record linkage methods and possibly expand upon them with the recommendations suggested here. As has been made clear in this document, there have already been substantial improvements to the record linkage methods used by ONS since 2011. It may well be that spending a lot of time and effort on the alternative methods recommended here would be less cost effective than further refinement of the improved methods currently being used.
-
-Any new methods that are implemented can be evaluated using 2011 census/CCS data and the 2011 Gold Standard in the same way as the current methods (see *How close are we to full automation?*).
-
-In advance of the 2021 census being carried out, a decision should be made as to which specific methods will be used. This decision should be based on three criteria; the minimisation of clerical matching requirements, the precision and recall percentages (although any that do not meet the requirements on 2011 data can be ruled out) and the perceived likelihood methods not being overfitted to 2011 data.
 
 References
 ====
