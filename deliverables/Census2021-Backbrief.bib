@@ -1,5 +1,17 @@
 @article{Konda2018,
-abstract = {Entity matching (EM) has been a long-standing challenge in data management. Most current EM works focus only on developing matching algorithms. We argue that far more efforts should be devoted to building EM systems. We discuss the limitations of current EM systems, then describe Magellan, a new kind of EM system. Magellan is novel in four important aspects. (1) It provides how-to guides that tell users what to do in each EM scenario, step by step. (2) It provides tools to help users execute these steps; the tools seek to cover the entire EM pipeline, not just blocking and matching as current EM systems do. (3) Tools are built into the Python open-source data science ecosystem, allowing Magellan to borrow a rich set of capabilities in data cleaning, IE, visualization, learning, etc. (4) Magellan provides a powerful scripting environment to facilitate interactive experimentation and quick "patching" of the system. We describe research challenges and present extensive experiments that show the promise of the Magellan approach.},
+abstract = {Entity matching (EM) has been a long-standing challenge in data management. Most current
+                  EM works focus only on developing matching algorithms. We argue that far more
+                  efforts should be devoted to building EM systems. We discuss the limitations of
+                  current EM systems, then describe Magellan, a new kind of EM system. Magellan is
+                  novel in four important aspects. (1) It provides how-to guides that tell users what
+                  to do in each EM scenario, step by step. (2) It provides tools to help users execute
+                  these steps; the tools seek to cover the entire EM pipeline, not just blocking and
+                  matching as current EM systems do. (3) Tools are built into the Python open-source
+                  data science ecosystem, allowing Magellan to borrow a rich set of capabilities in
+                  data cleaning, IE, visualization, learning, etc. (4) Magellan provides a powerful
+                  scripting environment to facilitate interactive experimentation and quick "patching"
+                  of the system. We describe research challenges and present extensive experiments
+                  that show the promise of the Magellan approach.},
 author = {Konda, Pradap and Das, Sanjib and {Paul Suganthan}, G. C. and Martinkus, Philip and Doan, An Hai and Ardalan, Adel and Ballard, Jeffrey R. and Govind, Yash and Li, Han and Panahi, Fatemah and Zhang, Haojun and Naughton, Jeff and Prasad, Shishir and Krishnan, Ganesh and Deep, Rohit and Raghavendra, Vijay},
 doi = {10.14778/2994509.2994535},
 file = {:Users/echalstrey/projects/census2021-backbrief/literature/magellan.pdf:pdf},
@@ -11,8 +23,23 @@ title = {{Magellan: Toward building entity matching management systems}},
 volume = {47},
 year = {2018}
 }
+
 @article{Kasai2019,
-abstract = {Entity resolution (ER) is the task of identifying different representations of the same real-world entities across databases. It is a key step for knowledge base creation and text mining. Recent adaptation of deep learning methods for ER mitigates the need for dataset-specific feature engineering by constructing distributed representations of entity records. While these methods achieve state-of-the-art performance over benchmark data, they require large amounts of labeled data, which are typically unavailable in realistic ER applications. In this paper, we develop a deep learning-based method that targets low-resource settings for ER through a novel combination of transfer learning and active learning. We design an architecture that allows us to learn a transferable model from a high-resource setting to a low-resource one. To further adapt to the target dataset, we incorporate active learning that carefully selects a few informative examples to fine-tune the transferred model. Empirical evaluation demonstrates that our method achieves comparable, if not better, performance compared to state-of-the-art learning-based methods while using an order of magnitude fewer labels.},
+abstract = {Entity resolution (ER) is the task of identifying different representations of the same
+                  real-world entities across databases. It is a key step for knowledge base creation
+                  and text mining. Recent adaptation of deep learning methods for ER mitigates the
+                  need for dataset-specific feature engineering by constructing distributed
+                  representations of entity records. While these methods achieve state-of-the-art
+                  performance over benchmark data, they require large amounts of labeled data, which
+                  are typically unavailable in realistic ER applications. In this paper, we develop a
+                  deep learning-based method that targets low-resource settings for ER through a novel
+                  combination of transfer learning and active learning. We design an architecture that
+                  allows us to learn a transferable model from a high-resource setting to a
+                  low-resource one. To further adapt to the target dataset, we incorporate active
+                  learning that carefully selects a few informative examples to fine-tune the
+                  transferred model. Empirical evaluation demonstrates that our method achieves
+                  comparable, if not better, performance compared to state-of-the-art learning-based
+                  methods while using an order of magnitude fewer labels.},
 archivePrefix = {arXiv},
 arxivId = {1906.08042},
 author = {Kasai, Jungo and Qian, Kun and Gurajada, Sairam and Li, Yunyao and Popa, Lucian},
@@ -23,8 +50,23 @@ pages = {5851--5861},
 title = {{Low-resource Deep Entity Resolution with Transfer and Active Learning}},
 year = {2019}
 }
+
 @article{Sarawagi2002,
-abstract = {Deduplication is a key operation in integrating data from multiple sources. The main challenge in this task is designing a function that can resolve when a pair of records refer to the same entity in spite of various data inconsistencies. Most existing systems use hand-coded functions. One way to overcome the tedium of hand-coding is to train a classifier to distinguish between duplicates and non-duplicates. The success of this method critically hinges on being able to provide a covering and challenging set of training pairs that bring out the subtlety of the deduplication function. This is non-trivial because it requires manually searching for various data inconsistencies between any two records spread apart in large lists. We present our design of a learning-based deduplication system that uses a novel method of interactively discovering challenging training pairs using active learning. Our experiments on a real-life datasets show that active learning significantly reduces the number of instances needed to achieve high accuracy. We investigate various design issues that arise in building a system to provide interactive response, fast convergence, and interpretable output.},
+abstract = {Deduplication is a key operation in integrating data from multiple sources. The main
+                  challenge in this task is designing a function that can resolve when a pair of
+                  records refer to the same entity in spite of various data inconsistencies. Most
+                  existing systems use hand-coded functions. One way to overcome the tedium of
+                  hand-coding is to train a classifier to distinguish between duplicates and
+                  non-duplicates. The success of this method critically hinges on being able to
+                  provide a covering and challenging set of training pairs that bring out the subtlety
+                  of the deduplication function. This is non-trivial because it requires manually
+                  searching for various data inconsistencies between any two records spread apart in
+                  large lists. We present our design of a learning-based deduplication system that
+                  uses a novel method of interactively discovering challenging training pairs using
+                  active learning. Our experiments on a real-life datasets show that active learning
+                  significantly reduces the number of instances needed to achieve high accuracy. We
+                  investigate various design issues that arise in building a system to provide
+                  interactive response, fast convergence, and interpretable output.},
 author = {Sarawagi, Sunita and Bhamidipaty, Anuradha},
 doi = {10.1145/775085.775087},
 file = {:Users/echalstrey/projects/census2021-backbrief/literature/SarawagiKDD2002.pdf:pdf},
@@ -34,8 +76,20 @@ pages = {269--278},
 title = {{Interactive deduplication using active learning}},
 year = {2002}
 }
+
 @article{Tejada2001,
-abstract = {When integrating information from multiple websites, the same data objects can exist in inconsistent text formats across sites, making it difficult to identify matching objects using exact text match. We have developed an object identification system called Active Atlas, which compares the object's shared attributes in order to identify matching objects. Certain attributes are more important for deciding if a mapping should exist between two objects. Previous methods of object identification have required manual construction of object identification rules or mapping rules for determining the mappings between objects. This manual process is time consuming and error-prone. In our approach. Active Atlas learns to tailor mapping rules, through limited user input, to a specific application domain. The experimental results demonstrate that we achieve higher accuracy and require less user involvement than previous methods across various application domains.},
+abstract = {When integrating information from multiple websites, the same data objects can exist in
+                  inconsistent text formats across sites, making it difficult to identify matching
+                  objects using exact text match. We have developed an object identification system
+                  called Active Atlas, which compares the object's shared attributes in order to
+                  identify matching objects. Certain attributes are more important for deciding if a
+                  mapping should exist between two objects. Previous methods of object identification
+                  have required manual construction of object identification rules or mapping rules
+                  for determining the mappings between objects. This manual process is time consuming
+                  and error-prone. In our approach. Active Atlas learns to tailor mapping rules,
+                  through limited user input, to a specific application domain. The experimental
+                  results demonstrate that we achieve higher accuracy and require less user
+                  involvement than previous methods across various application domains.},
 author = {Tejada, Sheila and Knoblock, Craig A. and Minton, Steven},
 doi = {10.1016/S0306-4379(01)00042-4},
 file = {:Users/echalstrey/projects/census2021-backbrief/literature/tejada01-is.pdf:pdf},
@@ -49,8 +103,19 @@ title = {{Learning object identification rules for information integration}},
 volume = {26},
 year = {2001}
 }
+
 @article{Elmagarmid2007,
-abstract = {Often, in the real world, entities have two or more representations in databases. Duplicate records do not share a common key and/or they contain errors that make duplicate matching a difficult task. Errors are introduced as the result of transcription errors, incomplete information, lack of standard formats, or any combination of these factors. In this paper, we present a thorough analysis of the literature on duplicate record detection. We cover similarity metrics that are commonly used to detect similar field entries, and we present an extensive set of duplicate detection algorithms that can detect approximately duplicate records in a database. We also cover multiple techniques for improving the efficiency and scalability of approximate duplicate detection algorithms. We conclude with coverage of existing tools and with a brief discussion of the big open problems in the area.},
+abstract = {Often, in the real world, entities have two or more representations in
+                  databases. Duplicate records do not share a common key and/or they contain errors
+                  that make duplicate matching a difficult task. Errors are introduced as the result
+                  of transcription errors, incomplete information, lack of standard formats, or any
+                  combination of these factors. In this paper, we present a thorough analysis of the
+                  literature on duplicate record detection. We cover similarity metrics that are
+                  commonly used to detect similar field entries, and we present an extensive set of
+                  duplicate detection algorithms that can detect approximately duplicate records in a
+                  database. We also cover multiple techniques for improving the efficiency and
+                  scalability of approximate duplicate detection algorithms. We conclude with coverage
+                  of existing tools and with a brief discussion of the big open problems in the area.},
 author = {Elmagarmid, Ahmed K. and Ipeirotis, Panagiotis G. and Verykios, Vassilios S.},
 doi = {10.1109/TKDE.2007.250581},
 file = {:Users/echalstrey/Desktop/Projects/Census 2021/Papers/CeDER-PP-2007-15.pdf:pdf},
@@ -63,8 +128,33 @@ title = {{Duplicate record detection: A survey}},
 volume = {19},
 year = {2007}
 }
+
 @article{Fellegi1969,
-abstract = {A mathematical model is developed to provide a theoretical framework for a computer-oriented solution to the problem of recognizing those records in two files which represent identical persons, objects or events (said to be matched). A comparison is to be made between the recorded characteristics and values in two records (one from each file) and a decision made as to whether or not the members of the comparison-pair represent the same person or event, or whether there is insufficient evidence to justify either of these decisions at stipulated levels of error. These three decisions are referred to as link (A1), a non-link (A3), and a possible link (A2). The first two decisions are called positive dispositions. The two types of error are defined as the error of the decision A1 when the members of the comparison pair are in fact unmatched, and the error of the decision A3 when the members of the comparison pair are, in fact matched. The probabilities of these errors are defined as and respectively where u($\gamma$), m($\gamma$) are the probabilities of realizing $\gamma$ (a comparison vector whose components are the coded agreements and disagreements on each characteristic) for unmatched and matched record pairs respectively. The summation is over the whole comparison space r of possible realizations. A linkage rule assigns probabilities P(A1|$\gamma$), and P(A2|$\gamma$), and P(A3|$\gamma$) to each possible realization of $\gamma$ $\epsilon$ $\Gamma$. An optimal linkage rule L ($\mu$, $\lambda$, $\Gamma$) is defined for each value of ($\mu$, $\lambda$) as the rule that minimizes P(A2) at those error levels. In other words, for fixed levels of error, the rule minimizes the probability of failing to make positive dispositions. A theorem describing the construction and properties of the optimal linkage rule and two corollaries to the theorem which make it a practical working tool are given. {\textcopyright} Taylor {\&} Francis Group, LLC.},
+abstract = {A mathematical model is developed to provide a theoretical framework for a
+                  computer-oriented solution to the problem of recognizing those records in two files
+                  which represent identical persons, objects or events (said to be matched). A
+                  comparison is to be made between the recorded characteristics and values in two
+                  records (one from each file) and a decision made as to whether or not the members of
+                  the comparison-pair represent the same person or event, or whether there is
+                  insufficient evidence to justify either of these decisions at stipulated levels of
+                  error. These three decisions are referred to as link (A1), a non-link (A3), and a
+                  possible link (A2). The first two decisions are called positive dispositions. The
+                  two types of error are defined as the error of the decision A1 when the members of
+                  the comparison pair are in fact unmatched, and the error of the decision A3 when the
+                  members of the comparison pair are, in fact matched. The probabilities of these
+                  errors are defined as and respectively where u($\gamma$), m($\gamma$) are the
+                  probabilities of realizing $\gamma$ (a comparison vector whose components are the
+                  coded agreements and disagreements on each characteristic) for unmatched and matched
+                  record pairs respectively. The summation is over the whole comparison space r of
+                  possible realizations. A linkage rule assigns probabilities P(A1|$\gamma$), and
+                  P(A2|$\gamma$), and P(A3|$\gamma$) to each possible realization of $\gamma$
+                  $\epsilon$ $\Gamma$. An optimal linkage rule L ($\mu$, $\lambda$, $\Gamma$) is
+                  defined for each value of ($\mu$, $\lambda$) as the rule that minimizes P(A2) at
+                  those error levels. In other words, for fixed levels of error, the rule minimizes
+                  the probability of failing to make positive dispositions. A theorem describing the
+                  construction and properties of the optimal linkage rule and two corollaries to the
+                  theorem which make it a practical working tool are given. {\textcopyright} Taylor
+                  {\&} Francis Group, LLC.},
 author = {Fellegi, Ivan P. and Sunter, Alan B.},
 doi = {10.1080/01621459.1969.10501049},
 file = {:Users/echalstrey/projects/census2021-backbrief/literature/fellegi-sunter-1969.pdf:pdf},
@@ -76,8 +166,22 @@ title = {{A Theory for Record Linkage}},
 volume = {64},
 year = {1969}
 }
+
 @article{Murray2018,
-abstract = {Probabilistic record linkage, the task of merging two or more databases in the absence of a unique identifier, is a perennial and challenging problem. It is closely related to the problem of deduplicating a single database, which can be cast as linking a single database against itself. In both cases the number of possible links grows rapidly in the size of the databases under consideration, and in most applications it is necessary to first reduce the number of record pairs that will be compared. Spurred by practical considerations, a range of methods have been developed for this task. These methods go under a variety of names, including indexing and blocking, and have seen significant development. However, methods for inferring linkage structure that account for indexing, blocking, and additional filtering steps have not seen commensurate development. In this paper we review the implications of indexing, blocking and filtering within the popular Fellegi-Sunter framework, and propose a new model to account for particular forms of indexing and filtering.},
+abstract = {Probabilistic record linkage, the task of merging two or more databases in the absence of
+                  a unique identifier, is a perennial and challenging problem. It is closely related
+                  to the problem of deduplicating a single database, which can be cast as linking a
+                  single database against itself. In both cases the number of possible links grows
+                  rapidly in the size of the databases under consideration, and in most applications
+                  it is necessary to first reduce the number of record pairs that will be
+                  compared. Spurred by practical considerations, a range of methods have been
+                  developed for this task. These methods go under a variety of names, including
+                  indexing and blocking, and have seen significant development. However, methods for
+                  inferring linkage structure that account for indexing, blocking, and additional
+                  filtering steps have not seen commensurate development. In this paper we review the
+                  implications of indexing, blocking and filtering within the popular Fellegi-Sunter
+                  framework, and propose a new model to account for particular forms of indexing and
+                  filtering.},
 archivePrefix = {arXiv},
 arxivId = {arXiv:1603.07816v1},
 author = {Murray, Jared S.},
@@ -92,8 +196,24 @@ title = {{Probabilistic Record Linkage and Deduplication after Indexing, Blockin
 volume = {7},
 year = {2018}
 }
+
 @article{Christen2012,
-abstract = {Record linkage is the process of matching records from several databases that refer to the same entities. When applied on a single database, this process is known as deduplication. Increasingly, matched data are becoming important in many application areas, because they can contain information that is not available otherwise, or that is too costly to acquire. Removing duplicate records in a single database is a crucial step in the data cleaning process, because duplicates can severely influence the outcomes of any subsequent data processing or data mining. With the increasing size of today's databases, the complexity of the matching process becomes one of the major challenges for record linkage and deduplication. In recent years, various indexing techniques have been developed for record linkage and deduplication. They are aimed at reducing the number of record pairs to be compared in the matching process by removing obvious nonmatching pairs, while at the same time maintaining high matching quality. This paper presents a survey of 12 variations of 6 indexing techniques. Their complexity is analyzed, and their performance and scalability is evaluated within an experimental framework using both synthetic and real data sets. No such detailed survey has so far been published.},
+abstract = {Record linkage is the process of matching records from several databases that refer to the
+                  same entities. When applied on a single database, this process is known as
+                  deduplication. Increasingly, matched data are becoming important in many application
+                  areas, because they can contain information that is not available otherwise, or that
+                  is too costly to acquire. Removing duplicate records in a single database is a
+                  crucial step in the data cleaning process, because duplicates can severely influence
+                  the outcomes of any subsequent data processing or data mining. With the increasing
+                  size of today's databases, the complexity of the matching process becomes one of the
+                  major challenges for record linkage and deduplication. In recent years, various
+                  indexing techniques have been developed for record linkage and deduplication. They
+                  are aimed at reducing the number of record pairs to be compared in the matching
+                  process by removing obvious nonmatching pairs, while at the same time maintaining
+                  high matching quality. This paper presents a survey of 12 variations of 6 indexing
+                  techniques. Their complexity is analyzed, and their performance and scalability is
+                  evaluated within an experimental framework using both synthetic and real data
+                  sets. No such detailed survey has so far been published.},
 author = {Christen, Peter},
 doi = {10.1109/TKDE.2011.127},
 file = {:Users/echalstrey/Desktop/Projects/Census 2021/Papers/A Survey of Indexing Techniques for Scalable Record Linkage and Deduplication.pdf:pdf},
@@ -116,7 +236,11 @@ doi = {https://doi.org/10.1007/978-3-642-31164-2}
 }
 
 @article{WilliamE.Yancey2005,
-abstract = {We compare variations of string comparators based on the Jaro-Winkler comparator and edit distance comparator. We apply the comparators to Census data to see which are better classifiers for matches and nonmatches, first by comparing their classification abilities using a ROC curve based analysis, then by considering a direct comparison between two candidate comparators in record linkage results.},
+abstract = {We compare variations of string comparators based on the Jaro-Winkler comparator and edit
+                  distance comparator. We apply the comparators to Census data to see which are better
+                  classifiers for matches and nonmatches, first by comparing their classification
+                  abilities using a ROC curve based analysis, then by considering a direct comparison
+                  between two candidate comparators in record linkage results.},
 author = {{William E. Yancey}},
 file = {:Users/echalstrey/Desktop/Projects/Census 2021/Papers/rrs2005-05.pdf:pdf},
 journal = {Statistical Research Division},
@@ -126,8 +250,26 @@ title = {{Evaluating string comparator performance for record linkage}},
 url = {http://www.amstat.org/sections/srms/Proceedings/y2006/Files/JSM2006-000855.pdf},
 year = {2005}
 }
+
 @article{Wilson2011,
-abstract = {Probabilistic record linkage has been used for many years in a variety of industries, including medical, government, private sector and research groups. The formulas used for probabilistic record linkage have been recognized by some as being equivalent to the na{\&}{\#}x00EF;ve Bayes classifier. While this method can produce useful results, it is not difficult to improve accuracy by using one of a host of other machine learning or neural network algorithms. Even a simple single-layer perceptron tends to outperform the na{\&}{\#}x00EF;ve Bayes classifier{\&}{\#}x2014;and thus traditional probabilistic record linkage methods{\&}{\#}x2014;by a substantial margin. Furthermore, many record linkage system use simple field comparisons rather than more complex features, partially due to the limits of the probabilistic formulas they use. This paper presents an overview of probabilistic record linkage, shows how to cast it in machine learning terms, and then shows that it is equivalent to a na{\&}{\#}x00EF;ve Bayes classifier. It then discusses how to use more complex features than simple field comparisons, and shows how probabilistic record linkage formulas can be modified to handle this. Finally, it demonstrates a huge improvement in accuracy through the use of neural networks and higher-level matching features, compared to traditional probabilistic record linkage on a large (80,000 pair) set of labeled pairs of genealogical records used by FamilySearch.org.},
+abstract = {Probabilistic record linkage has been used for many years in a variety of industries,
+                  including medical, government, private sector and research groups. The formulas used
+                  for probabilistic record linkage have been recognized by some as being equivalent to
+                  the na{\&}{\#}x00EF;ve Bayes classifier. While this method can produce useful
+                  results, it is not difficult to improve accuracy by using one of a host of other
+                  machine learning or neural network algorithms. Even a simple single-layer perceptron
+                  tends to outperform the na{\&}{\#}x00EF;ve Bayes classifier{\&}{\#}x2014;and thus
+                  traditional probabilistic record linkage methods{\&}{\#}x2014;by a substantial
+                  margin. Furthermore, many record linkage system use simple field comparisons rather
+                  than more complex features, partially due to the limits of the probabilistic
+                  formulas they use. This paper presents an overview of probabilistic record linkage,
+                  shows how to cast it in machine learning terms, and then shows that it is equivalent
+                  to a na{\&}{\#}x00EF;ve Bayes classifier. It then discusses how to use more complex
+                  features than simple field comparisons, and shows how probabilistic record linkage
+                  formulas can be modified to handle this. Finally, it demonstrates a huge improvement
+                  in accuracy through the use of neural networks and higher-level matching features,
+                  compared to traditional probabilistic record linkage on a large (80,000 pair) set of
+                  labeled pairs of genealogical records used by FamilySearch.org.},
 author = {Wilson, D. Randall},
 doi = {10.1109/IJCNN.2011.6033192},
 file = {:Users/echalstrey/Desktop/Projects/Census 2021/Papers/wilson.ijcnn2011.beyondprl.pdf:pdf},
@@ -137,11 +279,43 @@ pages = {9--14},
 title = {{Beyond probabilistic record linkage: Using neural networks and complex features to improve genealogical record linkage}},
 year = {2011}
 }
+
+@article{duvall2010,
+title = "Extending the Fellegi–Sunter probabilistic record linkage method for approximate field comparators",
+journal = "Journal of Biomedical Informatics",
+volume = "43",
+number = "1",
+pages = "24 - 30",
+year = "2010",
+issn = "1532-0464",
+doi = "https://doi.org/10.1016/j.jbi.2009.08.004",
+url = "http://www.sciencedirect.com/science/article/pii/S1532046409001051",
+author = "Scott L. DuVall and Richard A. Kerber and Alun Thomas",
+keywords = "Medical record linkage, Probability, Algorithms",
+abstract = "Probabilistic record linkage is a method commonly used to determine whether demographic
+                  records refer to the same person. The Fellegi–Sunter method is a probabilistic
+                  approach that uses field weights based on log likelihood ratios to determine record
+                  similarity. This paper introduces an extension of the Fellegi–Sunter method that
+                  incorporates approximate field comparators in the calculation of field weights. The
+                  data warehouse of a large academic medical center was used as a case study. The
+                  approximate comparator extension was compared with the Fellegi–Sunter method in its
+                  ability to find duplicate records previously identified in the data warehouse using
+                  different demographic fields and matching cutoffs. The approximate comparator
+                  extension misclassified 25% fewer pairs and had a larger Welch’s T statistic than
+                  the Fellegi–Sunter method for all field sets and matching cutoffs. The accuracy gain
+                  provided by the approximate comparator extension grew as less information was
+                  provided and as the matching cutoff increased. Given the ubiquity of linkage in both
+                  clinical and research settings, the incremental improvement of the extension has the
+                  potential to make a considerable impact."
+}
+
 @article{Report2013,
 author = {Report, Quality},
 file = {:Users/echalstrey/Desktop/Projects/Census 2021/Papers/matchingqualityreportfinal{\_}tcm77-328241.pdf:pdf},
 number = {August},
 pages = {1--16},
-title = {{An Assessment of the Quality of the Matching Between the 2011 Census and the Census Coverage Survey An Assessment of the Quality of the Matching Between the 2011 Census and the Census Coverage Survey}},
+title = {{An Assessment of the Quality of the Matching Between the 2011 Census and the Census Coverage
+                  Survey An Assessment of the Quality of the Matching Between the 2011 Census and the
+                  Census Coverage Survey}},
 year = {2013}
 }
