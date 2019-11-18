@@ -175,7 +175,7 @@ Finally, this method sends to the assessor all the 20 matches returned by pre-se
 
 ### Accepting loss of precision
 
-There is usually a trade-off to be made between precision and recall. Since we are so close to the target for recall we considered whether it might be worth making this tradeoff. However (see in particular the figure in the Annex) the bounds on the precision are so tight that tradeoff does not seem to be in our favour. (Reading this graph by ete, it is, perhaps, about a factor of 4 or more: if one gives up 0.1 percentage points of precision, one gains only 0.025 percentage points of recall, not enough to go from $99.6\,\%$ to $99.75\,\%$.)
+There is usually a trade-off to be made between precision and recall. Since we are so close to the target for recall we considered whether it might be worth making this tradeoff. However (see in particular the figure in the Annex) the bounds on the precision are so tight that tradeoff does not seem to be in our favour. (Reading this graph by eye, it is, perhaps, about a factor of 4 or more: if one gives up 0.1 percentage points of precision, one gains only 0.025 percentage points of recall, not enough to go from $99.6\,\%$ to $99.75\,\%$.)
 
 
 Can "Machine Learning" help?
@@ -213,6 +213,8 @@ ONS also plan to further improve their pre-search algorithm for 2021 usage by ca
 
 Potential extensions and new approaches
 --------
+
+
 
 There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
 
