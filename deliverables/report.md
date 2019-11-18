@@ -110,7 +110,7 @@ precision is always $100\,\%$: these methods are quite conservative.
     claimed to be a match?”
 
 |      | Method                 | Precision | Recall |
-|------+------------------------+-----------+--------|
+|------+------------------------+----------:+-------:|
 | i.   | 2011                   |     1.000 |  0.700 |
 | ii.  | Improved deterministic |     1.000 |  0.849 |
 | iii. | Improved probabilistic |     1.000 |  0.882 |
@@ -154,7 +154,7 @@ The pre-search algorithm is already working well: when there is a match for a gi
 We have evaluated three approaches to reducing manual effort as shown in the following table and described below. None of these methods require clerical search. The final method is *very* close to---although not quite above---the target threshold for recall.
 
 |      | Method          | Precision | Recall |
-|------+-----------------+-----------+--------|
+|------+-----------------+----------:+-------:|
 | v.   | Resolution      |     1.000 |  0.975 |
 | vi.  | Top pre-search  |     1.000 |  0.994 |
 | vii. | Full pre-search |     1.000 |  0.996 |
@@ -208,17 +208,49 @@ Existing use of Machine Learning by ONS
 
 One example of machine learning for record linkage has already been discussed in this report: the use of an EM algorithm to estimate the match and non-match class probabilities from the set of probabilities of corresponding fields being matches or non-matches between the two records, in probabilistic record linkage. This method is considered to be of particular use in scenarios when the record fields cannot be considered conditionally independent, especially when the data contain a relatively large percentage of matches (more than 5 percent) [@Elmagarmid2007].
 
-ONS also plan to further improve their pre-search algorithm for 2021 usage by calculating values for the weights of record fields from 2011 record pairing decisions, then iteratively improving these weights with incoming data from matching (both automatic and clerical) carried out in 2021. Ideally, active learning will be used to pick those indeterminate record pairs assigned to clerical matching (and pre-search) that improve its accuracy fastest rate. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis. Over time, the candidate matches for difficult to match records that the pre-search algorithm recommends will improve, reducing the amount of time required for clerical resolution and the likelihood of clerical searching being required.
+ONS also plan to further improve their pre-search algorithm for 2021 usage by
+calculating values for the weights of record fields from 2011 record pairing
+decisions, then iteratively improving these weights with incoming data from
+matching (both automatic and clerical) carried out in 2021. Ideally, active
+learning will be used to pick those indeterminate record pairs assigned to
+clerical matching (and pre-search) that improve its accuracy at the fastest rate. If this isn't feasible to implement, it could also be useful to utilise ONS's domain knowledge on the census to pick the most likely useful records to label on an ad hoc basis. Over time, the candidate matches for difficult to match records that the pre-search algorithm recommends will improve, reducing the amount of time required for clerical resolution and the likelihood of clerical searching being required.
 
 
 Potential extensions and new approaches
 --------
 
+Our sense based on the literature is that, for record linkage problems, Fellegi-Sunter remains the approach to beat. Therefore we think it is worthwhile examining the assumptions and simplifications of the usual version of the approach to see whether any may be relaxed. In addition, we try to say something about what “active learning” might mean in the context of the 2021 Census.
+
+The general form of Felligi-Sunter, broadly construed, represents each *pair* of records, $(\alpha, \beta)$ ($\alpha$ from the Census and $\beta$ from the CCS, say) as a *single* point, $\mathbf{x}$, in some larger space. We now have a classification problem: given $\mathbf{x}$, were the original records a match or a non-match? There are assumed to exist two probability distributions over this space: one representing the probability of observing some point $\mathbf{x}$ given that the pair are in fact a match; and the other representing the probability of observing $\mathbf{x}$ given that the pair are not a match. If, by some means, we are able to infer these two distributions, then the probability that a given point $\mathbf{x}$ comes from a matching pair of records can be computed by an application of Bayes' rule.
+
+In practice, inference of the two probability distributions is hard and the following two simplifications are typically made. 
+
+First, we assume that $\mathbf{x}$ takes the form of a tuple of binary variables, $\mathbf{x} = (x_1, \dotsc, x_d)$, where each $x_i$ is 1 if there some “feature” of the records is a match, and 0 otherwise. A feature is usually some function of a pair of corresponding fields, one from the first record and one from the second. For example, for two textual fields representing a name, the feature could be “match (or not) according to Soundex”, or “match if some text similarity measure is less than a threshold.” Thus the space is one of differences and it is discrete, rather than continuous, in each dimension.
+
+Second, it is normally assumed that the the probability distributions are
+factorisable over the $x_i$ (this is the naive Bayes assumption).
+
+Thus, we might imagine the following improvements to the existing model that might be obtained by relaxing some of these assumptions:
+
+1. Allow the features to take a wider range of values, either discrete or continuous. For example, a feature might be a text similarity measure itself. There is some discussion of this in the literature. For example, @devall2010 (who describe the approach as “approximate field comparators”) use the Levenshtein edit distance to match patient records and report that “25% fewer pairs” were misclassified. 
+
+2. 
 
 
-There are several observations that can be made about the record linkage methodology being researched by ONS that have come out of this collaboration project with The Alan Turing Institute, and recommendations on how to further improve these methods in order to meet the challenges and goals specified earlier in this document.
 
-Part of the collaboration discussions involved thinking about the reliance on the *Naive Bayes* assumption in probabilistic record linkage; the fields considered for match scoring are conditionally independent. This is unlikely to strictly be the case for CCS records. For example, date of birth could be linked to some of the other fields like first name, with the popularity of some names being higher in particular years, or marital status, with older people more likely to be married.
+
+
+
+
+
+
+Part of the collaboration discussions involved thinking about the reliance on
+the *Naive Bayes* assumption in probabilistic record linkage; the fields
+considered for match scoring are conditionally independent. This is unlikely to
+strictly be the case for CCS records. For example, date of birth could be linked
+to some of the other fields like first name, with the popularity of some names
+being higher in particular years, or marital status, with older people more
+likely to be married.
 
 Whilst some ML algorithms using training data (e.g. SVM, neural networks or Gaussian processes) would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption.
 
