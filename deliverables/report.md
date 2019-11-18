@@ -225,16 +225,16 @@ The general form of Felligi-Sunter, broadly construed, represents each *pair* of
 
 In practice, inference of the two probability distributions is hard and the following two simplifications are typically made. 
 
-First, we assume that $\mathbf{x}$ takes the form of a tuple of binary variables, $\mathbf{x} = (x_1, \dotsc, x_d)$, where each $x_i$ is 1 if there some “feature” of the records is a match, and 0 otherwise. A feature is usually some function of a pair of corresponding fields, one from the first record and one from the second. For example, for two textual fields representing a name, the feature could be “match (or not) according to Soundex”, or “match if some text similarity measure is less than a threshold.” Thus the space is one of differences and it is discrete, rather than continuous, in each dimension.
+First, we assume that $\mathbf{x}$ takes the form of a tuple of *binary* variables, $\mathbf{x} = (x_1, \dotsc, x_d)$, where each $x_i$ is 1 if there some “feature” of the records is a match, and 0 otherwise. A feature is usually some function of a pair of corresponding fields, one from the first record and one from the second. For example, for two textual fields representing a name, the feature could be “match (or not) according to Soundex”, or “match if some text similarity measure is less than a threshold.” Thus the space is one of differences and it is discrete, rather than continuous, in each dimension.
 
 Second, it is normally assumed that the the probability distributions are
 factorisable over the $x_i$ (this is the naive Bayes assumption).
 
 Thus, we might imagine the following improvements to the existing model that might be obtained by relaxing some of these assumptions:
 
-1. Allow the features to take a wider range of values, either discrete or continuous. For example, a feature might be a text similarity measure itself. There is some discussion of this in the literature. For example, @devall2010 (who describe the approach as “approximate field comparators”) use the Levenshtein edit distance to match patient records and report that “25% fewer pairs” were misclassified. 
+1. Allow the features to take a wider range of values, either discrete or continuous. For example, a feature might be a text similarity measure itself. There is some discussion of this in the literature. @duvall2010 (who describe the approach as “approximate field comparators”) use the Levenshtein edit distance to match patient records and report that “25% fewer pairs” were misclassified. 
 
-2. 
+2. Include other features besides simple differences of corresponding fields. For example, @dubois1969 (reported in @Elmagarmid2007) suggests dealing with missings by including, for each pair of comparable fields, an additional feature that encodes whether or not the fields are missing. 
 
 
 
