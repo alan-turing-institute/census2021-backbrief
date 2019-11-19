@@ -221,7 +221,7 @@ Potential extensions and new approaches
 
 Our sense based on the literature is that, for record linkage problems, Fellegi-Sunter remains the approach to beat. Therefore we think it is worthwhile examining the assumptions and simplifications of the usual version of the approach to see whether any may be relaxed. In addition, we try to say something about what “active learning” might mean in the context of the 2021 Census.
 
-The general form of Felligi-Sunter, broadly construed, represents each *pair* of records, $(\alpha, \beta)$ ($\alpha$ from the Census and $\beta$ from the CCS, say) as a *single* point, $\mathbf{x}$, in some larger space. We now have a classification problem: given $\mathbf{x}$, were the original records a match or a non-match? There are assumed to exist two probability distributions over this space: one representing the probability of observing some point $\mathbf{x}$ given that the pair are in fact a match; and the other representing the probability of observing $\mathbf{x}$ given that the pair are not a match. If, by some means, we are able to infer these two distributions, then the probability that a given point $\mathbf{x}$ comes from a matching pair of records can be computed by an application of Bayes' rule.
+The general form of Felligi-Sunter, broadly construed, represents each *pair* of records, $(\alpha, \beta)$ (say, $\alpha$ from the Census and $\beta$ from the CCS) as a single point, $\mathbf{x}$, in some larger space. We now have a classification problem: given $\mathbf{x}$, were the original records a match or a non-match? There are assumed to exist two probability distributions over this space: one representing the probability of observing some point $\mathbf{x}$ given that the pair are in fact a match; and the other representing the probability of observing $\mathbf{x}$ given that the pair are not a match. If, by some means, we were able to infer these two distributions, then the probability that a given point $\mathbf{x}$ comes from a matching pair of records can be computed by an application of Bayes' rule.
 
 In practice, inference of the two probability distributions is hard and the following two simplifications are typically made. 
 
@@ -230,29 +230,24 @@ First, we assume that $\mathbf{x}$ takes the form of a tuple of *binary* variabl
 Second, it is normally assumed that the the probability distributions are
 factorisable over the $x_i$ (this is the naive Bayes assumption).
 
-Thus, we might imagine the following improvements to the existing model that might be obtained by relaxing some of these assumptions:
+To the extent that these assmumptions do not hold, the method will perform less well than it might. Thus, we might imagine the following improvements to the existing model:
 
-1. Allow the features to take a wider range of values, either discrete or continuous. For example, a feature might be a text similarity measure itself. There is some discussion of this in the literature. @duvall2010 (who describe the approach as “approximate field comparators”) use the Levenshtein edit distance to match patient records and report that “25% fewer pairs” were misclassified. 
+1. Allow the features to take a wider range of values, either discrete or continuous. For example, a feature might be a text similarity measure itself. There is some discussion of this in the literature. @duvall2010, who describe the approach as “approximate field comparators,” use the Levenshtein edit distance to match patient records. They report that “25% fewer pairs” were misclassified. 
 
 2. Include other features besides simple differences of corresponding fields. For example, @dubois1969 (reported in @Elmagarmid2007) suggests dealing with missings by including, for each pair of comparable fields, an additional feature that encodes whether or not the fields are missing. 
 
+3. Remove the assumption of conditional independence. For example, it seems likely that date of birth is not independent of first name as the popularity of names waxes and wanes over time. Likewise marital status will not be independent of age. (Although it is less clear what the situation is for the independence of *differences* of fields.)
+
+4. Include features derived from fields that are not part of comparable pairs; that is, from fields that are not present in one or both of the records. (In addition, it would be necessary to have some way of relaxing the conditional independence assumption.) The reason that this might help is that, were one of the existing fields corrupted, one might hope to gain information on the true value from other fields, if those other fields were not independent of the corrupted field.
 
 
 
+For some of these ideas there is precendence in the literature, which we have noted. For others, although the generalisation seems to be a reasonable thing to try, we have not found substantial previous work. Thus, were those ideas to be tried, there would need to be some theoretical or analytical work to derive the appropriate algorithm. 
 
 
-
-
-
-Part of the collaboration discussions involved thinking about the reliance on
-the *Naive Bayes* assumption in probabilistic record linkage; the fields
-considered for match scoring are conditionally independent. This is unlikely to
-strictly be the case for CCS records. For example, date of birth could be linked
-to some of the other fields like first name, with the popularity of some names
-being higher in particular years, or marital status, with older people more
-likely to be married.
 
 Whilst some ML algorithms using training data (e.g. SVM, neural networks or Gaussian processes) would not rely on the conditional independence assumption, these methods are unsuitable for the very reason that they rely on large amounts of training data, as already discussed. Also already discussed, is the suitability of setting the field weights with EM in probabilistic matching to avoid reliance on the conditional independence assumption.
+
 
 The collaboration discussions also yielded several key recommendations for further improvement of the record linkage methods, which are outlined in the following paragraphs and can be summarised as follows:
 
